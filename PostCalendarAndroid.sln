@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostCalendarAndroid.Android", "PostCalendarAndroid.Android\PostCalendarAndroid.Android.csproj", "{EABD971C-B376-447A-A75A-259DC8F0F352}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostCalendarAndroid", "PostCalendarAndroid\PostCalendarAndroid.csproj", "{5179A458-B216-4930-8CB7-BB1CEC0D2E0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EABD971C-B376-447A-A75A-259DC8F0F352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EABD971C-B376-447A-A75A-259DC8F0F352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EABD971C-B376-447A-A75A-259DC8F0F352}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EABD971C-B376-447A-A75A-259DC8F0F352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EABD971C-B376-447A-A75A-259DC8F0F352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EABD971C-B376-447A-A75A-259DC8F0F352}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5179A458-B216-4930-8CB7-BB1CEC0D2E0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5179A458-B216-4930-8CB7-BB1CEC0D2E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5179A458-B216-4930-8CB7-BB1CEC0D2E0A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5179A458-B216-4930-8CB7-BB1CEC0D2E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5179A458-B216-4930-8CB7-BB1CEC0D2E0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5179A458-B216-4930-8CB7-BB1CEC0D2E0A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89E0742E-69C6-425F-A368-EB4A9D130B1D}
+	EndGlobalSection
+EndGlobal

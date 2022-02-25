@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PostCalendarAndroid.Views.CalendarView">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Frame Background="{StaticResource Primary}" HeightRequest="90">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="1" HorizontalTextAlignment="Center">时间</Label>
+                    <Label Grid.Column="1" Grid.Row="1" HorizontalTextAlignment="Center">星期日</Label>
+                    <Label Grid.Column="2" Grid.Row="1" HorizontalTextAlignment="Center">星期一</Label>
+                    <Label Grid.Column="3" Grid.Row="1" HorizontalTextAlignment="Center">星期二</Label>
+                    <Label Grid.Column="4" Grid.Row="1" HorizontalTextAlignment="Center">星期三</Label>
+                    <Label Grid.Column="5" Grid.Row="1" HorizontalTextAlignment="Center">星期四</Label>
+                    <Label Grid.Column="6" Grid.Row="1" HorizontalTextAlignment="Center">星期五</Label>
+                    <Label Grid.Column="7" Grid.Row="1" HorizontalTextAlignment="Center">星期六</Label>
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
