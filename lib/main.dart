@@ -66,6 +66,7 @@ class _IndexPageState extends State<IndexPage> {
       appBar: AppBar(
         title: const Text("PostCalendar"),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         items: bottomNavItems,
         currentIndex: currentIndex,
@@ -74,6 +75,7 @@ class _IndexPageState extends State<IndexPage> {
           _changePage(index);
         },
       ),
+
       body: pages[currentIndex],
     );
   }
