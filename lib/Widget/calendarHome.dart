@@ -10,12 +10,33 @@ class CalendarHome extends StatefulWidget {
 }
 
 class _CalendarHomeState extends State<CalendarHome> {
-  var viewItem = CalendarHomeViewItem(DateTime(2022,2,27));
-  List<Container> headTimeList = [];
-  late Widget head;
-  late Widget calendarBody;
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  static const double timeColumnWidth = 60.0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: const [CalendarDateHead(), CalendarBody()],
+    ));
+  }
+}
+
+class CalendarDateHead extends StatefulWidget {
+  const CalendarDateHead({Key? key}) : super(key: key);
+
+  @override
+  State<CalendarDateHead> createState() => _CalendarDateHeadState();
+}
+
+class _CalendarDateHeadState extends State<CalendarDateHead> {
+  CalendarHomeViewItem viewItem = CalendarHomeViewItem(DateTime(2022, 4, 3));
+
+  late List<Widget> headTimeList;
+  late Table dateHead;
 
   @override
   void initState() {
@@ -23,12 +44,11 @@ class _CalendarHomeState extends State<CalendarHome> {
 
     headTimeList = [
       Container(
-        height: 20,
-        color: Colors.blue,
-        child: const Center(
-          child: Text("时间"),
-        )
-      ),
+          height: 20,
+          color: Colors.blue,
+          child: const Center(
+            child: Text("时间"),
+          )),
       Container(
         height: 20,
         color: Colors.blue,
@@ -79,11 +99,14 @@ class _CalendarHomeState extends State<CalendarHome> {
         ),
       ),
     ];
+  }
 
-    head = Table(
-      //border: TableBorder.all(color: CupertinoColors.extraLightBackgroundGray),//不画边框可能会更更好一点
+  @override
+  Widget build(BuildContext context) {
+    return Table(
+      //border: TableBorder.all(color: CupertinoColors.extraLightBackgroundGray),//不画边框可能会更好一点
       columnWidths: const <int, TableColumnWidth>{
-        0: FixedColumnWidth(timeColumnWidth),
+        0: FixedColumnWidth(60.0),
         1: FlexColumnWidth(),
         2: FlexColumnWidth(),
         3: FlexColumnWidth(),
@@ -93,85 +116,94 @@ class _CalendarHomeState extends State<CalendarHome> {
         7: FlexColumnWidth()
       },
       children: <TableRow>[
-        TableRow(
-            children:[
-              Container(
-                height: 20,
-                color: Colors.blue,
-              ),
-              Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("周日"),
-                )
-              ),
-              Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("周一"),
-                ),
-              ),
-              Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("周二"),
-                ),
-              ),
-              Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("周三"),
-                ),
-              ),
-              Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("周四"),
-                ),
-              ),
-              Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("周五"),
-                ),
-              ),
-              Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("周六"),
-                ),
-              ),
-            ]
-        ),
-        TableRow(
-            children: headTimeList
-        )
+        TableRow(children: [
+          Container(
+            height: 20,
+            color: Colors.blue,
+          ),
+          Container(
+              height: 20,
+              color: Colors.blue,
+              child: const Center(
+                child: Text("周日"),
+              )),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周一"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周二"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周三"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周四"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周五"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周六"),
+            ),
+          ),
+        ]),
+        TableRow(children: headTimeList)
       ],
     );
+  }
+}
 
-    calendarBody = SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Table(
-        columnWidths: const <int, TableColumnWidth>{
-          0: FixedColumnWidth(timeColumnWidth),
-          1: FlexColumnWidth(),
-          2: FlexColumnWidth(),
-          3: FlexColumnWidth(),
-          4: FlexColumnWidth(),
-          5: FlexColumnWidth(),
-          6: FlexColumnWidth(),
-          7: FlexColumnWidth()
-        },
-        children: [
-          TableRow(
-            children: [
+class CalendarBody extends StatefulWidget {
+  const CalendarBody({Key? key}) : super(key: key);
+
+  @override
+  State<CalendarBody> createState() => _CalendarBodyState();
+}
+
+class _CalendarBodyState extends State<CalendarBody> {
+  final double timeColumnWidth = 60.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Table(
+          columnWidths: <int, TableColumnWidth>{
+            0: FixedColumnWidth(timeColumnWidth),
+            1: const FlexColumnWidth(),
+            2: const FlexColumnWidth(),
+            3: const FlexColumnWidth(),
+            4: const FlexColumnWidth(),
+            5: const FlexColumnWidth(),
+            6: const FlexColumnWidth(),
+            7: const FlexColumnWidth()
+          },
+          children: [
+            TableRow(children: [
               Column(
                 children: [
                   Container(
@@ -375,26 +407,10 @@ class _CalendarHomeState extends State<CalendarHome> {
               Column(),
               Column(),
               Column(),
-            ]
-          )
-        ],
+            ])
+          ],
+        ),
       ),
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            head,
-            Expanded(
-              child: calendarBody
-            ),
-          ],
-        )
-    );
-  }
 }
-
