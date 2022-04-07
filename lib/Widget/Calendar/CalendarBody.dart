@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:postcalendar/Models/Calendar.dart';
+import 'package:postcalendar/Widget/Calendar/CalendarWidget.dart';
 
 class CalendarBody extends StatefulWidget {
   const CalendarBody({Key? key}) : super(key: key);
@@ -9,9 +11,21 @@ class CalendarBody extends StatefulWidget {
 
 class _CalendarBodyState extends State<CalendarBody> {
   final double timeColumnWidth = 60.0;
+  final double columnHeight = 50.0 * 24;
+
+  CalendarManager manager = CalendarManager();
+
+  List<Widget> mondayList = [];
+  List<Widget> tuesdayList = [];
+  List<Widget> wednesdayList = [];
+  List<Widget> thursdayList = [];
+  List<Widget> fridayList = [];
+  List<Widget> saturdayList = [];
+  List<Widget> sundayList = [];
 
   @override
   Widget build(BuildContext context) {
+    refresh();
     return Expanded(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -29,18 +43,60 @@ class _CalendarBodyState extends State<CalendarBody> {
           children: [
             TableRow(children: [
               const CalendarTimeColumn(),
-              Column(),
-              Column(),
-              Column(),
-              Column(),
-              Column(),
-              Column(),
-              Column(),
+              SizedBox(
+                height: columnHeight,
+                child: Stack(
+                  children: mondayList,
+                ),
+              ),
+              SizedBox(
+                height: columnHeight,
+                child: Stack(
+                  children: thursdayList,
+                ),
+              ),
+              SizedBox(
+                height: columnHeight,
+                child: Stack(
+                  children: wednesdayList,
+                ),
+              ),
+              SizedBox(
+                height: columnHeight,
+                child: Stack(
+                  children: tuesdayList,
+                ),
+              ),
+              SizedBox(
+                height: columnHeight,
+                child: Stack(
+                  children: fridayList,
+                ),
+              ),
+              SizedBox(
+                height: columnHeight,
+                child: Stack(
+                  children: saturdayList,
+                ),
+              ),
+              SizedBox(
+                height: columnHeight,
+                child: Stack(
+                  children: sundayList,
+                ),
+              ),
             ])
           ],
         ),
       ),
     );
+  }
+
+  void refresh(){
+    mondayList.clear();
+    for(final item in manager.mondayItems){
+      mondayList.add(CalendarItemWidget(calendarItem: item).build());
+    }
   }
 }
 
