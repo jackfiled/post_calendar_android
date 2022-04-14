@@ -16,7 +16,11 @@ class CalendarItemWidget{
             Text(calendarItem.place)
           ],
         ),
-        color: Colors.blue,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white, width: 1),
+          borderRadius: BorderRadius.circular(5.0),
+          color: Colors.blue,
+        ),
       ),
       top: calendarItem.topDistance,
       height: calendarItem.length,

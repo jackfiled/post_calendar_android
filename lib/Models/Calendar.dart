@@ -1,3 +1,5 @@
+import 'package:postcalendar/Common/Global.dart';
+
 class CalendarManager{
   List<CalendarItem> mondayItems = [];
   List<CalendarItem> tuesdayItems = [];
@@ -27,10 +29,17 @@ class CalendarItem{
   late DateTime beginTime;
   late DateTime endTime;
 
+  ///获得事件对象据顶部的高度
   double get topDistance =>
-      beginTime.hour * 50.0 + beginTime.minute * 50.0 / 60.0 + beginTime.second * 50.0 / 3600.0;
+      beginTime.hour * CalendarSetting.columnHeight +
+          beginTime.minute * CalendarSetting.columnHeight / 60.0 +
+          beginTime.second * CalendarSetting.columnHeight / 3600.0;
+
+  ///获得事件对象的长度
   double get length =>
-      (endTime.hour - beginTime.hour) * 50.0 + (endTime.minute - beginTime.minute) * 50.0 / 60.0 + (endTime.second - beginTime.second) * 50.0 / 3600.0;
+      (endTime.hour - beginTime.hour) * CalendarSetting.columnHeight +
+          (endTime.minute - beginTime.minute) * CalendarSetting.columnHeight / 60.0 +
+          (endTime.second - beginTime.second) * CalendarSetting.columnHeight / 3600.0;
 
   CalendarItem({required this.name, required this.place, required this.details});
 
