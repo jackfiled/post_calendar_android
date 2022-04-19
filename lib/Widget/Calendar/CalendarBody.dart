@@ -22,6 +22,22 @@ class _CalendarBodyState extends State<CalendarBody> {
   List<Widget> fridayList = [];
   List<Widget> saturdayList = [];
   List<Widget> sundayList = [];
+  List<List<Widget>> widgetLists = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    widgetLists = [
+      mondayList,
+      tuesdayList,
+      wednesdayList,
+      thursdayList,
+      fridayList,
+      saturdayList,
+      sundayList
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,10 +108,16 @@ class _CalendarBodyState extends State<CalendarBody> {
     );
   }
 
+  /// 从manager中重新刷新数据
   void refresh(){
-    mondayList.clear();
-    for(final item in manager.mondayItems){
-      mondayList.add(CalendarItemWidget(calendarItem: item).build());
+    for(List<Widget> l in widgetLists){
+      l.clear();
+    }
+
+    for(int i = 0; i < 7; i++){
+      for(CalendarItem item in manager.lists[i]){
+        widgetLists[i].add(CalendarItemWidget(calendarItem: item).build());
+      }
     }
   }
 }
