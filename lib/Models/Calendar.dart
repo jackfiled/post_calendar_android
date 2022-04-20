@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:postcalendar/Common/Global.dart';
-import 'package:postcalendar/Models/Database.dart';
+import 'package:post_calendar_android/Common/Global.dart';
+import 'package:post_calendar_android/Models/Database.dart';
 
 class CalendarManager{
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:postcalendar/Models/Calendar.dart';
+import 'package:post_calendar_android/Models/Calendar.dart';
 
 ///日历中显示一件事情的框架对象
 class CalendarItemWidget{

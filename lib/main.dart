@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:postcalendar/Widget/calendarHome.dart';
-import 'package:postcalendar/Widget/ddlHome.dart';
-import 'package:postcalendar/Widget/activityHome.dart';
-import 'package:postcalendar/Widget/Calendar/AddCalendarItem.dart';
+import 'package:post_calendar_android/Widget/calendarHome.dart';
+import 'package:post_calendar_android/Widget/ddlHome.dart';
+import 'package:post_calendar_android/Widget/activityHome.dart';
+import 'package:post_calendar_android/Widget/Calendar/AddCalendarItem.dart';
 
 void main(){
   runApp(const MyApp());

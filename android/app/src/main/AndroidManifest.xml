@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="top.rrricardo.postcalendar">
+    package="top.rrricardo.post_calendar_android">
    <application
-        android:label="postcalendar"
+        android:label="post_calendar_android"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

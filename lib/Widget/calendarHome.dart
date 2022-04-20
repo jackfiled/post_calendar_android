@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:postcalendar/Widget/Calendar/CalendarDateHead.dart';
-import 'package:postcalendar/Widget/Calendar/CalendarBody.dart';
+import 'package:post_calendar_android/Widget/Calendar/CalendarDateHead.dart';
+import 'package:post_calendar_android/Widget/Calendar/CalendarBody.dart';
 
 class CalendarHome extends StatefulWidget {
   const CalendarHome({Key? key}) : super(key: key);
