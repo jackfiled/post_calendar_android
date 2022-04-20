@@ -3,20 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:postcalendar/Widget/calendarHome.dart';
 import 'package:postcalendar/Widget/ddlHome.dart';
 import 'package:postcalendar/Widget/activityHome.dart';
+import 'package:postcalendar/Widget/Calendar/AddCalendarItem.dart';
 
 void main(){
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: "Welcome to flutter",
-      home: IndexPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const IndexPage(),// 主界面
+        '/addCalendarItem': (context) => const AddCalendarItemWidget(), //添加日历事件界面
+      },
     );
   }
 }
@@ -87,7 +91,6 @@ class _IndexPageState extends State<IndexPage> {
       });
     }
   }
-
 }
 
 

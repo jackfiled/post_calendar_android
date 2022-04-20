@@ -19,8 +19,9 @@ class _CalendarHomeState extends State<CalendarHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: const [CalendarDateHead(), CalendarBody()],
-    ));
+          mainAxisSize: MainAxisSize.min,
+          children: const [CalendarDateHead(), CalendarBody()],
+      )
+    );
   }
 }

@@ -42,68 +42,75 @@ class _CalendarBodyState extends State<CalendarBody> {
   @override
   Widget build(BuildContext context) {
     refresh();
-    return Expanded(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Table(
-          columnWidths: const <int, TableColumnWidth>{
-            0: FixedColumnWidth(CalendarSetting.columnWidth),
-            1: FlexColumnWidth(),
-            2: FlexColumnWidth(),
-            3: FlexColumnWidth(),
-            4: FlexColumnWidth(),
-            5: FlexColumnWidth(),
-            6: FlexColumnWidth(),
-            7: FlexColumnWidth()
-          },
-          children: [
-            TableRow(children: [
-              const CalendarTimeColumn(),
-              SizedBox(
-                height: columnHeight,
-                child: Stack(
-                  children: mondayList,
+    return Scaffold(
+      body: Expanded(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Table(
+            columnWidths: const <int, TableColumnWidth>{
+              0: FixedColumnWidth(CalendarSetting.columnWidth),
+              1: FlexColumnWidth(),
+              2: FlexColumnWidth(),
+              3: FlexColumnWidth(),
+              4: FlexColumnWidth(),
+              5: FlexColumnWidth(),
+              6: FlexColumnWidth(),
+              7: FlexColumnWidth()
+            },
+            children: [
+              TableRow(children: [
+                const CalendarTimeColumn(),
+                SizedBox(
+                  height: columnHeight,
+                  child: Stack(
+                    children: mondayList,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: columnHeight,
-                child: Stack(
-                  children: thursdayList,
+                SizedBox(
+                  height: columnHeight,
+                  child: Stack(
+                    children: thursdayList,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: columnHeight,
-                child: Stack(
-                  children: wednesdayList,
+                SizedBox(
+                  height: columnHeight,
+                  child: Stack(
+                    children: wednesdayList,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: columnHeight,
-                child: Stack(
-                  children: tuesdayList,
+                SizedBox(
+                  height: columnHeight,
+                  child: Stack(
+                    children: tuesdayList,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: columnHeight,
-                child: Stack(
-                  children: fridayList,
+                SizedBox(
+                  height: columnHeight,
+                  child: Stack(
+                    children: fridayList,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: columnHeight,
-                child: Stack(
-                  children: saturdayList,
+                SizedBox(
+                  height: columnHeight,
+                  child: Stack(
+                    children: saturdayList,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: columnHeight,
-                child: Stack(
-                  children: sundayList,
+                SizedBox(
+                  height: columnHeight,
+                  child: Stack(
+                    children: sundayList,
+                  ),
                 ),
-              ),
-            ])
-          ],
+              ])
+            ],
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {
+          Navigator.pushNamed(context, "/addCalendarItem")
+        },
       ),
     );
   }
