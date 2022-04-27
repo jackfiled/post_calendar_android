@@ -41,11 +41,14 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children:  const [
               Text("日程名称"),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "请输入日程名称",
-                ),
+              SizedBox(
+                width: 200,
+                child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "请输入日程名称",
+                    ),
+                )
               )
             ],
           ),
@@ -53,11 +56,14 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children:  const [
               Text("日程地点"),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "请输入日程地点",
+              SizedBox(
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "请输入日程地点",
+                  ),
                 ),
+                width: 200,
               )
             ],
           ),
@@ -65,11 +71,14 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children:  const [
               Text("日程明细"),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "请输入日程明细",
+              SizedBox(
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "请输入日程明细",
+                  ),
                 ),
+                width: 200,
               )
             ],
           ),

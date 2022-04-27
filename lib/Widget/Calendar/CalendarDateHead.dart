@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:post_calendar_android/Common/Global.dart';
+
 class CalendarHomeViewItem{
   var year = "";
   var monday = "";
@@ -154,7 +156,7 @@ class _CalendarDateHeadState extends State<CalendarDateHead> {
     return Table(
       //border: TableBorder.all(color: CupertinoColors.extraLightBackgroundGray),//不画边框可能会更好一点
       columnWidths: const <int, TableColumnWidth>{
-        0: FixedColumnWidth(60.0),
+        0: FixedColumnWidth(CalendarSetting.columnWidth),
         1: FlexColumnWidth(),
         2: FlexColumnWidth(),
         3: FlexColumnWidth(),
