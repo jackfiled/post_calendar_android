@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:post_calendar_android/Common/Global.dart';
-import 'package:post_calendar_android/Models/Database.dart';
+import 'package:post_calendar_android/Common/global.dart';
+import 'package:post_calendar_android/Models/database.dart';
 
 class CalendarManager{
 
-  final dbHelper = DBCalendarHelper();
+  final provider = CalendarProvider();
   late DateTime weekFirstDay;
 
   List<CalendarItem> mondayItems = [];
@@ -50,8 +50,8 @@ class CalendarManager{
     }
   }
 
-  Future<List<CalendarItem>> getWeekItems(DateTime weekBeginTime) async {
-    final List<DBCalendarItem> dbItems = await dbHelper.items();
+  Future<List<CalendarItem>> getWeekItems(DateTime time) async {
+    final List<DBCalendarItem> dbItems = await provider.items();
     final List<CalendarItem> items = [];
     final List<CalendarItem> resultItems = [];
 
@@ -68,8 +68,8 @@ class CalendarManager{
     }
 
     for(CalendarItem item in items){
-      if(weekBeginTime.compareTo(item.beginTime) < 0 &&
-          weekBeginTime.add(const Duration(days: 7)).compareTo(item.beginTime) > 0){
+      if(time.compareTo(item.beginTime) < 0 &&
+          time.add(const Duration(days: 7)).compareTo(item.beginTime) > 0){
         resultItems.add(item);
       }
     }
@@ -97,6 +97,15 @@ class CalendarItem{
       (endTime.hour - beginTime.hour) * CalendarSetting.columnHeight +
           (endTime.minute - beginTime.minute) * CalendarSetting.columnHeight / 60.0 +
           (endTime.second - beginTime.second) * CalendarSetting.columnHeight / 3600.0;
+
+  DBCalendarItem get dbItem =>
+      DBCalendarItem(
+          name: name,
+          place: place,
+          details: details,
+          beginTimeString: beginTime.toString(),
+          endTimeString: endTime.toString()
+      );
 
   CalendarItem.inner({
     required this.name,

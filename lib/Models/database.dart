@@ -78,6 +78,11 @@ class CalendarProvider{
     );
   }
 
+  // 关闭数据库
+  Future close() async {
+    return await db.close();
+  }
+
   // 在测试中使用sqflite_common_ffi创建的数据库
   void openInTest(Database _db) {
     db = _db;

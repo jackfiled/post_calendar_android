@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:post_calendar_android/Models/calendar.dart';
+import 'package:post_calendar_android/Models/database.dart';
+
 class AddCalendarItemWidget extends StatefulWidget {
   const AddCalendarItemWidget({Key? key}) : super(key: key);
 
@@ -12,7 +15,18 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
   late DateTime endDate;
   late TimeOfDay beginTime;
   late TimeOfDay endTime;
+  final nameTextController = TextEditingController();
+  final placeTextController = TextEditingController();
+  final detailTextController = TextEditingController();
+
   final DateTime selectedTime = DateTime.now();
+  var provider = CalendarProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    provider.open();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +42,7 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.check),
-            onPressed: () => {
-              // TODO: 完成添加日历事件的函数
-            },
+            onPressed: _createCalendarItem,
           )
         ],
       ),
@@ -39,12 +51,13 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:  const [
-              Text("日程名称"),
+            children: [
+              const Text("日程名称"),
               SizedBox(
                 width: 200,
                 child: TextField(
-                    decoration: InputDecoration(
+                    controller: nameTextController,
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: "请输入日程名称",
                     ),
@@ -54,11 +67,12 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:  const [
-              Text("日程地点"),
+            children: [
+              const Text("日程地点"),
               SizedBox(
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: placeTextController,
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "请输入日程地点",
                   ),
@@ -69,11 +83,12 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:  const [
-              Text("日程明细"),
+            children:  [
+              const Text("日程明细"),
               SizedBox(
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: detailTextController,
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "请输入日程明细",
                   ),
@@ -137,6 +152,35 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() async {
+    super.dispose();
+
+    nameTextController.dispose();
+    placeTextController.dispose();
+    detailTextController.dispose();
+
+    await provider.close();
+  }
+
+  _createCalendarItem() async {
+    var beginDuration = Duration(hours: beginTime.hour, minutes: beginTime.minute);
+    beginDate = beginDate.add(beginDuration);
+
+    var endDuration = Duration(hours: endTime.hour, minutes: endTime.minute);
+    endDate = endDate.add(endDuration);
+
+    var item = CalendarItem.inner(
+      name: nameTextController.text,
+      place: placeTextController.text,
+      details: placeTextController.text,
+      beginTime: beginDate,
+      endTime: endDate
+    );
+
+    await provider.create(item.dbItem);
   }
 
   /// 显示选择事件开始日期对话

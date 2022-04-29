@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:post_calendar_android/Models/Database.dart';
+import 'package:post_calendar_android/Models/database.dart';
 
 void main() async {
   final provider = CalendarProvider();
