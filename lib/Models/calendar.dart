@@ -34,11 +34,10 @@ class CalendarManager{
       DateTime.now().month,
       DateTime.now().day,
     ).add(Duration(days: - DateTime.now().weekday + 1));
-
-    refresh();
   }
 
-  refresh() async {
+
+  Future refresh() async {
     List<CalendarItem> items = await getWeekItems(weekFirstDay);
 
     for(List<CalendarItem> l in lists){

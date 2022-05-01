@@ -40,6 +40,8 @@ class _CalendarHomeState extends State<CalendarHome> {
       saturdayList,
       sundayList
     ];
+
+    refresh();
   }
 
   @override
@@ -128,11 +130,14 @@ class _CalendarHomeState extends State<CalendarHome> {
   }
 
   /// 从manager中重新刷新数据
-  void refresh(){
+  void refresh() async {
+    var future = manager.refresh();
+
     for(List<Widget> l in widgetLists){
       l.clear();
     }
 
+    await future;
     for(int i = 0; i < 7; i++){
       for(CalendarItem item in manager.lists[i]){
         widgetLists[i].add(CalendarItemWidget(calendarItem: item).build());

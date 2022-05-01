@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 import 'package:post_calendar_android/Widget/calendar_home.dart';
 import 'package:post_calendar_android/Widget/ddl_home.dart';
 import 'package:post_calendar_android/Widget/activity_home.dart';
 import 'package:post_calendar_android/Widget/Calendar/add_calendar_item_page.dart';
+import 'package:post_calendar_android/Common/global.dart';
 
-void main(){
+void main() async {
   runApp(const MyApp());
 }
 
@@ -61,7 +64,13 @@ class _IndexPageState extends State<IndexPage> {
   @override
   void initState() {
     super.initState();
-    currentIndex = 0;
+    createDatabase();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    closeDatabase();
   }
 
   @override
@@ -91,6 +100,35 @@ class _IndexPageState extends State<IndexPage> {
       });
     }
   }
+
+  // 创建需要使用到的数据库
+  void createDatabase() async {
+    String databasePath = await getDatabasesPath();
+    String calendarDatabasePath = join(databasePath, CalendarSetting.databaseName);
+
+    Future<Database> futureCalendarDatabase = openDatabase(calendarDatabasePath,
+      version: CalendarSetting.databaseVersion,
+      onCreate: _onCreateCalendarDatabase);
+
+    CalendarSetting.db = await futureCalendarDatabase;
+  }
+
+  // 在退出程序时关闭数据库
+  void closeDatabase() async {
+    await CalendarSetting.db.close();
+  }
+
+  // 创建日历数据库
+  void _onCreateCalendarDatabase(Database db, int version) async {
+    await db.execute("create table $CalendarSetting.tableName"
+        "(id integer primary key autoincrement, "
+        "name text, place text, details text, "
+        "beginTimeString text, "
+        "endTimeString text)"
+    );
+  }
 }
+
+
 
 

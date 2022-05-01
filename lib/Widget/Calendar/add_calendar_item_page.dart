@@ -25,7 +25,6 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
   @override
   void initState() {
     super.initState();
-    provider.open();
   }
 
   @override
@@ -35,9 +34,7 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
         title: const Text("添加一个日历事件"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => {
-            Navigator.pop(context)
-          },
+          onPressed: _close,
         ),
         actions: <Widget>[
           IconButton(
@@ -161,8 +158,10 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
     nameTextController.dispose();
     placeTextController.dispose();
     detailTextController.dispose();
+  }
 
-    await provider.close();
+  void _close() async {
+    Navigator.pop(context);
   }
 
   _createCalendarItem() async {
@@ -181,6 +180,8 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
     );
 
     await provider.create(item.dbItem);
+    // 在添加结束后，退出界面
+    _close();
   }
 
   /// 显示选择事件开始日期对话

@@ -1,25 +1,13 @@
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 
+import 'package:post_calendar_android/Common/global.dart';
 
 class CalendarProvider{
   // 先设置数据库文件的相关常量
-  static const _databaseName = "Calendar.db";
-  static const _databaseVersion = 1;
-  static const _tableName = 'Calendar';
+  static const _tableName = CalendarSetting.tableName;
 
-  late Database db;
-
-  // 打开数据库
-  Future open() async {
-    // 数据库文件的所在路径
-    String path = join(await getDatabasesPath(), _databaseName);
-    db = await openDatabase(path,
-        version: _databaseVersion,
-        onCreate: _onCreate
-    );
-  }
+  late Database db = CalendarSetting.db;
 
   // 数据库中的所有数据
   Future<List<DBCalendarItem>> items() async {
@@ -66,21 +54,6 @@ class CalendarProvider{
   // 在数据中的删除数据
   Future delete(int id) async {
     await db.delete(_tableName, whereArgs: [id], where: 'id = ?');
-  }
-
-  // 创建数据库时执行的函数
-  Future _onCreate(Database db, int version) async {
-    await db.execute("create table $_tableName"
-        "(id integer primary key autoincrement, "
-        "name text, place text, details text, "
-        "beginTimeString text, "
-        "endTimeString text)"
-    );
-  }
-
-  // 关闭数据库
-  Future close() async {
-    return await db.close();
   }
 
   // 在测试中使用sqflite_common_ffi创建的数据库
