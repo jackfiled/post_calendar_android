@@ -1,79 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:post_calendar_android/Common/global.dart';
-
-class CalendarHomeViewItem{
-  var year = "";
-  var monday = "";
-  var tuesday = "";
-  var wednesday = "";
-  var thursday = "";
-  var friday = "";
-  var saturday = "";
-  var sunday = "";
-
-  late DateTime date;
-  final oneDay = const Duration(days: 1);
-
-  CalendarHomeViewItem(DateTime timeOfFirstDay){
-    date = timeOfFirstDay;
-
-    year = "${date.year}";
-    sunday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    monday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    tuesday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    wednesday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    thursday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    friday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    saturday = "${date.month}-${date.day}";
-  }
-
-  //切换到下一周
-  void set2nextWeek(){
-    date.add(const Duration(days: 7));
-
-    year = "${date.year}";
-    sunday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    monday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    tuesday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    wednesday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    thursday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    friday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    saturday = "${date.month}-${date.day}";
-  }
-
-  //切换到上一周
-  void set2lastWeek(){
-    date.add(const Duration(days: -7));
-
-    year = "${date.year}";
-    sunday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    monday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    tuesday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    wednesday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    thursday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    friday = "${date.month}-${date.day}";
-    date = date.add(oneDay);
-    saturday = "${date.month}-${date.day}";
-  }
-}
+import 'package:post_calendar_android/Models/calendar.dart';
 
 class CalendarDateHead extends StatefulWidget {
   const CalendarDateHead({Key? key}) : super(key: key);
@@ -83,8 +12,6 @@ class CalendarDateHead extends StatefulWidget {
 }
 
 class _CalendarDateHeadState extends State<CalendarDateHead> {
-  CalendarHomeViewItem viewItem = CalendarHomeViewItem(DateTime(2022, 4, 3));
-
   late List<Widget> headTimeList;
   late Table dateHead;
 
@@ -103,49 +30,77 @@ class _CalendarDateHeadState extends State<CalendarDateHead> {
         height: 20,
         color: Colors.blue,
         child: Center(
-          child: Text(viewItem.sunday),
+          child: Consumer<CalendarManager>(
+            builder: (context, manager, child){
+              return Text(manager.calendarHeadViewItem.monday);
+            },
+          )
         ),
       ),
       Container(
         height: 20,
         color: Colors.blue,
         child: Center(
-          child: Text(viewItem.monday),
+          child: Consumer<CalendarManager>(
+            builder: (context, manager, child){
+              return Text(manager.calendarHeadViewItem.tuesday);
+            },
+          )
         ),
       ),
       Container(
         height: 20,
         color: Colors.blue,
         child: Center(
-          child: Text(viewItem.tuesday),
+          child: Consumer<CalendarManager>(
+            builder: (context, manager, child){
+              return Text(manager.calendarHeadViewItem.wednesday);
+            },
+          )
         ),
       ),
       Container(
         height: 20,
         color: Colors.blue,
         child: Center(
-          child: Text(viewItem.wednesday),
+          child: Consumer<CalendarManager>(
+            builder: (context, manager, child){
+              return Text(manager.calendarHeadViewItem.thursday);
+            },
+          )
         ),
       ),
       Container(
         height: 20,
         color: Colors.blue,
         child: Center(
-          child: Text(viewItem.thursday),
+          child: Consumer<CalendarManager>(
+            builder: (context, manager, child){
+              return Text(manager.calendarHeadViewItem.friday);
+            },
+          )
         ),
       ),
       Container(
         height: 20,
         color: Colors.blue,
         child: Center(
-          child: Text(viewItem.friday),
+          child: Consumer<CalendarManager>(
+            builder: (context, manager, child){
+              return Text(manager.calendarHeadViewItem.saturday);
+            },
+          )
         ),
       ),
       Container(
         height: 20,
         color: Colors.blue,
         child: Center(
-          child: Text(viewItem.saturday),
+          child: Consumer<CalendarManager>(
+            builder: (context, manager, child){
+              return Text(manager.calendarHeadViewItem.sunday);
+            },
+          )
         ),
       ),
     ];
@@ -171,12 +126,6 @@ class _CalendarDateHeadState extends State<CalendarDateHead> {
             height: 20,
             color: Colors.blue,
           ),
-          Container(
-              height: 20,
-              color: Colors.blue,
-              child: const Center(
-                child: Text("周日"),
-              )),
           Container(
             height: 20,
             color: Colors.blue,
@@ -218,6 +167,13 @@ class _CalendarDateHeadState extends State<CalendarDateHead> {
             child: const Center(
               child: Text("周六"),
             ),
+          ),
+          Container(
+              height: 20,
+              color: Colors.blue,
+              child: const Center(
+                child: Text("周日"),
+              )
           ),
         ]),
         TableRow(children: headTimeList)

@@ -1,7 +1,9 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:post_calendar_android/Widget/Calendar/calendar_data_head_widget.dart';
 import 'package:post_calendar_android/Widget/Calendar/calendar_widget.dart';
-
 import 'package:post_calendar_android/Models/calendar.dart';
 import 'package:post_calendar_android/Common/global.dart';
 
@@ -15,109 +17,115 @@ class CalendarHome extends StatefulWidget {
 class _CalendarHomeState extends State<CalendarHome> {
   final double columnHeight = CalendarSetting.columnHeight * 24;
 
-  CalendarManager manager = CalendarManager();
-
-  List<Widget> mondayList = [];
-  List<Widget> tuesdayList = [];
-  List<Widget> wednesdayList = [];
-  List<Widget> thursdayList = [];
-  List<Widget> fridayList = [];
-  List<Widget> saturdayList = [];
-  List<Widget> sundayList = [];
-
-  List<List<Widget>> widgetLists = [];
-
   @override
   void initState() {
     super.initState();
-
-    widgetLists = [
-      mondayList,
-      tuesdayList,
-      wednesdayList,
-      thursdayList,
-      fridayList,
-      saturdayList,
-      sundayList
-    ];
-
-    refresh();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-          children: [
-            const CalendarDateHead(),
-            Expanded(
-                child: SizedBox(
-                  height: columnHeight,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Table(
-                      columnWidths: const <int, TableColumnWidth>{
-                        0: FixedColumnWidth(CalendarSetting.columnWidth),
-                        1: FlexColumnWidth(),
-                        2: FlexColumnWidth(),
-                        3: FlexColumnWidth(),
-                        4: FlexColumnWidth(),
-                        5: FlexColumnWidth(),
-                        6: FlexColumnWidth(),
-                        7: FlexColumnWidth()
-                      },
-                      children: [
-                        TableRow(children: [
-                          const CalendarTimeColumn(),
-                          SizedBox(
-                            height: columnHeight,
-                            child: Stack(
-                              children: mondayList,
+        body:  ChangeNotifierProvider(
+          create: (context) => CalendarManager(),
+          child: Column(
+            children: [
+              const CalendarDateHead(),
+              Expanded(
+                child: Consumer<CalendarManager>(
+                    builder: (context, manager, child){
+                      return GestureDetector(
+                        child: RefreshIndicator(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Table(
+                              columnWidths: const <int, TableColumnWidth>{
+                                0: FixedColumnWidth(CalendarSetting.columnWidth),
+                                1: FlexColumnWidth(),
+                                2: FlexColumnWidth(),
+                                3: FlexColumnWidth(),
+                                4: FlexColumnWidth(),
+                                5: FlexColumnWidth(),
+                                6: FlexColumnWidth(),
+                                7: FlexColumnWidth()
+                              },
+                              children: [
+                                TableRow(children: [
+                                  const CalendarTimeColumn(),
+                                  SizedBox(
+                                      height: columnHeight,
+                                      child: Stack(
+                                        children:
+                                        buildItemWidgetList(manager.mondayItems),
+                                      )
+                                  ),
+                                  SizedBox(
+                                      height: columnHeight,
+                                      child: Stack(
+                                        children:
+                                        buildItemWidgetList(manager.thursdayItems),
+                                      )
+                                  ),
+                                  SizedBox(
+                                      height: columnHeight,
+                                      child: Stack(
+                                        children:
+                                        buildItemWidgetList(manager.wednesdayItems),
+                                      )
+                                  ),
+                                  SizedBox(
+                                      height: columnHeight,
+                                      child: Stack(
+                                        children:
+                                        buildItemWidgetList(manager.thursdayItems),
+                                      )
+                                  ),
+                                  SizedBox(
+                                      height: columnHeight,
+                                      child: Stack(
+                                        children:
+                                        buildItemWidgetList(manager.fridayItems),
+                                      )
+                                  ),
+                                  SizedBox(
+                                      height: columnHeight,
+                                      child: Stack(
+                                        children:
+                                        buildItemWidgetList(manager.saturdayItems),
+                                      )
+                                  ),
+                                  SizedBox(
+                                      height: columnHeight,
+                                      child: Stack(
+                                        children:
+                                        buildItemWidgetList(manager.sundayItems),
+                                      )
+                                  ),
+                                ])
+                              ],
                             ),
                           ),
-                          SizedBox(
-                            height: columnHeight,
-                            child: Stack(
-                              children: thursdayList,
-                            ),
-                          ),
-                          SizedBox(
-                            height: columnHeight,
-                            child: Stack(
-                              children: wednesdayList,
-                            ),
-                          ),
-                          SizedBox(
-                            height: columnHeight,
-                            child: Stack(
-                              children: tuesdayList,
-                            ),
-                          ),
-                          SizedBox(
-                            height: columnHeight,
-                            child: Stack(
-                              children: fridayList,
-                            ),
-                          ),
-                          SizedBox(
-                            height: columnHeight,
-                            child: Stack(
-                              children: saturdayList,
-                            ),
-                          ),
-                          SizedBox(
-                            height: columnHeight,
-                            child: Stack(
-                              children: sundayList,
-                            ),
-                          ),
-                        ])
-                      ],
-                    ),
-                  ),
-                )
-            )
-          ],
+                          onRefresh: (){
+                            return Future.delayed(const Duration(seconds: 1), (){
+                              manager.refresh();
+                            });
+                          },
+                        ),
+                        onHorizontalDragEnd: (detail){
+                          final double direction =
+                              detail.velocity.pixelsPerSecond.direction;
+                          if(direction > - pi / 2 && direction < pi / 2){
+                            manager.lastWeek();
+                            manager.refresh();
+                          }else{
+                            manager.nextWeek();
+                            manager.refresh();
+                          }
+                        },
+                      );
+                    }),
+              )
+            ],
+          ),
         ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -129,20 +137,14 @@ class _CalendarHomeState extends State<CalendarHome> {
     );
   }
 
-  /// 从manager中重新刷新数据
-  void refresh() async {
-    var future = manager.refresh();
+  List<Widget> buildItemWidgetList(List<CalendarItem> list){
+    List<Widget> widgetList = [];
 
-    for(List<Widget> l in widgetLists){
-      l.clear();
+    for(var item in list){
+      widgetList.add(CalendarItemWidget(calendarItem: item).build());
     }
 
-    await future;
-    for(int i = 0; i < 7; i++){
-      for(CalendarItem item in manager.lists[i]){
-        widgetLists[i].add(CalendarItemWidget(calendarItem: item).build());
-      }
-    }
+    return widgetList;
   }
 }
 

@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import 'package:post_calendar_android/Common/global.dart';
 import 'package:post_calendar_android/Models/database.dart';
 
-class CalendarManager{
+class CalendarManager extends ChangeNotifier{
 
   final provider = CalendarProvider();
+
   late DateTime weekFirstDay;
 
   List<CalendarItem> mondayItems = [];
@@ -17,6 +21,8 @@ class CalendarManager{
 
   late List<List<CalendarItem>> lists;
 
+  late CalendarHeadViewItem calendarHeadViewItem;
+
   CalendarManager() {
     // 为了方便设计的列表
     lists = [
@@ -28,16 +34,19 @@ class CalendarManager{
       saturdayItems,
       sundayItems
     ];
+
     // 获得当前查看周的第一天
     weekFirstDay = DateTime(
       DateTime.now().year,
       DateTime.now().month,
       DateTime.now().day,
     ).add(Duration(days: - DateTime.now().weekday + 1));
+
+    calendarHeadViewItem = CalendarHeadViewItem(weekFirstDay);
   }
 
-
-  Future refresh() async {
+  // 刷新日历时间列表
+  void refresh() async {
     List<CalendarItem> items = await getWeekItems(weekFirstDay);
 
     for(List<CalendarItem> l in lists){
@@ -45,8 +54,24 @@ class CalendarManager{
     }
 
     for(CalendarItem item in items){
-      lists[item.beginTime.weekday].add(item);
+      lists[item.beginTime.weekday - 1].add(item);
     }
+
+    notifyListeners();
+  }
+
+  // 设置为下一周
+  void nextWeek() {
+    weekFirstDay = weekFirstDay.add(const Duration(days: 7));
+    calendarHeadViewItem.set2nextWeek();
+    notifyListeners();
+  }
+
+  // 设置为上一周
+  void lastWeek() {
+    weekFirstDay = weekFirstDay.subtract(const Duration(days: 7));
+    calendarHeadViewItem.set2lastWeek();
+    notifyListeners();
   }
 
   Future<List<CalendarItem>> getWeekItems(DateTime time) async {
@@ -77,6 +102,7 @@ class CalendarManager{
   }
 }
 
+// 日历时间模型
 class CalendarItem{
   int? id;
   String name;
@@ -121,4 +147,80 @@ class CalendarItem{
     required this.beginTime,
     required this.endTime
   });
+}
+
+class CalendarHeadViewItem{
+  var year = "";
+  var monday = "";
+  var tuesday = "";
+  var wednesday = "";
+  var thursday = "";
+  var friday = "";
+  var saturday = "";
+  var sunday = "";
+
+  late DateTime weekFirstDay;
+  final oneDay = const Duration(days: 1);
+
+  CalendarHeadViewItem(DateTime timeOfFirstDay){
+    weekFirstDay = timeOfFirstDay;
+    DateTime date = weekFirstDay;
+
+    year = "${date.year}";
+    monday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    tuesday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    wednesday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    thursday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    friday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    saturday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    sunday = "${date.month}-${date.day}";
+  }
+
+  //切换到下一周
+  void set2nextWeek(){
+    weekFirstDay = weekFirstDay.add(const Duration(days: 7));
+    DateTime date = weekFirstDay;
+
+    year = "${date.year}";
+    monday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    tuesday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    wednesday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    thursday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    friday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    saturday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    sunday = "${date.month}-${date.day}";
+  }
+
+  //切换到上一周
+  void set2lastWeek(){
+    weekFirstDay = weekFirstDay.subtract(const Duration(days: 7));
+    DateTime date = weekFirstDay;
+
+    year = "${date.year}";
+    monday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    tuesday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    wednesday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    thursday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    friday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    saturday = "${date.month}-${date.day}";
+    date = date.add(oneDay);
+    sunday = "${date.month}-${date.day}";
+  }
 }
