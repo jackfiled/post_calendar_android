@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pickers/pickers.dart';
+import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 
 import 'package:post_calendar_android/Models/calendar.dart';
 import 'package:post_calendar_android/Models/database.dart';
@@ -11,15 +13,14 @@ class AddCalendarItemWidget extends StatefulWidget {
 }
 
 class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
-  late DateTime beginDate;
-  late DateTime endDate;
-  late TimeOfDay beginTime;
-  late TimeOfDay endTime;
   final nameTextController = TextEditingController();
   final placeTextController = TextEditingController();
   final detailTextController = TextEditingController();
 
-  final DateTime selectedTime = DateTime.now();
+  DateTime? date;
+  DateTime? beginTime;
+  DateTime? endTime;
+
   var provider = CalendarProvider();
 
   @override
@@ -47,25 +48,37 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text("日程名称"),
-              SizedBox(
-                width: 200,
-                child: TextField(
-                    controller: nameTextController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "请输入日程名称",
-                    ),
-                )
-              )
-            ],
+            mainAxisAlignment: MainAxisAlignment.start,
+            textDirection: TextDirection.ltr,
+            children: const [
+              Text("日程名称")
+            ]
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Text("日程地点"),
+              SizedBox(
+                width: 300,
+                child: TextField(
+                  controller: nameTextController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "请输入日程的名称"
+                  )
+                )
+              )
+            ]
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
+              Text("日程地点")
+            ]
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            textDirection: TextDirection.ltr,
+            children: [
               SizedBox(
                 child: TextField(
                   controller: placeTextController,
@@ -76,79 +89,147 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
                 ),
                 width: 200,
               )
-            ],
+            ]
+          ),
+          GestureDetector(
+            onTapUp: _selectDate,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("日程的日期"),
+                Text(_dateTime2String(date, DateMode.YMD)),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTapUp: _selectBeginTime,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("日程的开始时间"),
+                Text(_dateTime2String(date, DateMode.HMS)),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTapUp: _selectEndTime,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("日程的结束时间"),
+                Text(_dateTime2String(date, DateMode.HMS)),
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children:  [
               const Text("日程明细"),
               SizedBox(
+                width: 300,
+                height: 50,
                 child: TextField(
                   controller: detailTextController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "请输入日程明细",
                   ),
-                ),
-                width: 200,
+                )
               )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text("开始日期"),
-              ElevatedButton(
-                  onPressed:() => _selectBeginDate(context),
-                  child: const Text(
-                      "选择开始日期",
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                  )
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text("结束日期"),
-              ElevatedButton(
-                  onPressed: () => _selectEndDate(context),
-                  child: const Text(
-                    "选择结束日期",
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                  )
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text("开始时间"),
-              ElevatedButton(
-                  onPressed: () => _selectBeginTime(context),
-                  child: const Text(
-                    "选择开始时间",
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                  )
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text("结束时间"),
-              ElevatedButton(
-                  onPressed: () => _selectEndTime(context),
-                  child: const Text(
-                    "选择结束时间",
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                  )
-              ),
-            ],
+            ]
           )
         ],
       ),
     );
+  }
+
+  // 判断一个DateTime是否为空，若是则返回“请输入”
+  String _dateTime2String(DateTime? dateTime, DateMode mode) {
+    if(dateTime == null){
+      return "请输入";
+    }else{
+      switch (mode) {
+        case DateMode.YMD:
+          return "${dateTime.year}:${dateTime.month}:${dateTime.day}";
+        case DateMode.HMS:
+          return "${dateTime.hour}:${dateTime.minute}:${dateTime.second}";
+        default:
+          return dateTime.toString();
+      }
+    }
+  }
+
+  // 选择日程日期
+  void _selectDate(TapUpDetails details){
+    Pickers.showDatePicker(
+        context,
+        mode: DateMode.YMD,
+        onConfirm: (p){
+          setState(() {
+            date = DateTime(p.year!, p.month!, p.day!);
+          });
+        }
+    );
+  }
+
+  // 选择日程开始时间
+  void _selectBeginTime(TapUpDetails details){
+    Pickers.showDatePicker(
+        context,
+        mode: DateMode.HMS,
+        onConfirm: (p){
+          setState(() {
+            // 这里直接设置年月日为111，反正不需要（
+            beginTime = DateTime(1, 1, 1, p.hour!, p.minute!, p.second!);
+          });
+        }
+    );
+  }
+
+  // 选择日程结束时间
+  void _selectEndTime(TapUpDetails details){
+    Pickers.showDatePicker(
+        context,
+        mode: DateMode.HMS,
+        onConfirm: (p){
+          setState(() {
+            // 这里直接设置年月日为111，反正不需要（
+            endTime = DateTime(1, 1, 1, p.hour!, p.minute!, p.second!);
+          });
+        }
+    );
+  }
+
+
+  // 日历事件添加函数
+  void _createCalendarItem() async {
+    if(date != null && beginTime != null && endTime != null){
+      var beginDuration = Duration(hours: beginTime!.hour,
+          minutes: beginTime!.minute,
+          seconds: beginTime!.second
+      );
+      var endDuration = Duration(hours: endTime!.hour,
+        minutes: endTime!.minute,
+        seconds: endTime!.second
+      );
+
+      var beginDateTime = date!.add(beginDuration);
+      var endDateTime = date!.add(endDuration);
+
+      var item = CalendarItem.inner(
+          name: nameTextController.text,
+          place: placeTextController.text,
+          details: detailTextController.text,
+          beginTime: beginDateTime,
+          endTime: endDateTime
+      );
+
+      await provider.create(item.dbItem);
+    }else{
+
+    }
+
+    _close();
   }
 
   @override
@@ -162,82 +243,6 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
 
   void _close() async {
     Navigator.pop(context);
-  }
-
-  _createCalendarItem() async {
-    var beginDuration = Duration(hours: beginTime.hour, minutes: beginTime.minute);
-    beginDate = beginDate.add(beginDuration);
-
-    var endDuration = Duration(hours: endTime.hour, minutes: endTime.minute);
-    endDate = endDate.add(endDuration);
-
-    var item = CalendarItem.inner(
-      name: nameTextController.text,
-      place: placeTextController.text,
-      details: placeTextController.text,
-      beginTime: beginDate,
-      endTime: endDate
-    );
-
-    await provider.create(item.dbItem);
-    // 在添加结束后，退出界面
-    _close();
-  }
-
-  /// 显示选择事件开始日期对话
-  _selectBeginDate(BuildContext context) async {
-    beginDate = (await showDatePicker(
-        context: context,
-        initialDate: selectedTime,
-        firstDate: DateTime(2022),
-        lastDate: DateTime(2100),
-        helpText: "选择事件的起始日期",
-        confirmText: "确认",
-        cancelText: "取消"
-      )
-    )!;
-  }
-
-  /// 显示选择事件结束日期对话
-  _selectEndDate(BuildContext context) async {
-    endDate = (await showDatePicker(
-        context: context,
-        initialDate: selectedTime,
-        firstDate: DateTime(2022),
-        lastDate: DateTime(2100),
-        helpText: "选择事件的结束日期",
-        confirmText: "确认",
-        cancelText: "取消"
-    )
-    )!;
-  }
-
-  _selectBeginTime(BuildContext context) async {
-      beginTime = (await showTimePicker(
-          context: context,
-          initialTime: TimeOfDay(
-              hour: selectedTime.hour,
-              minute: selectedTime.minute
-          ),
-          confirmText: "确认",
-          cancelText: "取消",
-          helpText: "选择事件的开始时间"
-        )
-      )!;
-  }
-
-  _selectEndTime(BuildContext context) async {
-    endTime = (await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay(
-            hour: selectedTime.hour,
-            minute: selectedTime.minute,
-        ),
-        confirmText: "确认",
-        cancelText: "取消",
-        helpText: "选择事件的结束时间",
-      )
-    )!;
   }
 }
 
