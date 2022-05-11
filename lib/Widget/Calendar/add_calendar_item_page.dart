@@ -107,7 +107,7 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("日程的开始时间"),
-                Text(_dateTime2String(date, DateMode.HMS)),
+                Text(_dateTime2String(beginTime, DateMode.HMS)),
               ],
             ),
           ),
@@ -117,7 +117,7 @@ class _AddCalendarItemWidgetState extends State<AddCalendarItemWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("日程的结束时间"),
-                Text(_dateTime2String(date, DateMode.HMS)),
+                Text(_dateTime2String(endTime, DateMode.HMS)),
               ],
             ),
           ),
