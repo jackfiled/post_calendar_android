@@ -6,6 +6,7 @@ import 'package:post_calendar_android/Widget/calendar_home.dart';
 import 'package:post_calendar_android/Widget/ddl_home.dart';
 import 'package:post_calendar_android/Widget/activity_home.dart';
 import 'package:post_calendar_android/Widget/Calendar/add_calendar_item_page.dart';
+import 'package:post_calendar_android/Widget/Calendar/calendar_item_detail_page.dart';
 import 'package:post_calendar_android/Common/global.dart';
 
 void main() async {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const IndexPage(),// 主界面
         '/addCalendarItem': (context) => const AddCalendarItemWidget(), //添加日历事件界面
+        '/calendarItemDetail': (context) => const CalendarItemDetail(),
       },
     );
   }

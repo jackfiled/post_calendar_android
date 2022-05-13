@@ -7,19 +7,24 @@ class CalendarItemWidget{
 
   CalendarItemWidget({required this.calendarItem});
 
-  Widget build(){
+  Widget build(BuildContext context){
     return Positioned(
-      child: Container(
-        child: Column(
-          children: [
-            Text(calendarItem.name),
-            Text(calendarItem.place)
-          ],
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 1),
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.blue,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, "/calendarItemDetail", arguments: calendarItem.id);
+        },
+        child: Container(
+          child: Column(
+            children: [
+              Text(calendarItem.name),
+              Text(calendarItem.place)
+            ],
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 1),
+            borderRadius: BorderRadius.circular(5.0),
+            color: Colors.blue,
+          ),
         ),
       ),
       top: calendarItem.topDistance,

@@ -142,7 +142,7 @@ class _CalendarHomeState extends State<CalendarHome> {
     List<Widget> widgetList = [];
 
     for(var item in list){
-      widgetList.add(CalendarItemWidget(calendarItem: item).build());
+      widgetList.add(CalendarItemWidget(calendarItem: item).build(context));
     }
 
     return widgetList;
