@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:math';
 
 import 'package:post_calendar_android/controllers/calendar_controller.dart';
+import 'package:post_calendar_android/data_structures/calendar_model.dart';
 
 class CalendarPage extends StatelessWidget {
   CalendarPage({Key? key}) : super(key: key);
@@ -39,44 +41,51 @@ class CalendarPage extends StatelessWidget {
                             _buildTimeColumnWidget(),
                             SizedBox(
                               height: _columnAllHeight,
-                              child: Stack(
-                                children: [],
+                              child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(controller.mondayItems),
+                                )
                               ),
                             ),
                             SizedBox(
                               height: _columnAllHeight,
-                              child: Stack(
-                                children: [],
+                              child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(controller.tuesdayItems),
+                                )
                               ),
                             ),
                             SizedBox(
                               height: _columnAllHeight,
-                              child: Stack(
-                                children: [],
+                              child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(controller.wednesdayItems),
+                                )
                               ),
                             ),
                             SizedBox(
                               height: _columnAllHeight,
-                              child: Stack(
-                                children: [],
+                              child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(controller.thursdayItems),
+                                )
                               ),
                             ),
                             SizedBox(
                               height: _columnAllHeight,
-                              child: Stack(
-                                children: [],
+                              child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(controller.fridayItems),
+                                )
                               ),
                             ),
                             SizedBox(
                               height: _columnAllHeight,
-                              child: Stack(
-                                children: [],
+                              child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(controller.saturdayItems),
+                                )
                               ),
                             ),
                             SizedBox(
                               height: _columnAllHeight,
-                              child: Stack(
-                                children: [],
+                              child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(controller.sundayItems),
+                                )
                               ),
                             ),
                           ]
@@ -88,10 +97,59 @@ class CalendarPage extends StatelessWidget {
                   return Future(() => null);
                 },
               ),
+              onHorizontalDragEnd: (detail){
+                final direction = detail.velocity.pixelsPerSecond.direction;
+                if(direction >= - pi / 2 && direction < pi / 2){
+                  // 向右划
+                  controller.lastWeek();
+                }else{
+                  // 向左划
+                  controller.nextWeek();
+                }
+              },
             ),
           )
         ],
       ),
+    );
+  }
+
+  /// 获得每天的日历事件列表
+  List<Widget> _buildCalendarWidgets(Iterable<CalendarModel> items){
+    List<Widget> list = [];
+
+    for(var item in items){
+      list.add(_buildSingleCalendarWidget(item));
+    }
+
+    return list;
+  }
+
+  /// 创建单个日历事件控件对象
+  Widget _buildSingleCalendarWidget(CalendarModel item) {
+    return Positioned(
+      child: GestureDetector(
+        onTap: () {
+          //
+        },
+        child: Container(
+          child: Column(
+            children: [
+              Text(item.name),
+              Text(item.details)
+            ],
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 1),
+            borderRadius: BorderRadius.circular(5.0),
+            color: Colors.blue,
+          ),
+        ),
+      ),
+      top: item.topDistance,
+      height: item.length,
+      left: 0,
+      right: 0,
     );
   }
 
