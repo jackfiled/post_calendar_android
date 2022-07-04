@@ -1,9 +1,15 @@
-import 'package:post_calendar_android/data_structures/calendar_model.dart';
+import 'package:test/test.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-import 'dart:async';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-class CalendarProvider{
+import 'package:post_calendar_android/data_structures/calendar_model.dart';
+
+/// 测试用Calendar数据库类
+/// 由于数据库的特殊性
+/// 重写了数据库类
+class CalendarProviderTest{
+  static CalendarProviderTest? _instance;
+
   static const tableName = "calendar";
   static const columnId = "_id";
   static const columnName = "name";
@@ -14,23 +20,18 @@ class CalendarProvider{
 
   late Database _database;
 
-  static CalendarProvider? _instance;
-
-  /// 获得单例对象
-  static CalendarProvider getInstance(){
-    _instance ??= CalendarProvider();
-    return _instance!;
+  static CalendarProviderTest getInstance(){
+    return _instance ??= CalendarProviderTest();
   }
 
-  /// 初始化数据库
-  Future<void> initDatabase() async{
-    var _path = await getDatabasesPath();
-    String path = join(_path, "Calendar.db");
+  Future<void> initDatabase() async {
+    sqfliteFfiInit();
+    // 更换工厂函数
+    databaseFactory = databaseFactoryFfi;
 
-    _database = await openDatabase(path,
-        version: 1,
-        onCreate: _onCreate
-    );
+    _database = await openDatabase(inMemoryDatabasePath,
+      version: 1,
+      onCreate: _onCreate);
   }
 
   /// 关闭数据库函数
@@ -92,4 +93,55 @@ class CalendarProvider{
         "$columnEndTime text)"
     );
   }
+}
+
+
+void main() async {
+  final provider = CalendarProviderTest.getInstance();
+  await provider.initDatabase();
+
+  group("Database Test", () {
+    /// 测试添加功能
+    test("Add Item", () async {
+      final item = CalendarModel.inner(
+          name: "test",
+          place: "test",
+          details: "test",
+          beginTime: DateTime(1),
+          endTime: DateTime(2)
+      );
+
+      await provider.create(item);
+
+      final testItem = await provider.read(1);
+      
+      expect(testItem?.name, "test");
+    });
+
+    /// 测试更改功能
+    test("Update Item", () async {
+      final item = await provider.read(1);
+
+      item!.name = "test1";
+
+      await provider.update(item);
+
+      final testItem = await provider.read(1);
+
+      expect(testItem?.name, "test1");
+    });
+
+    /// 测试删除数据
+    test("Delete Item", () async {
+      await provider.delete(1);
+
+      final items = await provider.items();
+
+      expect(items.length, 0);
+    });
+  });
+
+  tearDownAll(() async {
+    await provider.close();
+  });
 }
