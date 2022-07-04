@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math';
+import 'package:post_calendar_android/routes/route_config.dart';
 
 import 'package:post_calendar_android/controllers/calendar_controller.dart';
 import 'package:post_calendar_android/data_structures/calendar_model.dart';
@@ -130,7 +131,7 @@ class CalendarPage extends StatelessWidget {
     return Positioned(
       child: GestureDetector(
         onTap: () {
-          //
+          Get.toNamed(RouteConfig.calendarDetailPage + "?id=${item.id}");
         },
         child: Container(
           child: Column(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:post_calendar_android/pages/home_page.dart';
+import 'package:post_calendar_android/routes/route_config.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -12,8 +12,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      home: HomePage(),
+    return GetMaterialApp(
+      initialRoute: RouteConfig.main,
+      getPages: RouteConfig.getPages,
     );
   }
 }
