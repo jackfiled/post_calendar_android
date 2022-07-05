@@ -62,13 +62,13 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
               ]
           ),
           Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: const [
                 Text("日程地点")
               ]
           ),
           Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               textDirection: TextDirection.ltr,
               children: [
                 SizedBox(
@@ -76,7 +76,7 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
                     controller: controller.placeTextController,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: "请输入名称"
+                        hintText: "请输入地点"
                     ),
                   ),
                   width: 200,
@@ -129,7 +129,7 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
                       controller: controller.detailsTextController,
                       decoration: const InputDecoration(
                           border: OutlineInputBorder(),
-                          hintText: "请输入名称"
+                          hintText: "请输入详情"
                       ),
                     )
                 )
