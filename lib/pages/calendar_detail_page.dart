@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_pickers/pickers.dart';
 import 'package:flutter_pickers/time_picker/model/date_mode.dart';
+import 'package:post_calendar_android/controllers/calendar_controller.dart';
 
 import 'package:post_calendar_android/controllers/calendar_detail_controller.dart';
 
@@ -15,6 +16,7 @@ class CalendarDetailPage extends StatefulWidget {
 class _CalendarDetailPageState extends State<CalendarDetailPage> {
   final int id = int.parse(Get.parameters["id"]!);
   final controller = Get.put(CalendarDetailController());
+  final calendarController = Get.find<CalendarController>();
 
   @override
   Widget build(BuildContext context) {
@@ -143,6 +145,7 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
   /// 退出页面
   void _close() {
     Get.back();
+    calendarController.refreshItems();
   }
 
   /// 选择时间

@@ -16,6 +16,9 @@ class CalendarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 刷新事件
+    controller.refreshItems();
+
     return Scaffold(
       body: Column(
         children: [
@@ -94,9 +97,7 @@ class CalendarPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                onRefresh: (){
-                  return Future(() => null);
-                },
+                onRefresh: controller.refreshItems,
               ),
               onHorizontalDragEnd: (detail){
                 final direction = detail.velocity.pixelsPerSecond.direction;
@@ -252,7 +253,7 @@ class CalendarPage extends StatelessWidget {
                 height: 20,
                 color: Colors.blue,
                 child:  Center(
-                  child: Obx(() => Text("${controller.thursday.month}-${controller.thursday.day}")),
+                  child: Obx(() => Text("${controller.tuesday.month}-${controller.tuesday.day}")),
                 )
             ),
             Container(
@@ -266,7 +267,7 @@ class CalendarPage extends StatelessWidget {
                 height: 20,
                 color: Colors.blue,
                 child:  Center(
-                  child: Obx(() => Text("${controller.tuesday.month}-${controller.tuesday.day}")),
+                  child: Obx(() => Text("${controller.thursday.month}-${controller.thursday.day}")),
                 )
             ),
             Container(
