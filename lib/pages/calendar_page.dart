@@ -112,6 +112,13 @@ class CalendarPage extends StatelessWidget {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        mini: true,
+        onPressed: (){
+          Get.toNamed(RouteConfig.calendarDetailPage + "?id=0");
+        },
+      ),
     );
   }
 

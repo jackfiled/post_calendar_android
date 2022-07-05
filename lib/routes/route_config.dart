@@ -7,7 +7,7 @@ class RouteConfig{
   static const String main = "/";
 
   /// 日历事件的详情页面
-  static const String calendarDetailPage = "/calendarDetailPage";
+  static const String calendarDetailPage = "/CalendarDetailPage";
 
   static final List<GetPage> getPages = [
     GetPage(name: main, page: () => const HomePage()),

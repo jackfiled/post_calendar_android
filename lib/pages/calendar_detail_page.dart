@@ -13,12 +13,12 @@ class CalendarDetailPage extends StatefulWidget {
 }
 
 class _CalendarDetailPageState extends State<CalendarDetailPage> {
-  final int id = Get.parameters["id"] as int;
+  final int id = int.parse(Get.parameters["id"]!);
   final controller = Get.put(CalendarDetailController());
 
   @override
   Widget build(BuildContext context) {
-    if(id == 0){
+    if(id != 0){
       controller.initContent(id);
     }
 

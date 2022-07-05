@@ -14,6 +14,7 @@ class CalendarDetailController extends GetxController{
 
   final provider = CalendarProvider.getInstance();
   DateTime? dateBase;
+  int? _id;
 
   /// 读取数据库设置各种初始值
   Future<void> initContent(int id) async {
@@ -27,6 +28,7 @@ class CalendarDetailController extends GetxController{
     detailsTextController.text = item.details;
     beginTime.value = item.beginTime;
     endTime.value = item.endTime;
+    _id = id;
   }
 
   /// 设置时间
@@ -105,7 +107,12 @@ class CalendarDetailController extends GetxController{
         endTime: endTime.value!
     );
 
-    await provider.create(item);
+    if(_id != null){
+      item.id = _id;
+      await provider.update(item);
+    }else{
+      await provider.create(item);
+    }
   }
 
   /// 日期字符串
