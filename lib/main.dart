@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:post_calendar_android/routes/route_config.dart';
 import 'package:post_calendar_android/database/calendar_provider.dart';
+import 'package:post_calendar_android/database/ddl_provider.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -17,12 +18,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final calendarProvider = CalendarProvider.getInstance();
+  final ddlProvider = DDLProvider.getInstance();
 
   @override
   void initState(){
     super.initState();
 
     calendarProvider.initDatabase();
+    ddlProvider.initDatabase();
   }
 
   @override
@@ -38,6 +41,7 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
 
     calendarProvider.close();
+    ddlProvider.close();
   }
 }
 

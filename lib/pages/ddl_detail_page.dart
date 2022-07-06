@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 import 'package:get/get.dart';
 import 'package:flutter_pickers/pickers.dart';
-import 'package:post_calendar_android/controllers/calendar_controller.dart';
 
 import 'package:post_calendar_android/controllers/ddl_controller.dart';
 import 'package:post_calendar_android/controllers/ddl_detail_controller.dart';
@@ -116,11 +115,14 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
-                controller: controller.detailsTextController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "请输入详情"
+              SizedBox(
+                width: 300,
+                child: TextField(
+                  controller: controller.detailsTextController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "请输入详情"
+                  ),
                 ),
               )
             ],

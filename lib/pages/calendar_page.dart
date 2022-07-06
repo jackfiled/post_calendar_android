@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math';
-import 'package:post_calendar_android/routes/route_config.dart';
 
+import 'package:post_calendar_android/routes/route_config.dart';
 import 'package:post_calendar_android/controllers/calendar_controller.dart';
 import 'package:post_calendar_android/data_structures/calendar_model.dart';
 
@@ -16,8 +16,8 @@ class CalendarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 刷新事件
-    controller.refreshItems();
+    // 两秒之后刷新界面
+    Future.delayed(const Duration(seconds: 2), controller.refreshItems);
 
     return Scaffold(
       body: Column(

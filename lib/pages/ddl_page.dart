@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import 'package:post_calendar_android/controllers/ddl_controller.dart';
 import 'package:post_calendar_android/components/ddl_item_cell.dart';
+import 'package:post_calendar_android/routes/route_config.dart';
+
 
 /// DDL页面
 class DDLPage extends StatelessWidget {
@@ -12,30 +14,29 @@ class DDLPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 两秒之后刷新界面
+    Future.delayed(const Duration(seconds: 2), controller.refreshItems);
+
     return Scaffold(
-      body: Expanded(
-        child: RefreshIndicator(
-          child: Obx(() => 
+      body: RefreshIndicator(
+        child: Obx(() =>
             ListView.builder(
               itemCount: controller.ddlItems.length,
               itemBuilder: (context, index) {
                 final item = controller.ddlItems[index];
 
                 return DDLItemCell(
-                  name: item.name, 
-                  place: item.place, 
-                  details: item.details
+                    name: item.name,
+                    place: item.place,
+                    details: item.details
                 );
               },
             )
-          ),
-          onRefresh: () => controller.refreshItems(),
-        )
+        ),
+        onRefresh: () => controller.refreshItems(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          
-        },
+        onPressed: () => Get.toNamed(RouteConfig.ddlDetailPage + "?id=0"),
         child: const Icon(Icons.add),
         mini: true,
       ),
