@@ -26,9 +26,7 @@ class DDLPage extends StatelessWidget {
                 final item = controller.ddlItems[index];
 
                 return DDLItemCell(
-                    name: item.name,
-                    place: item.place,
-                    details: item.details
+                    item: item,
                 );
               },
             )
