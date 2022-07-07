@@ -78,13 +78,22 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
   Widget _buildTextInputWidget(String title, TextEditingController c) {
     const titleTextStyle = TextStyle(fontSize: 18, color: Colors.grey);
 
-    return Expanded(
-      child: TextField(
-        controller: c,
-        decoration: InputDecoration(
-            labelText: title,
-            labelStyle: titleTextStyle,
-            border: const OutlineInputBorder()),
+    return Container(
+      height: 70,
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: c,
+              decoration: InputDecoration(
+                labelText: title,
+                labelStyle: titleTextStyle,
+                border: const OutlineInputBorder()
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -104,9 +113,10 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
       fontSize: 22,
     );
 
-    return Expanded(
-      child: GestureDetector(
-        onTap: tapFunction,
+    return GestureDetector(
+      onTap: tapFunction,
+      child: SizedBox(
+        height: 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -115,7 +125,7 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
               style: titleTextStyle,
             ),
             Text(
-              result,
+              result, 
               style: resultTextStyle,
             )
           ],

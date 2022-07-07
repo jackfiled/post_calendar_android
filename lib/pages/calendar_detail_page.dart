@@ -36,17 +36,32 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
               onPressed: _confirmButtonClicked, icon: const Icon(Icons.check))
         ],
       ),
-      body: Column(
-        children: [
-          _buildTextInputWidget("日程名称", controller.nameTextController),
-          _buildTextInputWidget("日程地点", controller.placeTextController),
-          Obx(() => _buildTimePickerWidget(_selectDate, "日程日期", controller.dateString)),
-          Obx(() => _buildTimePickerWidget(
-              _selectBeginTime, "日程开始时间", controller.beginTimeString),),
-          Obx(() => _buildTimePickerWidget(
-              _selectEndTime, "日程结束时间", controller.endTimeString)),
-          _buildTextInputWidget("日程明细", controller.detailsTextController)
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildTextInputWidget("日程名称", controller.nameTextController),
+            const SizedBox(
+              height: 20,
+            ),
+            _buildTextInputWidget("日程地点", controller.placeTextController),
+            const SizedBox(
+              height: 20,
+            ),
+            Obx(() => _buildTimePickerWidget(_selectDate, "日程日期", controller.dateString)),
+            const SizedBox(
+              height: 20,
+            ),
+            Obx(() => _buildTimePickerWidget(
+                _selectBeginTime, "日程开始时间", controller.beginTimeString),),
+            const SizedBox(
+              height: 20,
+            ),
+            Obx(() => _buildTimePickerWidget(
+                _selectEndTime, "日程结束时间", controller.endTimeString)),
+            _buildTextInputWidget("日程明细", controller.detailsTextController)
+          ],
+        ),
       ),
     );
   }
@@ -92,14 +107,22 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
   Widget _buildTextInputWidget(String title, TextEditingController c) {
     const titleTextStyle = TextStyle(fontSize: 18, color: Colors.grey);
 
-    return Expanded(
-      child: TextField(
-        controller: c,
-        decoration: InputDecoration(
-          labelText: title,
-          labelStyle: titleTextStyle,
-          border: const OutlineInputBorder()
-        ),
+    return Container(
+      height: 70,
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: c,
+              decoration: InputDecoration(
+                labelText: title,
+                labelStyle: titleTextStyle,
+                border: const OutlineInputBorder()
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -119,9 +142,10 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
       fontSize: 22,
     );
 
-    return Expanded(
-      child: GestureDetector(
-        onTap: tapFunction,
+    return GestureDetector(
+      onTap: tapFunction,
+      child: SizedBox(
+        height: 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -130,7 +154,7 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
               style: titleTextStyle,
             ),
             Text(
-              result,
+              result, 
               style: resultTextStyle,
             )
           ],
