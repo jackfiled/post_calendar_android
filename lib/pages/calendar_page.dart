@@ -139,7 +139,7 @@ class CalendarPage extends StatelessWidget {
     return Positioned(
       child: GestureDetector(
         onTap: () {
-          Get.toNamed(RouteConfig.calendarDetailPage + "?id=${item.id}");
+          Get.toNamed(RouteConfig.calendarMorePage + "?id=${item.id}");
         },
         child: Container(
           child: Column(

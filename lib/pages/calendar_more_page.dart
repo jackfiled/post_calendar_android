@@ -33,7 +33,7 @@ class CalendarMorePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.create),
-            onPressed: () => Get.toNamed(RouteConfig.calendarDetailPage + "?_id$_id"),
+            onPressed: () => Get.toNamed(RouteConfig.calendarDetailPage + "?id=$_id")
           )
         ],
       ),
@@ -43,60 +43,85 @@ class CalendarMorePage extends StatelessWidget {
             children: [
               Expanded(
                 child: Center(
-                  child: Text(
-                    controller.name,
+                  child: Obx(() => Text(
+                      controller.name,
+                      style: titleTextStyle
+                    )
                   )
                 ),
               )
             ],
           ),
+          const SizedBox(
+            height: 18,// 只是单纯在这里加上一段空白罢了
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "地点",
                 style: titleTextStyle
               ),
-              Text(
-                controller.place,
-                style: resultTextStyle
+              Obx(() => Text(
+                  controller.place,
+                  style: resultTextStyle
+                )
               )
             ],
           ),
+          const SizedBox(
+            height: 18,// 只是单纯在这里加上一段空白罢了
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "日期",
                 style: titleTextStyle
               ),
-              Text(
-                controller.dataString,
-                style: resultTextStyle
+              Obx(() => Text(
+                  controller.dataString,
+                  style: resultTextStyle
+                )
               )
             ],
           ),
+          const SizedBox(
+            height: 18,// 只是单纯在这里加上一段空白罢了
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "开始时间",
                 style: titleTextStyle
               ),
-              Text(
-                controller.beginTimeString,
-                style: resultTextStyle
+              Obx(() => Text(
+                  controller.beginTimeString,
+                  style: resultTextStyle
+                )
               )
             ],
           ),
+          const SizedBox(
+            height: 18,// 只是单纯在这里加上一段空白罢了
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "结束时间",
                 style: titleTextStyle
               ),
-              Text(
-                controller.endTimeString,
-                style: resultTextStyle
+              Obx(() => Text(
+                  controller.endTimeString,
+                  style: resultTextStyle
+                )
               )
             ],
+          ),
+          const SizedBox(
+            height: 18,// 只是单纯在这里加上一段空白罢了
           ),
           Row(
             children: [
@@ -111,12 +136,13 @@ class CalendarMorePage extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(
-                  controller.details,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.grey
-                  ),
+                child: Obx(() => Text(
+                    controller.details,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey
+                    ),
+                  )
                 ),
               )
             ],
