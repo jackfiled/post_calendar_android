@@ -6,7 +6,7 @@ import 'package:post_calendar_android/controllers/ddl_more_controller.dart';
 
 class DDLMorePage extends StatelessWidget {
   DDLMorePage({Key? key}) : super(key: key);
-  
+
   final _id = int.parse(Get.parameters['id']!);
   final controller = Get.put(DDLMoreController());
 
@@ -43,10 +43,10 @@ class DDLMorePage extends StatelessWidget {
             children: [
               Expanded(
                 child: Center(
-                  child: Text(
+                  child: Obx(() => Text(
                     controller.name,
-                    style: titleTextStyle
-                  ),
+                    style: titleTextStyle,
+                  ))
                 ),
               )
             ],
@@ -71,16 +71,23 @@ class DDLMorePage extends StatelessWidget {
             height: 18,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "结束时间",
-                style: titleTextStyle,
-              ),
-              Obx(() => Text(
-                controller.endDateString,
-                style: resultTextStyle,
-              ))
+              Expanded(
+                child: Text(
+                  "结束时间",
+                  style: titleTextStyle,
+                ),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Obx(() => Text(
+                  controller.endTimeString,
+                  style: resultTextStyle,
+                )),
+              )
             ],
           ),
           const SizedBox(

@@ -27,7 +27,7 @@ class DDLItemCell extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // 点击事件跳转到详情界面
-        Get.toNamed(RouteConfig.ddlDetailPage + "?id=${item.id}");
+        Get.toNamed(RouteConfig.ddlMorePage + "?id=${item.id}");
       },
       child: Container(
         margin: const EdgeInsets.all(10),

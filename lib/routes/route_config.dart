@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import 'package:post_calendar_android/pages/ddl_more_page.dart';
 import 'package:post_calendar_android/pages/home_page.dart';
 import 'package:post_calendar_android/pages/calendar_detail_page.dart';
 import 'package:post_calendar_android/pages/ddl_detail_page.dart';
@@ -16,10 +17,13 @@ class RouteConfig{
 
   static const String ddlDetailPage = "/DDLDetailPage";
 
+  static const String ddlMorePage = "/DDLMorePage";
+
   static final List<GetPage> getPages = [
     GetPage(name: main, page: () => const HomePage()),
     GetPage(name: calendarDetailPage, page: () => const CalendarDetailPage()),
     GetPage(name: ddlDetailPage, page: () => const DDLDetailPage()),
     GetPage(name: calendarMorePage, page: () => CalendarMorePage()),
+    GetPage(name: ddlMorePage, page: () => DDLMorePage())
   ];
 }

@@ -39,7 +39,7 @@ class DDLMoreController extends GetxController{
   }
 
   /// 结束时间字符串
-  String get endDateString {
+  String get endTimeString {
     if(_item.value == null){
       return "";
     }else{
