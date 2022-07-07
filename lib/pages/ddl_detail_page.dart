@@ -6,14 +6,12 @@ import 'package:flutter_pickers/pickers.dart';
 import 'package:post_calendar_android/controllers/ddl_controller.dart';
 import 'package:post_calendar_android/controllers/ddl_detail_controller.dart';
 
-
 class DDLDetailPage extends StatefulWidget {
   const DDLDetailPage({Key? key}) : super(key: key);
 
   @override
   State<DDLDetailPage> createState() => _DDLDetailPageState();
 }
-
 
 class _DDLDetailPageState extends State<DDLDetailPage> {
   final _id = int.parse(Get.parameters['id']!);
@@ -31,102 +29,18 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
         ),
         actions: [
           IconButton(
-            onPressed: _confirmButtonClicked, 
-            icon: const Icon(Icons.check)
-          ),
+              onPressed: _confirmButtonClicked, icon: const Icon(Icons.check)),
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            textDirection: TextDirection.ltr,
-            children: const [
-              Text("DDL名称")
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            textDirection: TextDirection.ltr,
-            children: [
-              SizedBox(
-                width: 300,
-                child: TextField(
-                  controller: controller.nameTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "请输入名称"
-                  ),
-                ),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            textDirection: TextDirection.ltr,
-            children: const [
-              Text("DDL地点")
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            textDirection: TextDirection.ltr,
-            children: [
-              SizedBox(
-                width: 300,
-                child: TextField(
-                  controller: controller.placeTextController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "请输入地点"
-                  ),
-                ),
-              )
-            ],
-          ),
-          GestureDetector(
-            onTap: _selectDate,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("DDL日期"),
-                Obx(() => Text(controller.dateString)),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: _selectEndTime,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("DDL时间"),
-                Obx(() => Text(controller.endTimeString))
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            textDirection: TextDirection.ltr,
-            children: const [
-              Text("DDL详情")
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 300,
-                child: TextField(
-                  controller: controller.detailsTextController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "请输入详情"
-                  ),
-                ),
-              )
-            ],
-          )
+          _buildTextInputWidget("DDL名称", controller.nameTextController),
+          _buildTextInputWidget("DDL地点", controller.placeTextController),
+          Obx(() => _buildTimePickerWidget(
+              _selectDate, "DDL结束日期", controller.dateString)),
+          Obx(() => _buildTimePickerWidget(
+              _selectEndTime, "DDL结束时间", controller.endTimeString)),
+          _buildTextInputWidget("DDL详情", controller.detailsTextController)
         ],
       ),
     );
@@ -145,24 +59,68 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
   }
 
   void _selectDate() {
-    Pickers.showDatePicker(
-      context,
-      mode: DateMode.YMD,
-      onConfirm: (p) {
-        controller.setDate(p.year!, p.month!, p.day!);
-      }
-    );
+    Pickers.showDatePicker(context, mode: DateMode.YMD, onConfirm: (p) {
+      controller.setDate(p.year!, p.month!, p.day!);
+    });
   }
 
   void _selectEndTime() {
-    Pickers.showDatePicker(
-      context,
-      mode: DateMode.HMS,
-      onConfirm: (p) {
-        controller.setEndTime(p.hour!, p.minute!, p.second!);
-      }
+    Pickers.showDatePicker(context, mode: DateMode.HMS, onConfirm: (p) {
+      controller.setEndTime(p.hour!, p.minute!, p.second!);
+    });
+  }
+
+  /// 构建输入文字的微件
+  ///
+  /// [title] 标题
+  ///
+  /// [c] 输入的控件
+  Widget _buildTextInputWidget(String title, TextEditingController c) {
+    const titleTextStyle = TextStyle(fontSize: 18, color: Colors.grey);
+
+    return Expanded(
+      child: TextField(
+        controller: c,
+        decoration: InputDecoration(
+            labelText: title,
+            labelStyle: titleTextStyle,
+            border: const OutlineInputBorder()),
+      ),
+    );
+  }
+
+  /// 构建时间日期选择的框架
+  ///
+  /// [tapFunction] 处理点击事件的函数
+  ///
+  /// [title] 标题
+  ///
+  /// [result] 选择的结果
+  Widget _buildTimePickerWidget(
+      void Function() tapFunction, String title, String result) {
+    const titleTextStyle = TextStyle(fontSize: 24, color: Colors.grey);
+
+    const resultTextStyle = TextStyle(
+      fontSize: 22,
+    );
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: tapFunction,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: titleTextStyle,
+            ),
+            Text(
+              result,
+              style: resultTextStyle,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
-
-

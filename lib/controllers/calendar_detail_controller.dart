@@ -9,8 +9,8 @@ class CalendarDetailController extends GetxController{
   var nameTextController = TextEditingController();
   var placeTextController = TextEditingController();
   var detailsTextController = TextEditingController();
-  var beginTime = DateTime(0, 0, 0).obs;
-  var endTime = DateTime(0, 0, 0).obs;
+  var beginTime = DateTime(1).obs;
+  var endTime = DateTime(1).obs;
 
   final provider = CalendarProvider.getInstance();
   DateTime? dateBase;
@@ -86,22 +86,22 @@ class CalendarDetailController extends GetxController{
 
   /// 日期字符串
   String get dateString {
-    return "${beginTime.value.year}-"
-        "${beginTime.value.month}-"
-        "${beginTime.value.day}";
+    return "${beginTime.value.year}年"
+        "${beginTime.value.month}月"
+        "${beginTime.value.day}日";
   }
 
   /// 开始时间字符串
   String get beginTimeString {
-    return "${beginTime.value.hour}-"
-        "${beginTime.value.minute}-"
-        "${beginTime.value.second}";
+    return "${beginTime.value.hour}时"
+        "${beginTime.value.minute}分"
+        "${beginTime.value.second}秒";
   }
 
   /// 结束时间字符串
   String get endTimeString {
-    return "${endTime.value.hour}-"
-        "${endTime.value.minute}-"
-        "${endTime.value.second}";
+    return "${endTime.value.hour}时"
+        "${endTime.value.minute}分"
+        "${endTime.value.second}秒";
   }
 }
