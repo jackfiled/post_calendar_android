@@ -6,13 +6,15 @@ class DDLModel{
   late String place;
   late String details;
   late DateTime endTime;
+  late int type;
 
   /// 内部新建对象
   DDLModel({
     required this.name,
     required this.place,
     required this.details,
-    required this.endTime
+    required this.endTime,
+    required this.type
 });
 
   DDLModel.fromDB(Map<String, dynamic> map){
@@ -21,6 +23,7 @@ class DDLModel{
     place = map[DDLProvider.columnPlace];
     details = map[DDLProvider.columnDetails];
     endTime = DateTime.parse(map[DDLProvider.columnEndTime]);
+    type = map[DDLProvider.columnType];
   }
 
   Map<String, dynamic> toMap() {
@@ -29,6 +32,7 @@ class DDLModel{
       DDLProvider.columnPlace: place,
       DDLProvider.columnDetails: details,
       DDLProvider.columnEndTime: endTime.toString(),
+      DDLProvider.columnType: type
     };
 
     if(id != null){

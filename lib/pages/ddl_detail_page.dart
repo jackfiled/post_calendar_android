@@ -35,11 +35,23 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
       body: Column(
         children: <Widget>[
           _buildTextInputWidget("DDL名称", controller.nameTextController),
+          const SizedBox(
+            height: 20,
+          ),
           _buildTextInputWidget("DDL地点", controller.placeTextController),
+          const SizedBox(
+            height: 20,
+          ),
           Obx(() => _buildTimePickerWidget(
               _selectDate, "DDL结束日期", controller.dateString)),
+          const SizedBox(
+            height: 20,
+          ),
           Obx(() => _buildTimePickerWidget(
               _selectEndTime, "DDL结束时间", controller.endTimeString)),
+          const SizedBox(
+            height: 20,
+          ),
           _buildTextInputWidget("DDL详情", controller.detailsTextController)
         ],
       ),

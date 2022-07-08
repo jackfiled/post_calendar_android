@@ -50,7 +50,8 @@ class DDLDetailController extends GetxController {
         name: nameTextController.text,
         place: placeTextController.text,
         details: detailsTextController.text,
-        endTime: endTime.value);
+        endTime: endTime.value,
+        type: -1);
 
     if (_id == null) {
       await provider.create(item);

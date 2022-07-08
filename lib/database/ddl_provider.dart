@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 
-
+/// 内部DDL数据库
 class DDLProvider{
   static const tableName = "ddl";
   static const columnId = "_id";
@@ -12,6 +12,7 @@ class DDLProvider{
   static const columnPlace = "place";
   static const columnDetails = "details";
   static const columnEndTime = "end_time";
+  static const columnType = "type";
 
   late Database _database;
 
@@ -26,7 +27,7 @@ class DDLProvider{
   /// 初始化数据库
   Future<void> initDatabase() async {
     var _path = await getDatabasesPath();
-    String path = join(_path, "ddl.db");
+    String path = join(_path, tableName + ".db");
 
     _database = await openDatabase(
       path,
@@ -97,7 +98,8 @@ class DDLProvider{
         "$columnName text,"
         "$columnPlace text,"
         "$columnDetails text,"
-        "$columnEndTime text)"
+        "$columnEndTime text,"
+        "$columnType int)"
     );
   }
 }

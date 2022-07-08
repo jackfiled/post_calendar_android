@@ -27,7 +27,7 @@ class CalendarProvider{
   /// 初始化数据库
   Future<void> initDatabase() async{
     var _path = await getDatabasesPath();
-    String path = join(_path, "Calendar.db");
+    String path = join(_path, tableName + ".db");
 
     _database = await openDatabase(path,
         version: 1,
