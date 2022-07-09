@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:post_calendar_android/pages/calendar_page.dart';
 import 'package:post_calendar_android/pages/ddl_page.dart';
+import 'package:post_calendar_android/pages/squid_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,21 +18,20 @@ class _HomePageState extends State<HomePage> {
   /// 底部导航栏对象列表
   final List<BottomNavigationBarItem> bottomNavItems = [
     const BottomNavigationBarItem(
-      backgroundColor: Colors.blue,
-      icon: Icon(Icons.calendar_today),
-      label: "日历"
-      ),
+        backgroundColor: Colors.blue,
+        icon: Icon(Icons.calendar_today),
+        label: "日历"),
     const BottomNavigationBarItem(
-      backgroundColor: Colors.blue,
-      icon: Icon(Icons.calendar_view_day),
-      label: "DDL"
-      )
+        backgroundColor: Colors.blue,
+        icon: Icon(Icons.calendar_view_day),
+        label: "DDL"),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.abc_outlined),
+        backgroundColor: Colors.blue,
+        label: "SquidWard")
   ];
 
-  final List<Widget> pages = [
-    CalendarPage(),
-    DDLPage()
-  ];
+  final List<Widget> pages = [CalendarPage(), DDLPage(), SquidPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +39,11 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("邮历"),
       ),
-      bottomNavigationBar:BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         items: bottomNavItems,
         currentIndex: _index,
         type: BottomNavigationBarType.fixed,
-        onTap: (index){
+        onTap: (index) {
           _changePage(index);
         },
       ),
@@ -52,9 +52,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// 切换页面
-  void _changePage(int index){
-    if(index != _index){
-      setState((){
+  void _changePage(int index) {
+    if (index != _index) {
+      setState(() {
         _index = index;
       });
     }

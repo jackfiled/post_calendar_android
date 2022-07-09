@@ -22,7 +22,7 @@ class SquidPage extends StatelessWidget {
   ];
 
   /// 活动界面的导航栏
-  final activityTabs = const <Tab>[
+  final activityTabs = const <Widget>[
     Tab(
       text: "全部",
     ),
@@ -58,7 +58,7 @@ class SquidPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        bottom: TabBar(
+        flexibleSpace: TabBar(
           controller: controller.mainTabController,
           tabs: mainTabs,
         ),
@@ -92,9 +92,10 @@ class SquidPage extends StatelessWidget {
   Widget _buildSquidActivity(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        bottom: TabBar(
+        flexibleSpace: TabBar(
           controller: controller.activityTabController,
           tabs: activityTabs,
+          isScrollable: true,
         ),
       ),
       body: TabBarView(
@@ -126,7 +127,7 @@ class SquidPage extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: f,
       child: Obx(() => ListView.builder(
-            itemCount: controller.ddlItems.length,
+            itemCount: list.length,
             itemBuilder: (context, index) {
               return _buildItemCell(context, list[index]);
             },
@@ -136,6 +137,18 @@ class SquidPage extends StatelessWidget {
 
   /// 构建每个单独的DDL事件微件
   Widget _buildItemCell(BuildContext context, DDLModel item) {
+    /// 设置标题的样式
+    const titleTextStyle = TextStyle(
+        color: Color.fromARGB(255, 0, 0, 0),
+        fontSize: 20,
+        fontWeight: FontWeight.bold);
+
+    /// 设置其他文字的样式
+    const otherTextStyle = TextStyle(
+        color: Color.fromARGB(122, 139, 136, 136),
+        fontSize: 14,
+        fontWeight: FontWeight.normal);
+
     return Container(
       margin: const EdgeInsets.all(10.0),
       alignment: Alignment.centerLeft,
@@ -153,10 +166,13 @@ class SquidPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  item.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Expanded(
+                  child: Text(
+                    item.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: titleTextStyle,
+                  ),
                 )
               ],
             ),
@@ -166,6 +182,7 @@ class SquidPage extends StatelessWidget {
                   item.details,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
+                  style: otherTextStyle,
                 ))
           ],
         ),

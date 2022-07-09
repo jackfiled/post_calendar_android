@@ -58,9 +58,9 @@ class SquidController extends GetxController with SingleGetTickerProviderMixin {
     var paras = <String, dynamic>{"class": className, "start": 0, "step": 20};
 
     if (type == ActivityType.all) {
-      paras['noticeType'] = -2;
+      paras['noticeType'] = 0;
     } else {
-      paras['noticeType'] = type;
+      paras['noticeType'] = type.index;
     }
 
     final items = await request.getList(paras);
