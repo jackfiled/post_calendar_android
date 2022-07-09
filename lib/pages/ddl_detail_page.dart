@@ -38,10 +38,6 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
           const SizedBox(
             height: 20,
           ),
-          _buildTextInputWidget("DDL地点", controller.placeTextController),
-          const SizedBox(
-            height: 20,
-          ),
           Obx(() => _buildTimePickerWidget(
               _selectDate, "DDL结束日期", controller.dateString)),
           const SizedBox(
@@ -99,10 +95,9 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
             child: TextField(
               controller: c,
               decoration: InputDecoration(
-                labelText: title,
-                labelStyle: titleTextStyle,
-                border: const OutlineInputBorder()
-              ),
+                  labelText: title,
+                  labelStyle: titleTextStyle,
+                  border: const OutlineInputBorder()),
             ),
           )
         ],
@@ -137,7 +132,7 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
               style: titleTextStyle,
             ),
             Text(
-              result, 
+              result,
               style: resultTextStyle,
             )
           ],

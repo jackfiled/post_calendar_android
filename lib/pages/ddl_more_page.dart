@@ -10,10 +10,8 @@ class DDLMorePage extends StatelessWidget {
   final _id = int.parse(Get.parameters['id']!);
   final controller = Get.put(DDLMoreController());
 
-  final titleTextStyle = const TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.bold
-  );
+  final titleTextStyle =
+      const TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
 
   final resultTextStyle = const TextStyle(
     fontSize: 20,
@@ -33,7 +31,8 @@ class DDLMorePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.create),
-            onPressed: () => Get.toNamed(RouteConfig.ddlDetailPage + "?id=$_id"),
+            onPressed: () =>
+                Get.toNamed(RouteConfig.ddlDetailPage + "?id=$_id"),
           )
         ],
       ),
@@ -43,28 +42,11 @@ class DDLMorePage extends StatelessWidget {
             children: [
               Expanded(
                 child: Center(
-                  child: Obx(() => Text(
-                    controller.name,
-                    style: titleTextStyle,
-                  ))
-                ),
+                    child: Obx(() => Text(
+                          controller.name,
+                          style: titleTextStyle,
+                        ))),
               )
-            ],
-          ),
-          const SizedBox(
-            height: 18,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "地点",
-                style: titleTextStyle,
-              ),
-              Obx(() => Text(
-                controller.place,
-                style: resultTextStyle,
-              ))
             ],
           ),
           const SizedBox(
@@ -84,9 +66,9 @@ class DDLMorePage extends StatelessWidget {
             children: [
               Expanded(
                 child: Obx(() => Text(
-                  controller.endTimeString,
-                  style: resultTextStyle,
-                )),
+                      controller.endTimeString,
+                      style: resultTextStyle,
+                    )),
               )
             ],
           ),
@@ -107,9 +89,9 @@ class DDLMorePage extends StatelessWidget {
             children: [
               Expanded(
                 child: Obx(() => Text(
-                  controller.details,
-                  style: resultTextStyle,
-                )),
+                      controller.details,
+                      style: resultTextStyle,
+                    )),
               )
             ],
           )

@@ -6,7 +6,6 @@ import 'package:post_calendar_android/database/ddl_provider.dart';
 
 class DDLDetailController extends GetxController {
   final nameTextController = TextEditingController();
-  final placeTextController = TextEditingController();
   final detailsTextController = TextEditingController();
   final provider = DDLProvider.getInstance();
 
@@ -21,7 +20,6 @@ class DDLDetailController extends GetxController {
     }
 
     nameTextController.text = item.name;
-    placeTextController.text = item.place;
     detailsTextController.text = item.details;
     endTime.value = item.endTime;
     _id = id;
@@ -48,7 +46,6 @@ class DDLDetailController extends GetxController {
   Future<void> createDDLItem() async {
     DDLModel item = DDLModel(
         name: nameTextController.text,
-        place: placeTextController.text,
         details: detailsTextController.text,
         endTime: endTime.value,
         type: -1);
