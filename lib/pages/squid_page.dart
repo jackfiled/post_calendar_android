@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
-import 'package:post_calendar_android/data_structures/activity_type.dart';
 
+import 'package:post_calendar_android/data_structures/activity_type.dart';
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 import 'package:post_calendar_android/controllers/squid_controller.dart';
+import 'package:post_calendar_android/components/squid_activity_widget.dart';
 
 class SquidPage extends StatelessWidget {
   SquidPage({Key? key}) : super(key: key);
@@ -89,6 +90,7 @@ class SquidPage extends StatelessWidget {
     );
   }
 
+  /// 构建活动页面
   Widget _buildSquidActivity(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -101,37 +103,16 @@ class SquidPage extends StatelessWidget {
       body: TabBarView(
         controller: controller.activityTabController,
         children: [
-          _buildSquidActivtyEach(context, controller.activtyItems,
-              (() => controller.refreshActivityItems(ActivityType.all))),
-          _buildSquidActivtyEach(context, controller.politicsItems,
-              (() => controller.refreshActivityItems(ActivityType.politics))),
-          _buildSquidActivtyEach(context, controller.lectureItems,
-              (() => controller.refreshActivityItems(ActivityType.lecture))),
-          _buildSquidActivtyEach(context, controller.volunterrItesm,
-              (() => controller.refreshActivityItems(ActivityType.volunteer))),
-          _buildSquidActivtyEach(context, controller.lectureItems,
-              (() => controller.refreshActivityItems(ActivityType.lecture))),
-          _buildSquidActivtyEach(context, controller.contestItems,
-              (() => controller.refreshActivityItems(ActivityType.contest))),
-          _buildSquidActivtyEach(context, controller.selectionItems,
-              (() => controller.refreshActivityItems(ActivityType.selection))),
-          _buildSquidActivtyEach(context, controller.otherItems,
-              (() => controller.refreshActivityItems(ActivityType.other))),
+          SquidActivityWidget(type: ActivityType.all),
+          SquidActivityWidget(type: ActivityType.politics),
+          SquidActivityWidget(type: ActivityType.literal),
+          SquidActivityWidget(type: ActivityType.volunteer),
+          SquidActivityWidget(type: ActivityType.lecture),
+          SquidActivityWidget(type: ActivityType.contest),
+          SquidActivityWidget(type: ActivityType.selection),
+          SquidActivityWidget(type: ActivityType.other)
         ],
       ),
-    );
-  }
-
-  Widget _buildSquidActivtyEach(
-      BuildContext context, RxList<DDLModel> list, Future<void> Function() f) {
-    return RefreshIndicator(
-      onRefresh: f,
-      child: Obx(() => ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return _buildItemCell(context, list[index]);
-            },
-          )),
     );
   }
 
