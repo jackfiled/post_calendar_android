@@ -1,4 +1,5 @@
 import 'package:post_calendar_android/database/ddl_provider.dart';
+import 'package:post_calendar_android/data_structures/squid_ddl_json.dart';
 
 class DDLModel {
   int? id;
@@ -14,12 +15,22 @@ class DDLModel {
       required this.endTime,
       required this.type});
 
+  /// 从数据库新建对象
   DDLModel.fromDB(Map<String, dynamic> map) {
     id = map[DDLProvider.columnId];
     name = map[DDLProvider.columnName];
     details = map[DDLProvider.columnDetails];
     endTime = DateTime.parse(map[DDLProvider.columnEndTime]);
     type = map[DDLProvider.columnType];
+  }
+
+  /// 从JSON数据新建对象
+  DDLModel.fromSquid(SquidDDLModel item) {
+    id = item.index_;
+    name = item.title;
+    details = item.detail;
+    endTime = DateTime.parse(item.ddl);
+    type = item.noticeType;
   }
 
   Map<String, dynamic> toMap() {

@@ -5,11 +5,10 @@ import 'dart:async';
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 
 /// 内部DDL数据库
-class DDLProvider{
+class DDLProvider {
   static const tableName = "ddl";
   static const columnId = "_id";
   static const columnName = "name";
-  static const columnPlace = "place";
   static const columnDetails = "details";
   static const columnEndTime = "end_time";
   static const columnType = "type";
@@ -29,11 +28,7 @@ class DDLProvider{
     var _path = await getDatabasesPath();
     String path = join(_path, tableName + ".db");
 
-    _database = await openDatabase(
-      path,
-      version: 1,
-      onCreate: _onCreate
-    );
+    _database = await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
   Future<void> close() async {
@@ -50,7 +45,7 @@ class DDLProvider{
     List<Map<String, dynamic>> maps = await _database.query(tableName);
     List<DDLModel> items = [];
 
-    for(var map in maps){
+    for (var map in maps) {
       items.add(DDLModel.fromDB(map));
     }
 
@@ -59,47 +54,33 @@ class DDLProvider{
 
   /// 读取一个对象
   Future<DDLModel?> read(int id) async {
-    List<Map<String, dynamic>> maps = await _database.query(
-      tableName,
-      where: "$columnId = ?",
-      whereArgs: [id]
-    );
+    List<Map<String, dynamic>> maps = await _database
+        .query(tableName, where: "$columnId = ?", whereArgs: [id]);
 
-    if(maps.isEmpty){
+    if (maps.isEmpty) {
       return null;
-    }else{
+    } else {
       return DDLModel.fromDB(maps.first);
     }
   }
 
   /// 更新一个对象
   Future<int> update(DDLModel item) async {
-    return  _database.update(
-      tableName,
-      item.toMap(),
-      where: "$columnId = ?",
-      whereArgs: [item.id]
-    );
+    return _database.update(tableName, item.toMap(),
+        where: "$columnId = ?", whereArgs: [item.id]);
   }
 
   /// 删除一个对象
   Future<int> delete(int id) async {
-    return _database.delete(
-      tableName,
-      where: "$columnId = ?",
-      whereArgs: [id]
-    );
+    return _database.delete(tableName, where: "$columnId = ?", whereArgs: [id]);
   }
 
   Future<void> _onCreate(Database db, int version) async {
-    await db.execute(
-        "create table $tableName"
+    await db.execute("create table $tableName"
         "($columnId integer primary key autoincrement,"
         "$columnName text,"
-        "$columnPlace text,"
         "$columnDetails text,"
         "$columnEndTime text,"
-        "$columnType int)"
-    );
+        "$columnType int)");
   }
 }

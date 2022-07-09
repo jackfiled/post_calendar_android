@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:post_calendar_android/data_structures/activity_type.dart';
 
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 import 'package:post_calendar_android/controllers/squid_controller.dart';
@@ -24,12 +25,6 @@ class SquidPage extends StatelessWidget {
   final activityTabs = const <Tab>[
     Tab(
       text: "全部",
-    ),
-    Tab(
-      text: "DDL",
-    ),
-    Tab(
-      text: "活动",
     ),
     Tab(
       text: "思政",
@@ -56,6 +51,11 @@ class SquidPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.refreshDDLItems();
+    for (var type in ActivityType.values) {
+      controller.refreshActivityItems(type);
+    }
+
     return Scaffold(
       appBar: AppBar(
         bottom: TabBar(
@@ -76,7 +76,7 @@ class SquidPage extends StatelessWidget {
   /// 构建DDL页面
   Widget _buildSquidDDL(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () {},
+      onRefresh: controller.refreshDDLItems,
       child: Obx(() => ListView.builder(
             itemCount: controller.ddlItems.length,
             itemBuilder: (context, index) {
@@ -99,8 +99,38 @@ class SquidPage extends StatelessWidget {
       ),
       body: TabBarView(
         controller: controller.activityTabController,
-        children: [],
+        children: [
+          _buildSquidActivtyEach(context, controller.activtyItems,
+              (() => controller.refreshActivityItems(ActivityType.all))),
+          _buildSquidActivtyEach(context, controller.politicsItems,
+              (() => controller.refreshActivityItems(ActivityType.politics))),
+          _buildSquidActivtyEach(context, controller.lectureItems,
+              (() => controller.refreshActivityItems(ActivityType.lecture))),
+          _buildSquidActivtyEach(context, controller.volunterrItesm,
+              (() => controller.refreshActivityItems(ActivityType.volunteer))),
+          _buildSquidActivtyEach(context, controller.lectureItems,
+              (() => controller.refreshActivityItems(ActivityType.lecture))),
+          _buildSquidActivtyEach(context, controller.contestItems,
+              (() => controller.refreshActivityItems(ActivityType.contest))),
+          _buildSquidActivtyEach(context, controller.selectionItems,
+              (() => controller.refreshActivityItems(ActivityType.selection))),
+          _buildSquidActivtyEach(context, controller.otherItems,
+              (() => controller.refreshActivityItems(ActivityType.other))),
+        ],
       ),
+    );
+  }
+
+  Widget _buildSquidActivtyEach(
+      BuildContext context, RxList<DDLModel> list, Future<void> Function() f) {
+    return RefreshIndicator(
+      onRefresh: f,
+      child: Obx(() => ListView.builder(
+            itemCount: controller.ddlItems.length,
+            itemBuilder: (context, index) {
+              return _buildItemCell(context, list[index]);
+            },
+          )),
     );
   }
 
@@ -131,25 +161,12 @@ class SquidPage extends StatelessWidget {
               ],
             ),
             Container(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(bottom: 3.0),
-                    child: Text(
-                      item.place,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Text(
-                    item.details,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  )
-                ],
-              ),
-            )
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                  item.details,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ))
           ],
         ),
       ),
