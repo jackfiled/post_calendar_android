@@ -54,9 +54,6 @@ class SquidPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.refreshDDLItems();
-    for (var type in ActivityType.values) {
-      controller.refreshActivityItems(type);
-    }
 
     return Scaffold(
       appBar: AppBar(

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 import 'package:post_calendar_android/database/squid_ddl_provider.dart';
 import 'package:post_calendar_android/network/squid_request.dart';
-import 'package:post_calendar_android/data_structures/activity_type.dart';
 
 /// 章鱼页面控制器
 // 为了使用tabController 似乎必须使用这个被弃用的类
@@ -18,14 +17,6 @@ class SquidController extends GetxController with SingleGetTickerProviderMixin {
 
   // 显示各种对象的列表
   final ddlItems = <DDLModel>[].obs;
-  final activtyItems = <DDLModel>[].obs;
-  final otherItems = <DDLModel>[].obs;
-  final politicsItems = <DDLModel>[].obs;
-  final literalItems = <DDLModel>[].obs;
-  final volunterrItesm = <DDLModel>[].obs;
-  final lectureItems = <DDLModel>[].obs;
-  final contestItems = <DDLModel>[].obs;
-  final selectionItems = <DDLModel>[].obs;
 
   final className = "dddd";
 
@@ -51,69 +42,6 @@ class SquidController extends GetxController with SingleGetTickerProviderMixin {
 
     for (var item in squidDDLItems) {
       ddlItems.add(DDLModel.fromSquid(item));
-    }
-  }
-
-  Future<void> refreshActivityItems(ActivityType type) async {
-    var paras = <String, dynamic>{"class": className, "start": 0, "step": 20};
-
-    if (type == ActivityType.all) {
-      paras['noticeType'] = 0;
-    } else {
-      paras['noticeType'] = type.index;
-    }
-
-    final items = await request.getList(paras);
-
-    switch (type) {
-      case ActivityType.all:
-        activtyItems.clear();
-        for (var item in items) {
-          activtyItems.add(DDLModel.fromSquid(item));
-        }
-        break;
-      case ActivityType.politics:
-        politicsItems.clear();
-        for (var item in items) {
-          politicsItems.add(DDLModel.fromSquid(item));
-        }
-        break;
-      case ActivityType.literal:
-        literalItems.clear();
-        for (var item in items) {
-          literalItems.add(DDLModel.fromSquid(item));
-        }
-        break;
-      case ActivityType.volunteer:
-        volunterrItesm.clear();
-        for (var item in items) {
-          volunterrItesm.add(DDLModel.fromSquid(item));
-        }
-        break;
-      case ActivityType.contest:
-        contestItems.clear();
-        for (var item in items) {
-          contestItems.add(DDLModel.fromSquid(item));
-        }
-        break;
-      case ActivityType.lecture:
-        lectureItems.clear();
-        for (var item in items) {
-          lectureItems.add(DDLModel.fromSquid(item));
-        }
-        break;
-      case ActivityType.selection:
-        selectionItems.clear();
-        for (var item in items) {
-          selectionItems.add(DDLModel.fromSquid(item));
-        }
-        break;
-      case ActivityType.other:
-        otherItems.clear();
-        for (var item in items) {
-          otherItems.add(DDLModel.fromSquid(item));
-        }
-        break;
     }
   }
 }
