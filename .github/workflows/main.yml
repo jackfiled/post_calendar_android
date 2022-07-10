@@ -35,5 +35,15 @@ jobs:
       # 构建
       - run: flutter build apk
 
+      # 发布
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+
 
 
