@@ -3,22 +3,25 @@ import 'package:get/get.dart';
 import 'package:post_calendar_android/data_structures/calendar_model.dart';
 import 'package:post_calendar_android/database/calendar_provider.dart';
 
-class CalendarController extends GetxController{
+class CalendarController extends GetxController {
   /// 当前周的第一天
-  var weekFirstDay = DateTime.now().add(Duration(days: 1 - DateTime.now().weekday)).obs;
+  var weekFirstDay =
+      DateTime.now().add(Duration(days: 1 - DateTime.now().weekday)).obs;
 
   var weekItems = (<CalendarModel>[]).obs;
 
   var provider = CalendarProvider.getInstance();
 
   /// 下一周
-  void nextWeek(){
+  void nextWeek() {
     weekFirstDay.value = weekFirstDay.value.add(const Duration(days: 7));
+    refreshItems();
   }
 
   /// 上一周
-  void lastWeek(){
+  void lastWeek() {
     weekFirstDay.value = weekFirstDay.value.add(const Duration(days: -7));
+    refreshItems();
   }
 
   Future<void> refreshItems() async {
@@ -26,33 +29,27 @@ class CalendarController extends GetxController{
 
     weekItems.clear();
 
-    for(var item in items) {
-      if(monday.compareTo(item.beginTime) < 0 && sunday.compareTo(item.beginTime) > 0){
+    for (var item in items) {
+      if (monday.compareTo(item.beginTime) < 0 &&
+          sunday.compareTo(item.beginTime) > 0) {
         weekItems.add(item);
       }
     }
   }
 
-  DateTime get monday =>
-      weekFirstDay.value;
+  DateTime get monday => weekFirstDay.value;
 
-  DateTime get tuesday =>
-      weekFirstDay.value.add(const Duration(days: 1));
+  DateTime get tuesday => weekFirstDay.value.add(const Duration(days: 1));
 
-  DateTime get wednesday =>
-      weekFirstDay.value.add(const Duration(days: 2));
+  DateTime get wednesday => weekFirstDay.value.add(const Duration(days: 2));
 
-  DateTime get thursday =>
-      weekFirstDay.value.add(const Duration(days: 3));
+  DateTime get thursday => weekFirstDay.value.add(const Duration(days: 3));
 
-  DateTime get friday =>
-      weekFirstDay.value.add(const Duration(days: 4));
+  DateTime get friday => weekFirstDay.value.add(const Duration(days: 4));
 
-  DateTime get saturday =>
-      weekFirstDay.value.add(const Duration(days: 5));
+  DateTime get saturday => weekFirstDay.value.add(const Duration(days: 5));
 
-  DateTime get sunday =>
-      weekFirstDay.value.add(const Duration(days: 6));
+  DateTime get sunday => weekFirstDay.value.add(const Duration(days: 6));
 
   Iterable<CalendarModel> get mondayItems =>
       weekItems.where((item) => item.beginTime.weekday == DateTime.monday);
@@ -74,5 +71,4 @@ class CalendarController extends GetxController{
 
   Iterable<CalendarModel> get sundayItems =>
       weekItems.where((item) => item.beginTime.weekday == DateTime.sunday);
-
 }
