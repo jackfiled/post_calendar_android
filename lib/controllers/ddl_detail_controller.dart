@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 import 'package:post_calendar_android/database/ddl_provider.dart';
+import 'package:post_calendar_android/data_structures/ddl_status.dart';
 
 class DDLDetailController extends GetxController {
   final nameTextController = TextEditingController();
@@ -48,7 +49,8 @@ class DDLDetailController extends GetxController {
         name: nameTextController.text,
         details: detailsTextController.text,
         endTime: endTime.value,
-        type: -1);
+        type: -1,
+        status: DDLStatus.todo);
 
     if (_id == null) {
       await provider.create(item);

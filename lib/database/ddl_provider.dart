@@ -12,6 +12,7 @@ class DDLProvider {
   static const columnDetails = "details";
   static const columnEndTime = "end_time";
   static const columnType = "type";
+  static const columnStatus = "status";
 
   late Database _database;
 
@@ -81,6 +82,7 @@ class DDLProvider {
         "$columnName text,"
         "$columnDetails text,"
         "$columnEndTime text,"
-        "$columnType int)");
+        "$columnType int,"
+        "$columnStatus int)");
   }
 }

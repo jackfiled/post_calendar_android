@@ -7,6 +7,7 @@ import 'package:post_calendar_android/data_structures/ddl_model.dart';
 import 'package:post_calendar_android/controllers/squid_activity_controller.dart';
 import 'package:post_calendar_android/routes/route_config.dart';
 
+// ignore: must_be_immutable
 class SquidActivityWidget extends StatelessWidget {
   final ActivityType type;
   late SquidActivityController controller;
