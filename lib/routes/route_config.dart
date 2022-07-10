@@ -5,8 +5,9 @@ import 'package:post_calendar_android/pages/home_page.dart';
 import 'package:post_calendar_android/pages/calendar_detail_page.dart';
 import 'package:post_calendar_android/pages/ddl_detail_page.dart';
 import 'package:post_calendar_android/pages/calendar_more_page.dart';
+import 'package:post_calendar_android/pages/squid_more_page.dart';
 
-class RouteConfig{
+class RouteConfig {
   /// 主界面
   static const String main = "/";
 
@@ -19,11 +20,14 @@ class RouteConfig{
 
   static const String ddlMorePage = "/DDLMorePage";
 
+  static const String squidMorePage = "/SquidMorePage";
+
   static final List<GetPage> getPages = [
     GetPage(name: main, page: () => const HomePage()),
     GetPage(name: calendarDetailPage, page: () => const CalendarDetailPage()),
     GetPage(name: ddlDetailPage, page: () => const DDLDetailPage()),
     GetPage(name: calendarMorePage, page: () => CalendarMorePage()),
-    GetPage(name: ddlMorePage, page: () => DDLMorePage())
+    GetPage(name: ddlMorePage, page: () => DDLMorePage()),
+    GetPage(name: squidMorePage, page: () => SquidMorePage())
   ];
 }

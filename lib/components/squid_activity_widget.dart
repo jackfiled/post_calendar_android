@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:post_calendar_android/data_structures/activity_type.dart';
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 import 'package:post_calendar_android/controllers/squid_activity_controller.dart';
+import 'package:post_calendar_android/routes/route_config.dart';
 
 class SquidActivityWidget extends StatelessWidget {
   final ActivityType type;
@@ -46,53 +47,55 @@ class SquidActivityWidget extends StatelessWidget {
         fontWeight: FontWeight.normal);
 
     return Container(
-      margin: const EdgeInsets.all(10.0),
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(Radius.circular(3)),
-          border: Border.all(
-              width: 2, color: const Color.fromARGB(122, 123, 123, 123))),
-      child: Slidable(
-        key: const ValueKey(0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
+        margin: const EdgeInsets.all(10.0),
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(3)),
+            border: Border.all(
+                width: 2, color: const Color.fromARGB(122, 123, 123, 123))),
+        child: GestureDetector(
+          onTap: () => Get.toNamed(RouteConfig.squidMorePage, arguments: item),
+          child: Slidable(
+            key: const ValueKey(0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        item.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: titleTextStyle,
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 5.0),
+                  alignment: Alignment.centerLeft,
                   child: Text(
-                    item.name,
+                    "${item.endTime.year}年${item.endTime.month}月${item.endTime.day}日",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: titleTextStyle,
+                    style: otherTextStyle,
                   ),
-                )
+                ),
+                Container(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Text(
+                      item.details,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: otherTextStyle,
+                    ))
               ],
             ),
-            Container(
-              padding: const EdgeInsets.only(bottom: 5.0),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "${item.endTime.year}年${item.endTime.month}月${item.endTime.day}日",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: otherTextStyle,
-              ),
-            ),
-            Container(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  item.details,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: otherTextStyle,
-                ))
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
