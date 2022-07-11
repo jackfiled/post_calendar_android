@@ -59,60 +59,70 @@ class DDLPage extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(3)),
             border: Border.all(
                 width: 2, color: const Color.fromARGB(122, 123, 123, 123))),
-        child: Slidable(
-          key: const ValueKey(0),
-          endActionPane: ActionPane(
-            motion: const BehindMotion(),
-            children: [
-              SlidableAction(
-                // 完成按钮
-                onPressed: (context) {},
-                backgroundColor: Colors.green,
-                foregroundColor: Colors.white,
-                icon: Icons.check,
-              ),
-              SlidableAction(
-                // 编辑按钮
-                onPressed: (context) {
-                  Get.toNamed(RouteConfig.ddlDetailPage + "?id=${item.id}");
-                },
-                backgroundColor: Colors.orange,
-                foregroundColor: Colors.white,
-                icon: Icons.create,
-              ),
-              SlidableAction(
-                // 删除按钮
-                onPressed: (context) {},
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-                icon: Icons.delete,
-              )
-            ],
-          ),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+        child: GestureDetector(
+          onTap: () {
+            Get.toNamed(RouteConfig.ddlMorePage + "?id=${item.id!}");
+          },
+          child: Slidable(
+            key: const ValueKey(0),
+            endActionPane: ActionPane(
+              motion: const BehindMotion(),
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      item.name,
-                      style: titleTextStyle,
-                    ),
-                    Text(
-                      "${item.endTime.month}月${item.endTime.day}日",
-                      style: otherTextStyle,
-                    )
-                  ],
+                SlidableAction(
+                  // 完成按钮
+                  onPressed: (context) {
+                    controller.finishItem(item.id!);
+                  },
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  icon: Icons.check,
                 ),
-                Container(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(item.details,
+                SlidableAction(
+                  // 编辑按钮
+                  onPressed: (context) {
+                    Get.toNamed(RouteConfig.ddlDetailPage + "?id=${item.id}");
+                  },
+                  backgroundColor: Colors.orange,
+                  foregroundColor: Colors.white,
+                  icon: Icons.create,
+                ),
+                SlidableAction(
+                  // 删除按钮
+                  onPressed: (context) {
+                    controller.deleteItem(item.id!);
+                  },
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  icon: Icons.delete,
+                )
+              ],
+            ),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        item.name,
+                        style: titleTextStyle,
+                      ),
+                      Text(
+                        "${item.endTime.month}月${item.endTime.day}日",
                         style: otherTextStyle,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis)),
-              ]),
-        ));
+                      )
+                    ],
+                  ),
+                  Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(item.details,
+                          style: otherTextStyle,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis)),
+                ]),
+          ),
+        )
+    );
   }
 }
