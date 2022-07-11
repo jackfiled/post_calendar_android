@@ -45,6 +45,20 @@ class DDLDetailController extends GetxController {
 
   /// 创建或者修改数据库中的数据
   Future<void> createDDLItem() async {
+    // 检查标题是否为空
+    if (nameTextController.text.isEmpty) {
+      Get.snackbar("出错了！", "标题怎么能为空（恼）");
+      return;
+    }
+
+    // 检车结束时间是否正确
+    if(checkEndTime(endTime.value) == false){
+      Get.snackbar("出错了！", "开始之间就结束了是吧");
+      return;
+    }
+
+    Get.back();
+
     DDLModel item = DDLModel(
         name: nameTextController.text,
         details: detailsTextController.text,
@@ -57,6 +71,17 @@ class DDLDetailController extends GetxController {
     } else {
       item.id = _id;
       await provider.update(item);
+    }
+  }
+
+  /// 检验时间的有效性
+  bool checkEndTime(DateTime endTime) {
+    final today = DateTime.now();
+
+    if (endTime.isBefore(today)) {
+      return false;
+    } else {
+      return true;
     }
   }
 

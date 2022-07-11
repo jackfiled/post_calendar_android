@@ -36,67 +36,70 @@ class DDLMorePage extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Center(
-                    child: Obx(() => Text(
-                          controller.name,
-                          style: titleTextStyle,
-                        ))),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 18,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "结束时间",
-                  style: titleTextStyle,
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Obx(() => Text(
-                      controller.endTimeString,
-                      style: resultTextStyle,
-                    )),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 18,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  "详情",
-                  style: titleTextStyle,
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Obx(() => Text(
-                      controller.details,
-                      style: resultTextStyle,
-                    )),
-              )
-            ],
-          )
-        ],
-      ),
+      body: RefreshIndicator(
+        onRefresh: () => controller.initContent(_id),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Center(
+                      child: Obx(() => Text(
+                        controller.name,
+                        style: titleTextStyle,
+                      ))),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "结束时间",
+                    style: titleTextStyle,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Obx(() => Text(
+                    controller.endTimeString,
+                    style: resultTextStyle,
+                  )),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "详情",
+                    style: titleTextStyle,
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Obx(() => Text(
+                    controller.details,
+                    style: resultTextStyle,
+                  )),
+                )
+              ],
+            )
+          ],
+        ),
+      )
     );
   }
 }

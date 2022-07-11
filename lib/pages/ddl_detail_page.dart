@@ -20,6 +20,8 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    controller.initContent(_id);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_id == 0 ? "添加DDL" : "修改DDL"),
@@ -63,7 +65,6 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
   /// 确定按钮点击
   void _confirmButtonClicked() {
     controller.createDDLItem();
-    _close();
   }
 
   void _selectDate() {
