@@ -96,7 +96,6 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
   /// 点击确认按钮
   void _confirmButtonClicked() {
     controller.createCalendarItem();
-    _close();
   }
 
   /// 构建输入文字的微件

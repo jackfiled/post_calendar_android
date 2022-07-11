@@ -68,6 +68,29 @@ class CalendarDetailController extends GetxController{
   }
 
   Future<void> createCalendarItem() async {
+    // 检查标题
+    if(nameTextController.text.isEmpty){
+      Get.snackbar("出错啦", "有没有一种可能，创建日程需要标题");
+      return;
+    }
+
+    // 检查开始时间是否早于结束时间
+    if(beginTime.value.isAfter(endTime.value)){
+      Get.snackbar("出错啦", "做事得先开始再结束");
+      return;
+    }
+
+    // 检查持续时间是否超过一天
+    if(beginTime.value.year != endTime.value.year
+    || beginTime.value.month != endTime.value.month
+    || beginTime.value.day != endTime.value.day){
+      Get.snackbar("出错啦", "不会支持长达一天的事件");
+      return;
+    }
+
+    // 所有的检查都通过再退回到日历界面
+    Get.back();
+
     CalendarModel item = CalendarModel.inner(
         name: nameTextController.text,
         place: placeTextController.text,
