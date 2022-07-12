@@ -104,14 +104,13 @@ class DDLPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      Expanded(
+                          child: Text(
                         item.name,
                         style: titleTextStyle,
-                      ),
-                      Text(
-                        "${item.endTime.month}月${item.endTime.day}日",
-                        style: otherTextStyle,
-                      )
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ))
                     ],
                   ),
                   Container(
@@ -122,7 +121,6 @@ class DDLPage extends StatelessWidget {
                           overflow: TextOverflow.ellipsis)),
                 ]),
           ),
-        )
-    );
+        ));
   }
 }

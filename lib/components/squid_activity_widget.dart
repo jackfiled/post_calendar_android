@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import 'package:post_calendar_android/data_structures/activity_type.dart';
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 import 'package:post_calendar_android/controllers/squid_activity_controller.dart';
+import 'package:post_calendar_android/database/ddl_provider.dart';
 import 'package:post_calendar_android/routes/route_config.dart';
 
 // ignore: must_be_immutable
 class SquidActivityWidget extends StatelessWidget {
   final ActivityType type;
+  final ddlProvider = DDLProvider.getInstance();
   late SquidActivityController controller;
 
   SquidActivityWidget({Key? key, required this.type}) : super(key: key) {
@@ -43,7 +45,7 @@ class SquidActivityWidget extends StatelessWidget {
 
     /// 设置其他文字的样式
     const otherTextStyle = TextStyle(
-        color: Color.fromARGB(122, 139, 136, 136),
+        color: Color.fromARGB(122, 128, 128, 128),
         fontSize: 14,
         fontWeight: FontWeight.normal);
 
@@ -96,7 +98,28 @@ class SquidActivityWidget extends StatelessWidget {
                     ))
               ],
             ),
+            endActionPane: ActionPane(
+              motion: const BehindMotion(),
+              children: [
+                SlidableAction(
+                  onPressed: (context) {
+                    squid2DDL(item);
+                  },
+                  backgroundColor: Colors.orange,
+                  foregroundColor: Colors.white,
+                  icon: Icons.add,
+                )
+              ],
+            ),
           ),
         ));
+  }
+
+  Future<void> squid2DDL(DDLModel item) async {
+    // 添加进数据库的对象应该不设置id
+    item.id = null;
+    await ddlProvider.create(item);
+
+    Get.snackbar("添加成功", "${item.name}已添加到DDL");
   }
 }

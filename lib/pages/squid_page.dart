@@ -6,12 +6,14 @@ import 'package:post_calendar_android/data_structures/activity_type.dart';
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
 import 'package:post_calendar_android/controllers/squid_controller.dart';
 import 'package:post_calendar_android/components/squid_activity_widget.dart';
+import 'package:post_calendar_android/database/ddl_provider.dart';
 import 'package:post_calendar_android/routes/route_config.dart';
 
 class SquidPage extends StatelessWidget {
   SquidPage({Key? key}) : super(key: key);
 
   final controller = Get.put(SquidController());
+  final ddlProvider = DDLProvider.getInstance();
 
   /// 顶部的导航栏对象列表
   final mainTabs = const <Tab>[
@@ -167,7 +169,30 @@ class SquidPage extends StatelessWidget {
                     ))
               ],
             ),
+            endActionPane: ActionPane(
+              motion: const BehindMotion(),
+              children: [
+                SlidableAction(
+                  onPressed: (context) {
+                    squid2DDL(item);
+                  },
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.orange,
+                  icon: Icons.add
+                )
+              ],
+            ),
           ),
-        ));
+        )
+    );
+  }
+
+  /// 添加到DDL数据库
+  Future<void> squid2DDL(DDLModel item) async {
+    // 添加进数据库中的对象不需要ID
+    item.id = null;
+    await ddlProvider.create(item);
+
+    Get.snackbar("添加成功", "${item.name}添加到DDL");
   }
 }
