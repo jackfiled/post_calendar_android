@@ -87,15 +87,22 @@ class DDLMorePage extends StatelessWidget {
                 )
               ],
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Obx(() => Text(
-                    controller.details,
-                    style: resultTextStyle,
-                  )),
+            Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return SizedBox(
+                      height: constraints.maxHeight,
+                      child: Scrollbar(
+                          child: SingleChildScrollView(
+                            child: Obx(() => Text(
+                              controller.details,
+                              style: resultTextStyle,
+                            )),
+                          )
+                      ),
+                    );
+                  },
                 )
-              ],
             )
           ],
         ),
