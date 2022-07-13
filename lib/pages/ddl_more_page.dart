@@ -51,7 +51,7 @@ class DDLMorePage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     "结束时间",
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 )
               ],
@@ -61,7 +61,7 @@ class DDLMorePage extends StatelessWidget {
                 Expanded(
                   child: Obx(() => Text(
                     controller.endTimeString,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyText2,
                   )),
                 )
               ],
@@ -74,7 +74,7 @@ class DDLMorePage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     "详情",
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 )
               ],
@@ -88,7 +88,7 @@ class DDLMorePage extends StatelessWidget {
                           child: SingleChildScrollView(
                             child: Obx(() => Text(
                               controller.details,
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyText2,
                             )),
                           )
                       ),

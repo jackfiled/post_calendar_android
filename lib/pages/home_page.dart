@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           "邮历",
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headline5,
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

@@ -95,7 +95,7 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
               controller: c,
               decoration: InputDecoration(
                   labelText: title,
-                  labelStyle: Theme.of(context).textTheme.headline5,
+                  labelStyle: Theme.of(context).textTheme.headline4,
                   border: const OutlineInputBorder()),
             ),
           )
@@ -122,11 +122,11 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             Text(
               result,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyText2,
             )
           ],
         ),

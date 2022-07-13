@@ -9,14 +9,6 @@ class SquidMorePage extends StatelessWidget {
 
   final DDLModel item = Get.arguments;
 
-  final titleTextStyle =
-      const TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
-
-  final resultTextStyle = const TextStyle(
-    fontSize: 20,
-    color: Colors.grey,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +39,11 @@ class SquidMorePage extends StatelessWidget {
             children: [
               Text(
                 "DDL",
-                style: titleTextStyle,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
               Text(
                 "${item.endTime.month}月${item.endTime.day}日",
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyText2,
               )
             ],
           ),
@@ -66,7 +58,7 @@ class SquidMorePage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Text(
                         item.details,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
                     ),
                   ));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:post_calendar_android/configurations/themes.dart';
 import 'package:post_calendar_android/routes/route_config.dart';
 import 'package:post_calendar_android/database/calendar_provider.dart';
 import 'package:post_calendar_android/database/ddl_provider.dart';
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       initialRoute: RouteConfig.main,
       getPages: RouteConfig.getPages,
+      theme: Themes.light,
     );
   }
 

@@ -48,21 +48,20 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
             const SizedBox(
               height: 20,
             ),
-            Obx(() =>
-                _buildTimePickerWidget(
-                    _selectDate, "日程日期", controller.dateString)),
+            Obx(() => _buildTimePickerWidget(
+                _selectDate, "日程日期", controller.dateString)),
             const SizedBox(
               height: 20,
             ),
-            Obx(() =>
-                _buildTimePickerWidget(
-                    _selectBeginTime, "日程开始时间", controller.beginTimeString),),
+            Obx(
+              () => _buildTimePickerWidget(
+                  _selectBeginTime, "日程开始时间", controller.beginTimeString),
+            ),
             const SizedBox(
               height: 20,
             ),
-            Obx(() =>
-                _buildTimePickerWidget(
-                    _selectEndTime, "日程结束时间", controller.endTimeString)),
+            Obx(() => _buildTimePickerWidget(
+                _selectEndTime, "日程结束时间", controller.endTimeString)),
             _buildTextInputWidget("日程明细", controller.detailsTextController)
           ],
         ),
@@ -118,9 +117,8 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
               controller: c,
               decoration: InputDecoration(
                   labelText: title,
-                  labelStyle: Theme.of(context).textTheme.headline5,
-                  border: const OutlineInputBorder()
-              ),
+                  labelStyle: Theme.of(context).textTheme.subtitle1,
+                  border: const OutlineInputBorder()),
             ),
           )
         ],
@@ -135,8 +133,8 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
   /// [title] 标题
   ///
   /// [result] 选择的结果
-  Widget _buildTimePickerWidget(void Function() tapFunction, String title,
-      String result) {
+  Widget _buildTimePickerWidget(
+      void Function() tapFunction, String title, String result) {
     return GestureDetector(
       onTap: tapFunction,
       child: SizedBox(
@@ -146,11 +144,11 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             Text(
               result,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyText2,
             )
           ],
         ),
