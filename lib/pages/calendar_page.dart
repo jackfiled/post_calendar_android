@@ -40,71 +40,69 @@ class CalendarPage extends StatelessWidget {
                       7: const FlexColumnWidth()
                     },
                     children: [
-                        TableRow(
-                          children: [
-                            _buildTimeColumnWidget(),
-                            SizedBox(
-                              height: _columnAllHeight,
-                              child: Obx(() => Stack(
-                                children: _buildCalendarWidgets(controller.mondayItems),
-                                )
-                              ),
-                            ),
-                            SizedBox(
-                              height: _columnAllHeight,
-                              child: Obx(() => Stack(
-                                children: _buildCalendarWidgets(controller.tuesdayItems),
-                                )
-                              ),
-                            ),
-                            SizedBox(
-                              height: _columnAllHeight,
-                              child: Obx(() => Stack(
-                                children: _buildCalendarWidgets(controller.wednesdayItems),
-                                )
-                              ),
-                            ),
-                            SizedBox(
-                              height: _columnAllHeight,
-                              child: Obx(() => Stack(
-                                children: _buildCalendarWidgets(controller.thursdayItems),
-                                )
-                              ),
-                            ),
-                            SizedBox(
-                              height: _columnAllHeight,
-                              child: Obx(() => Stack(
-                                children: _buildCalendarWidgets(controller.fridayItems),
-                                )
-                              ),
-                            ),
-                            SizedBox(
-                              height: _columnAllHeight,
-                              child: Obx(() => Stack(
-                                children: _buildCalendarWidgets(controller.saturdayItems),
-                                )
-                              ),
-                            ),
-                            SizedBox(
-                              height: _columnAllHeight,
-                              child: Obx(() => Stack(
-                                children: _buildCalendarWidgets(controller.sundayItems),
-                                )
-                              ),
-                            ),
-                          ]
-                        )
+                      TableRow(children: [
+                        _buildTimeColumnWidget(),
+                        SizedBox(
+                          height: _columnAllHeight,
+                          child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(
+                                    controller.mondayItems),
+                              )),
+                        ),
+                        SizedBox(
+                          height: _columnAllHeight,
+                          child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(
+                                    controller.tuesdayItems),
+                              )),
+                        ),
+                        SizedBox(
+                          height: _columnAllHeight,
+                          child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(
+                                    controller.wednesdayItems),
+                              )),
+                        ),
+                        SizedBox(
+                          height: _columnAllHeight,
+                          child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(
+                                    controller.thursdayItems),
+                              )),
+                        ),
+                        SizedBox(
+                          height: _columnAllHeight,
+                          child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(
+                                    controller.fridayItems),
+                              )),
+                        ),
+                        SizedBox(
+                          height: _columnAllHeight,
+                          child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(
+                                    controller.saturdayItems),
+                              )),
+                        ),
+                        SizedBox(
+                          height: _columnAllHeight,
+                          child: Obx(() => Stack(
+                                children: _buildCalendarWidgets(
+                                    controller.sundayItems),
+                              )),
+                        ),
+                      ])
                     ],
                   ),
                 ),
                 onRefresh: controller.refreshItems,
               ),
-              onHorizontalDragEnd: (detail){
+              onHorizontalDragEnd: (detail) {
                 final direction = detail.velocity.pixelsPerSecond.direction;
-                if(direction >= - pi / 2 && direction < pi / 2){
+                if (direction >= -pi / 2 && direction < pi / 2) {
                   // 向右划
                   controller.lastWeek();
-                }else{
+                } else {
                   // 向左划
                   controller.nextWeek();
                 }
@@ -116,7 +114,7 @@ class CalendarPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         mini: true,
-        onPressed: (){
+        onPressed: () {
           Get.toNamed(RouteConfig.calendarDetailPage + "?id=0");
         },
       ),
@@ -124,10 +122,10 @@ class CalendarPage extends StatelessWidget {
   }
 
   /// 获得每天的日历事件列表
-  List<Widget> _buildCalendarWidgets(Iterable<CalendarModel> items){
+  List<Widget> _buildCalendarWidgets(Iterable<CalendarModel> items) {
     List<Widget> list = [];
 
-    for(var item in items){
+    for (var item in items) {
       list.add(_buildSingleCalendarWidget(item));
     }
 
@@ -144,8 +142,14 @@ class CalendarPage extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
-              Text(item.name),
-              Text(item.details)
+              Text(
+                item.name,
+                style: Theme.of(Get.context!).textTheme.headline6,
+              ),
+              Text(
+                  item.details,
+                style: Theme.of(Get.context!).textTheme.bodyText2,
+              )
             ],
           ),
           decoration: BoxDecoration(
@@ -163,7 +167,7 @@ class CalendarPage extends StatelessWidget {
   }
 
   /// 日历表头
-  Widget _buildCalendarDataHead(){
+  Widget _buildCalendarDataHead() {
     return Table(
       columnWidths: const <int, TableColumnWidth>{
         0: FixedColumnWidth(50),
@@ -176,129 +180,123 @@ class CalendarPage extends StatelessWidget {
         7: FlexColumnWidth()
       },
       children: [
-        TableRow(
-          children: [
-            Container(
-              height: 20,
-              color: Colors.blue,
+        TableRow(children: [
+          Container(
+            height: 20,
+            color: Colors.blue,
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周一"),
             ),
-            Container(
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周二"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周三"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周四"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周五"),
+            ),
+          ),
+          Container(
+            height: 20,
+            color: Colors.blue,
+            child: const Center(
+              child: Text("周六"),
+            ),
+          ),
+          Container(
               height: 20,
               color: Colors.blue,
               child: const Center(
-                child: Text("周一"),
-              ),
-            ),
-            Container(
+                child: Text("周日"),
+              )),
+        ]),
+        TableRow(children: [
+          Container(
               height: 20,
               color: Colors.blue,
               child: const Center(
-                child: Text("周二"),
-              ),
-            ),
-            Container(
+                child: Text("时间"),
+              )),
+          Container(
               height: 20,
               color: Colors.blue,
-              child: const Center(
-                child: Text("周三"),
-              ),
-            ),
-            Container(
+              child: Center(
+                child: Obx(() => Text(
+                    "${controller.monday.month}-${controller.monday.day}")),
+              )),
+          Container(
               height: 20,
               color: Colors.blue,
-              child: const Center(
-                child: Text("周四"),
-              ),
-            ),
-            Container(
+              child: Center(
+                child: Obx(() => Text(
+                    "${controller.tuesday.month}-${controller.tuesday.day}")),
+              )),
+          Container(
               height: 20,
               color: Colors.blue,
-              child: const Center(
-                child: Text("周五"),
-              ),
-            ),
-            Container(
+              child: Center(
+                child: Obx(() => Text(
+                    "${controller.wednesday.month}-${controller.wednesday.day}")),
+              )),
+          Container(
               height: 20,
               color: Colors.blue,
-              child: const Center(
-                child: Text("周六"),
-              ),
-            ),
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("周日"),
-                )
-            ),
-          ]
-        ),
-        TableRow(
-          children: [
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("时间"),
-                )
-            ),
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child:  Center(
-                  child: Obx(() => Text("${controller.monday.month}-${controller.monday.day}")),
-                )
-            ),
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child:  Center(
-                  child: Obx(() => Text("${controller.tuesday.month}-${controller.tuesday.day}")),
-                )
-            ),
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child:  Center(
-                  child: Obx(() => Text("${controller.wednesday.month}-${controller.wednesday.day}")),
-                )
-            ),
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child:  Center(
-                  child: Obx(() => Text("${controller.thursday.month}-${controller.thursday.day}")),
-                )
-            ),
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child:  Center(
-                  child: Obx(() => Text("${controller.friday.month}-${controller.friday.day}")),
-                )
-            ),
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child:  Center(
-                  child: Obx(() => Text("${controller.saturday.month}-${controller.saturday.day}")),
-                )
-            ),
-            Container(
-                height: 20,
-                color: Colors.blue,
-                child:  Center(
-                  child: Obx(() => Text("${controller.sunday.month}-${controller.sunday.day}")),
-                )
-            ),
-          ]
-        )
+              child: Center(
+                child: Obx(() => Text(
+                    "${controller.thursday.month}-${controller.thursday.day}")),
+              )),
+          Container(
+              height: 20,
+              color: Colors.blue,
+              child: Center(
+                child: Obx(() => Text(
+                    "${controller.friday.month}-${controller.friday.day}")),
+              )),
+          Container(
+              height: 20,
+              color: Colors.blue,
+              child: Center(
+                child: Obx(() => Text(
+                    "${controller.saturday.month}-${controller.saturday.day}")),
+              )),
+          Container(
+              height: 20,
+              color: Colors.blue,
+              child: Center(
+                child: Obx(() => Text(
+                    "${controller.sunday.month}-${controller.sunday.day}")),
+              )),
+        ])
       ],
     );
   }
 
   /// 日历时间
-  Widget _buildTimeColumnWidget(){
+  Widget _buildTimeColumnWidget() {
     return Column(
       children: [
         Container(

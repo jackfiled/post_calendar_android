@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     const BottomNavigationBarItem(
         backgroundColor: Colors.blue,
         icon: Icon(Icons.calendar_today),
-        label: "日历"),
+        label: "课程表"),
     const BottomNavigationBarItem(
         backgroundColor: Colors.blue,
         icon: Icon(Icons.calendar_view_day),
@@ -37,7 +37,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("邮历"),
+        title: Text(
+          "邮历",
+          style: Theme.of(context).textTheme.headline4,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: bottomNavItems,

@@ -118,18 +118,6 @@ class SquidPage extends StatelessWidget {
 
   /// 构建每个单独的DDL事件微件
   Widget _buildItemCell(BuildContext context, DDLModel item) {
-    /// 设置标题的样式
-    const titleTextStyle = TextStyle(
-        color: Color.fromARGB(255, 0, 0, 0),
-        fontSize: 20,
-        fontWeight: FontWeight.bold);
-
-    /// 设置其他文字的样式
-    const otherTextStyle = TextStyle(
-        color: Color.fromARGB(122, 139, 136, 136),
-        fontSize: 14,
-        fontWeight: FontWeight.normal);
-
     return Container(
         margin: const EdgeInsets.all(10.0),
         alignment: Alignment.centerLeft,
@@ -154,7 +142,7 @@ class SquidPage extends StatelessWidget {
                         item.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: titleTextStyle,
+                        style: Theme.of(context).textTheme.headline4,
                       ),
                     )
                   ],
@@ -165,7 +153,7 @@ class SquidPage extends StatelessWidget {
                       item.details,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: otherTextStyle,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ))
               ],
             ),
@@ -173,18 +161,16 @@ class SquidPage extends StatelessWidget {
               motion: const BehindMotion(),
               children: [
                 SlidableAction(
-                  onPressed: (context) {
-                    squid2DDL(item);
-                  },
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.orange,
-                  icon: Icons.add
-                )
+                    onPressed: (context) {
+                      squid2DDL(item);
+                    },
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.orange,
+                    icon: Icons.add)
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 
   /// 添加到DDL数据库

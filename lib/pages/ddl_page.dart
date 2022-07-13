@@ -39,18 +39,6 @@ class DDLPage extends StatelessWidget {
 
   /// 绘制DDL事件单元
   Widget _buildDDLItemCell(BuildContext context, DDLModel item) {
-    /// 设置标题的样式
-    const titleTextStyle = TextStyle(
-        color: Color.fromARGB(255, 0, 0, 0),
-        fontSize: 28,
-        fontWeight: FontWeight.bold);
-
-    /// 设置其他文字的样式
-    const otherTextStyle = TextStyle(
-        color: Color.fromARGB(122, 139, 136, 136),
-        fontSize: 20,
-        fontWeight: FontWeight.normal);
-
     return Container(
         margin: const EdgeInsets.all(10),
         alignment: Alignment.centerLeft,
@@ -107,7 +95,7 @@ class DDLPage extends StatelessWidget {
                       Expanded(
                           child: Text(
                         item.name,
-                        style: titleTextStyle,
+                        style: Theme.of(context).textTheme.headline5,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ))
@@ -116,7 +104,7 @@ class DDLPage extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(item.details,
-                          style: otherTextStyle,
+                          style: Theme.of(context).textTheme.bodyText1,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis)),
                 ]),

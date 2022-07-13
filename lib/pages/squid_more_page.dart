@@ -34,7 +34,7 @@ class SquidMorePage extends StatelessWidget {
                 child: Center(
                     child: Text(
                   item.name,
-                  style: titleTextStyle,
+                  style: Theme.of(context).textTheme.headline4,
                 )),
               )
             ],
@@ -51,7 +51,7 @@ class SquidMorePage extends StatelessWidget {
               ),
               Text(
                 "${item.endTime.month}月${item.endTime.day}日",
-                style: resultTextStyle,
+                style: Theme.of(context).textTheme.bodyText1,
               )
             ],
           ),
@@ -66,7 +66,7 @@ class SquidMorePage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Text(
                         item.details,
-                        style: resultTextStyle,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                   ));

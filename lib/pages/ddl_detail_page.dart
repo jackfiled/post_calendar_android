@@ -85,8 +85,6 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
   ///
   /// [c] 输入的控件
   Widget _buildTextInputWidget(String title, TextEditingController c) {
-    const titleTextStyle = TextStyle(fontSize: 18, color: Colors.grey);
-
     return Container(
       height: 70,
       padding: const EdgeInsets.all(8.0),
@@ -97,7 +95,7 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
               controller: c,
               decoration: InputDecoration(
                   labelText: title,
-                  labelStyle: titleTextStyle,
+                  labelStyle: Theme.of(context).textTheme.headline5,
                   border: const OutlineInputBorder()),
             ),
           )
@@ -115,12 +113,6 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
   /// [result] 选择的结果
   Widget _buildTimePickerWidget(
       void Function() tapFunction, String title, String result) {
-    const titleTextStyle = TextStyle(fontSize: 24, color: Colors.grey);
-
-    const resultTextStyle = TextStyle(
-      fontSize: 22,
-    );
-
     return GestureDetector(
       onTap: tapFunction,
       child: SizedBox(
@@ -130,11 +122,11 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
           children: [
             Text(
               title,
-              style: titleTextStyle,
+              style: Theme.of(context).textTheme.headline5,
             ),
             Text(
               result,
-              style: resultTextStyle,
+              style: Theme.of(context).textTheme.bodyText1,
             )
           ],
         ),

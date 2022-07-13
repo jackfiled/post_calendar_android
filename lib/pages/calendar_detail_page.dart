@@ -48,17 +48,21 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
             const SizedBox(
               height: 20,
             ),
-            Obx(() => _buildTimePickerWidget(_selectDate, "日程日期", controller.dateString)),
+            Obx(() =>
+                _buildTimePickerWidget(
+                    _selectDate, "日程日期", controller.dateString)),
             const SizedBox(
               height: 20,
             ),
-            Obx(() => _buildTimePickerWidget(
-                _selectBeginTime, "日程开始时间", controller.beginTimeString),),
+            Obx(() =>
+                _buildTimePickerWidget(
+                    _selectBeginTime, "日程开始时间", controller.beginTimeString),),
             const SizedBox(
               height: 20,
             ),
-            Obx(() => _buildTimePickerWidget(
-                _selectEndTime, "日程结束时间", controller.endTimeString)),
+            Obx(() =>
+                _buildTimePickerWidget(
+                    _selectEndTime, "日程结束时间", controller.endTimeString)),
             _buildTextInputWidget("日程明细", controller.detailsTextController)
           ],
         ),
@@ -104,8 +108,6 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
   ///
   /// [c] 输入的控件
   Widget _buildTextInputWidget(String title, TextEditingController c) {
-    const titleTextStyle = TextStyle(fontSize: 18, color: Colors.grey);
-
     return Container(
       height: 70,
       padding: const EdgeInsets.all(8.0),
@@ -115,9 +117,9 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
             child: TextField(
               controller: c,
               decoration: InputDecoration(
-                labelText: title,
-                labelStyle: titleTextStyle,
-                border: const OutlineInputBorder()
+                  labelText: title,
+                  labelStyle: Theme.of(context).textTheme.headline5,
+                  border: const OutlineInputBorder()
               ),
             ),
           )
@@ -133,14 +135,8 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
   /// [title] 标题
   ///
   /// [result] 选择的结果
-  Widget _buildTimePickerWidget(
-      void Function() tapFunction, String title, String result) {
-    const titleTextStyle = TextStyle(fontSize: 24, color: Colors.grey);
-
-    const resultTextStyle = TextStyle(
-      fontSize: 22,
-    );
-
+  Widget _buildTimePickerWidget(void Function() tapFunction, String title,
+      String result) {
     return GestureDetector(
       onTap: tapFunction,
       child: SizedBox(
@@ -150,11 +146,11 @@ class _CalendarDetailPageState extends State<CalendarDetailPage> {
           children: [
             Text(
               title,
-              style: titleTextStyle,
+              style: Theme.of(context).textTheme.headline5,
             ),
             Text(
-              result, 
-              style: resultTextStyle,
+              result,
+              style: Theme.of(context).textTheme.bodyText1,
             )
           ],
         ),

@@ -10,16 +10,6 @@ class CalendarMorePage extends StatelessWidget {
   final _id = int.parse(Get.parameters['id']!);
   final controller = Get.put(CalendarMoreController());
 
-  final titleTextStyle = const TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.bold
-  );
-
-  final resultTextStyle = const TextStyle(
-    fontSize: 20,
-    color: Colors.grey,
-  );
-
   @override
   Widget build(BuildContext context) {
     controller.initContent(_id);
@@ -45,7 +35,7 @@ class CalendarMorePage extends StatelessWidget {
                 child: Center(
                   child: Obx(() => Text(
                       controller.name,
-                      style: titleTextStyle
+                      style: Theme.of(context).textTheme.headline5
                     )
                   )
                 ),
@@ -60,11 +50,11 @@ class CalendarMorePage extends StatelessWidget {
             children: [
               Text(
                 "地点",
-                style: titleTextStyle
+                style: Theme.of(context).textTheme.headline5
               ),
               Obx(() => Text(
                   controller.place,
-                  style: resultTextStyle
+                  style: Theme.of(context).textTheme.bodyText1
                 )
               )
             ],
@@ -77,11 +67,11 @@ class CalendarMorePage extends StatelessWidget {
             children: [
               Text(
                 "日期",
-                style: titleTextStyle
+                style: Theme.of(context).textTheme.headline5
               ),
               Obx(() => Text(
                   controller.dataString,
-                  style: resultTextStyle
+                  style: Theme.of(context).textTheme.bodyText1
                 )
               )
             ],
@@ -94,11 +84,11 @@ class CalendarMorePage extends StatelessWidget {
             children: [
               Text(
                 "开始时间",
-                style: titleTextStyle
+                style: Theme.of(context).textTheme.headline5
               ),
               Obx(() => Text(
                   controller.beginTimeString,
-                  style: resultTextStyle
+                  style: Theme.of(context).textTheme.bodyText1
                 )
               )
             ],
@@ -111,11 +101,11 @@ class CalendarMorePage extends StatelessWidget {
             children: [
               Text(
                 "结束时间",
-                style: titleTextStyle
+                style: Theme.of(context).textTheme.headline5
               ),
               Obx(() => Text(
                   controller.endTimeString,
-                  style: resultTextStyle
+                  style: Theme.of(context).textTheme.bodyText1
                 )
               )
             ],
@@ -128,7 +118,7 @@ class CalendarMorePage extends StatelessWidget {
               Expanded(
                 child: Text(
                   "详情",
-                  style: titleTextStyle,
+                  style: Theme.of(context).textTheme.headline5,
                 )
               )
             ],
@@ -138,10 +128,7 @@ class CalendarMorePage extends StatelessWidget {
               Expanded(
                 child: Obx(() => Text(
                     controller.details,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.grey
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2,
                   )
                 ),
               )

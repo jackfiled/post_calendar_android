@@ -10,14 +10,6 @@ class DDLMorePage extends StatelessWidget {
   final _id = int.parse(Get.parameters['id']!);
   final controller = Get.put(DDLMoreController());
 
-  final titleTextStyle =
-      const TextStyle(fontSize: 22, fontWeight: FontWeight.bold);
-
-  final resultTextStyle = const TextStyle(
-    fontSize: 20,
-    color: Colors.grey,
-  );
-
   @override
   Widget build(BuildContext context) {
     controller.initContent(_id);
@@ -46,7 +38,7 @@ class DDLMorePage extends StatelessWidget {
                   child: Center(
                       child: Obx(() => Text(
                         controller.name,
-                        style: titleTextStyle,
+                        style: Theme.of(context).textTheme.headline4,
                       ))),
                 )
               ],
@@ -59,7 +51,7 @@ class DDLMorePage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     "结束时间",
-                    style: titleTextStyle,
+                    style: Theme.of(context).textTheme.headline5,
                   ),
                 )
               ],
@@ -69,7 +61,7 @@ class DDLMorePage extends StatelessWidget {
                 Expanded(
                   child: Obx(() => Text(
                     controller.endTimeString,
-                    style: resultTextStyle,
+                    style: Theme.of(context).textTheme.bodyText1,
                   )),
                 )
               ],
@@ -82,7 +74,7 @@ class DDLMorePage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     "详情",
-                    style: titleTextStyle,
+                    style: Theme.of(context).textTheme.headline5,
                   ),
                 )
               ],
@@ -96,7 +88,7 @@ class DDLMorePage extends StatelessWidget {
                           child: SingleChildScrollView(
                             child: Obx(() => Text(
                               controller.details,
-                              style: resultTextStyle,
+                              style: Theme.of(context).textTheme.bodyText1,
                             )),
                           )
                       ),
