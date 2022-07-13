@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
-import 'package:post_calendar_android/database/squid_ddl_provider.dart';
 import 'package:post_calendar_android/network/squid_request.dart';
 
 /// 章鱼页面控制器
 // 为了使用tabController 似乎必须使用这个被弃用的类
 // ignore: deprecated_member_use
 class SquidController extends GetxController with SingleGetTickerProviderMixin {
-  final provider = SquidDDLProvider();
   final request = SquidRequest();
 
   late TabController mainTabController;
