@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
+import 'package:post_calendar_android/data_structures/ddl_status.dart';
 import 'package:post_calendar_android/network/squid_request.dart';
 
 /// 章鱼页面控制器
@@ -39,7 +40,11 @@ class SquidController extends GetxController with SingleGetTickerProviderMixin {
     ddlItems.clear();
 
     for (var item in squidDDLItems) {
-      ddlItems.add(DDLModel.fromSquid(item));
+      final ddlItem = DDLModel.fromSquid(item);
+
+      if(ddlItem.status == DDLStatus.todo){
+        ddlItems.add(ddlItem);
+      }
     }
   }
 }

@@ -4,8 +4,7 @@ import 'package:post_calendar_android/data_structures/ddl_status.dart';
 
 import 'package:post_calendar_android/database/ddl_provider.dart';
 
-
-class DDLController extends GetxController{
+class DDLController extends GetxController {
   final provider = DDLProvider.getInstance();
 
   var ddlItems = (<DDLModel>[]).obs;
@@ -14,7 +13,12 @@ class DDLController extends GetxController{
   Future<void> refreshItems() async {
     ddlItems.clear();
 
-    ddlItems.value = await provider.items();
+    final dbItems = await provider.items();
+
+    // 筛选未完成的事件显示
+    ddlItems
+        .addAll(dbItems.where((element) => element.status == DDLStatus.todo));
+
     ddlItems.sort((a, b) => a.endTime.compareTo(b.endTime));
   }
 
@@ -22,7 +26,7 @@ class DDLController extends GetxController{
   Future<void> finishItem(int id) async {
     final item = await provider.read(id);
 
-    if(item != null){
+    if (item != null) {
       item.status = DDLStatus.finished;
 
       await provider.update(item);
@@ -35,7 +39,7 @@ class DDLController extends GetxController{
   Future<void> deleteItem(int id) async {
     final item = await provider.read(id);
 
-    if(item != null) {
+    if (item != null) {
       item.status = DDLStatus.deleted;
 
       await provider.update(item);

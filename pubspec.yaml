@@ -29,13 +29,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # 数据库插件
   sqflite:
+  # 文件路径相关的插件
   path:
+  path_provider:
+  # 时间日期选择器插件
   flutter_pickers:
+  # 全局状态管理插件
   get:
+  # 左右滑动插件
   flutter_slidable:
-  http: 
-  json_annotation: 
+  # 网络请求相关的插件
+  http:
+  # JSON处理相关的插件
+  json_annotation:
+  # 键值对存储插件
+  hive:
+  hive_flutter:
+  hive_generator:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
