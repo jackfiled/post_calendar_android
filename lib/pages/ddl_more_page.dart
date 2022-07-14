@@ -16,6 +16,10 @@ class DDLMorePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          "DDL详情",
+          style: Theme.of(context).textTheme.headline5,
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(),

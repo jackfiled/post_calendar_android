@@ -16,6 +16,10 @@ class CalendarMorePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          "课程详情",
+          style: Theme.of(context).textTheme.headline5,
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(),

@@ -10,7 +10,7 @@ class Themes {
           color: Colors.black,
         ),
         headline5: const TextStyle(
-          fontSize: 26,
+          fontSize: 24,
           fontWeight: FontWeight.normal,
           color: Colors.black
         ),

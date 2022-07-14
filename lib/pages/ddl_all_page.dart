@@ -20,6 +20,12 @@ class DDLAllPage extends StatelessWidget {
     controller.initContent();
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "DDL垃圾桶",
+          style: Theme.of(context).textTheme.headline5,
+        ),
+      ),
       body: Column(
         children: [
           Row(

@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.1.0
+version: 0.2.0
 
 environment:
   sdk: ">=2.16.1"
@@ -30,24 +30,24 @@ dependencies:
   flutter:
     sdk: flutter
   # 数据库插件
-  sqflite:
+  sqflite: ^2.0.3
   # 文件路径相关的插件
-  path:
-  path_provider:
+  path: ^1.8.1
+  path_provider: ^2.0.11
   # 时间日期选择器插件
-  flutter_pickers:
+  flutter_pickers: ^2.1.9
   # 全局状态管理插件
-  get:
+  get: ^4.6.5
   # 左右滑动插件
-  flutter_slidable:
+  flutter_slidable: ^1.3.1
   # 网络请求相关的插件
-  http:
+  http: ^0.13.4
   # JSON处理相关的插件
-  json_annotation:
+  json_annotation: ^4.6.0
   # 键值对存储插件
-  hive:
-  hive_flutter:
-  hive_generator:
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^1.1.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -56,10 +56,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  test:
-  sqflite_common_ffi:
-  build_runner:
-  json_serializable:
+  test: ^1.21.1
+  sqflite_common_ffi: ^2.1.1
+  build_runner: ^2.2.0
+  json_serializable: ^6.3.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

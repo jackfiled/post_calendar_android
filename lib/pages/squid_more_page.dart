@@ -13,6 +13,10 @@ class SquidMorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          "事件详情",
+          style: Theme.of(context).textTheme.headline5,
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(),

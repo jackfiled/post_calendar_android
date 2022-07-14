@@ -13,28 +13,43 @@ class MinePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "我",
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme
+              .of(context)
+              .textTheme
+              .headline5,
         ),
       ),
       body: Column(
         children: [
           Text(
             "回收站",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme
+                .of(context)
+                .textTheme
+                .subtitle1,
           ),
-          GestureDetector(
-            onTap: () => Get.toNamed(RouteConfig.ddlALLPage),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "DDL垃圾桶",
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                const Icon(Icons.keyboard_arrow_right)
-              ],
+          InkWell(
+            child: GestureDetector(
+                onTap: () => Get.toNamed(RouteConfig.ddlALLPage),
+                behavior:HitTestBehavior.opaque,
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "DDL垃圾桶",
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .headline5,
+                      ),
+                      const Icon(Icons.keyboard_arrow_right)
+                    ],
+                  ),
+                )
             ),
-          ),
+          )
         ],
       ),
     );

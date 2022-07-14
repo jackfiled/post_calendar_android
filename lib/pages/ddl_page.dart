@@ -108,6 +108,16 @@ class DDLPage extends StatelessWidget {
                     ],
                   ),
                   Container(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "${item.endTime.year}年${item.endTime.month}月${item.endTime.day}日",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ),
+                  Container(
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(item.details,
                           style: Theme.of(context).textTheme.bodyText1,
