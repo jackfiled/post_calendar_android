@@ -9,26 +9,34 @@ class MinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "回收站",
-          style: Theme.of(context).textTheme.subtitle1,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "我",
+          style: Theme.of(context).textTheme.headline5,
         ),
-        GestureDetector(
-          onTap: () => Get.toNamed(RouteConfig.ddlALLPage),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "DDL垃圾桶",
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              const Icon(Icons.keyboard_arrow_right)
-            ],
+      ),
+      body: Column(
+        children: [
+          Text(
+            "回收站",
+            style: Theme.of(context).textTheme.subtitle1,
           ),
-        ),
-      ],
+          GestureDetector(
+            onTap: () => Get.toNamed(RouteConfig.ddlALLPage),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "DDL垃圾桶",
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                const Icon(Icons.keyboard_arrow_right)
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

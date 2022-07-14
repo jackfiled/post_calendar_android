@@ -20,6 +20,12 @@ class CalendarPage extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2), controller.refreshItems);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "课程表",
+          style: Theme.of(context).textTheme.headline5,
+        )
+      ),
       body: Column(
         children: [
           _buildCalendarDataHead(),

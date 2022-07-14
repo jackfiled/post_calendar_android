@@ -59,10 +59,14 @@ class SquidPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: TabBar(
+        title: Text(
+          "SquidWard",
+          style: Theme.of(context).textTheme.headline5,
+        ),
+        bottom: TabBar(
           controller: controller.mainTabController,
           tabs: mainTabs,
-        ),
+        )
       ),
       body: TabBarView(
         controller: controller.mainTabController,

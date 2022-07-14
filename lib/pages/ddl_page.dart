@@ -18,6 +18,12 @@ class DDLPage extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2), controller.refreshItems);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "DDL",
+          style: Theme.of(context).textTheme.headline5,
+        ),
+      ),
       body: RefreshIndicator(
         child: Obx(() => ListView.builder(
               itemCount: controller.ddlItems.length,
