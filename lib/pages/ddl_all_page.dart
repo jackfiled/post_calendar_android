@@ -19,55 +19,57 @@ class DDLAllPage extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.initContent();
 
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Pickers.showDatePicker(
+    return Scaffold(
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Pickers.showDatePicker(context,
+                      mode: DateMode.YMD,
+                      onConfirm: (p) =>
+                          controller.setTimeLimit(p.year!, p.month!, p.day!));
+                },
+                child: Obx(() =>
+                    Text(controller.timeLimitString,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .button)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Pickers.showSinglePicker(
                     context,
-                    mode: DateMode.YMD,
-                    onConfirm: (p) =>
-                        controller.setTimeLimit(p.year!, p.month!, p.day!)
-                );
-              },
-              child: Obx(() =>
-                  Text(controller.timeLimitString,
+                    data: ["未完成", "已完成", "已过期", "已删除"],
+                    onConfirm: (p, index) => controller.setStatueLimit(index),
+                  );
+                },
+                child: Obx(() =>
+                    Text(
+                      controller.statusLimitString,
                       style: Theme
                           .of(context)
                           .textTheme
-                          .button)),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Pickers.showSinglePicker(
-                  context,
-                  data: ["未完成", "已完成", "已过期", "已删除"],
-                  onConfirm: (p, index) => controller.setStatueLimit(index),
-                );
-              },
-              child: Obx(() =>
-                  Text(
-                    controller.statusLimitString,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .button,
-                  )),
-            )
-          ],
-        ),
-        Expanded(
-          child: Obx(() =>
-              ListView.builder(
-                itemBuilder: (context, index) {
-                  return _buildDDLItemCell(context, controller.ddlItems[index]);
-                },
-              )),
-        )
-      ],
+                          .button,
+                    )),
+              )
+            ],
+          ),
+          Expanded(
+            child: Obx(() =>
+                ListView.builder(
+                  itemCount: controller.ddlItems.length,
+                  itemBuilder: (context, index) {
+                    return _buildDDLItemCell(
+                        context, controller.ddlItems[index]);
+                  },
+                )),
+          )
+        ],
+      ),
     );
   }
 
@@ -99,7 +101,21 @@ class DDLAllPage extends StatelessWidget {
                 ),
                 SlidableAction(
                   onPressed: (context) {
+                    Get.defaultDialog(
+                      title: "警告",
+                      titleStyle: Theme
+                          .of(context)
+                          .textTheme
+                          .headline5,
+                      middleText: "真的要删除吗？",
+                      middleTextStyle: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText2,
+                      onConfirm: () {
 
+                      }
+                    );
                   },
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.red,

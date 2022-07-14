@@ -40,14 +40,28 @@ class DDLAllController extends GetxController {
     ddlItems.sort((a, b) => a.endTime.compareTo(b.endTime));
   }
 
+  /// 设置时间过滤器
   void setTimeLimit(int year, int month, int day) {
     timeLimit.value = DateTime(year, month, day);
+
+    refreshItems();
   }
 
+  /// 设置状态过滤器
   void setStatueLimit(int pos) {
     statusLimit.value = DDLStatus.values[pos];
+
+    refreshItems();
   }
 
+  /// 删除一个DDL事件
+  Future<void> deleteItems(int id) async {
+    final item = await provider.read(id);
+
+    await provider.delete(id);
+
+    Get.snackbar("删除成功", "${item!.name}已删除");
+  }
   /// 时间过滤器显示字符串
   String get timeLimitString {
     if (timeLimit.value == DateTime(1)) {
