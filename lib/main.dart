@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   final ddlProvider = DDLProvider.getInstance();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
     calendarProvider.initDatabase();
@@ -39,11 +39,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
 
     calendarProvider.close();
     ddlProvider.close();
   }
 }
-
