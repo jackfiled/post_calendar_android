@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:post_calendar_android/components/ddl_cell_widget.dart';
 
 import 'package:post_calendar_android/data_structures/activity_type.dart';
 import 'package:post_calendar_android/data_structures/ddl_model.dart';
@@ -85,9 +86,25 @@ class SquidPage extends StatelessWidget {
       child: Obx(() => ListView.builder(
             itemCount: controller.ddlItems.length,
             itemBuilder: (context, index) {
-              return _buildItemCell(
-                context,
-                controller.ddlItems[index],
+              final item = controller.ddlItems[index];
+
+              return DDLCellWidget(
+                title: item.name,
+                details: item.details,
+                endTime: item.endTime,
+                onPressed: () {
+                  Get.toNamed(RouteConfig.squidMorePage, arguments: item);
+                },
+                slidableChildren: [
+                  SlidableAction(
+                      onPressed: (context) {
+                        squid2DDL(item);
+                      },
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.orange,
+                      icon: Icons.add
+                  )
+                ],
               );
             },
           )),
@@ -118,63 +135,6 @@ class SquidPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  /// 构建每个单独的DDL事件微件
-  Widget _buildItemCell(BuildContext context, DDLModel item) {
-    return Container(
-        margin: const EdgeInsets.all(10.0),
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(3)),
-            border: Border.all(
-                width: 2, color: const Color.fromARGB(122, 123, 123, 123))),
-        child: GestureDetector(
-          onTap: () => Get.toNamed(RouteConfig.squidMorePage, arguments: item),
-          child: Slidable(
-            key: const ValueKey(0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        item.name,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                    )
-                  ],
-                ),
-                Container(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text(
-                      item.details,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ))
-              ],
-            ),
-            endActionPane: ActionPane(
-              motion: const BehindMotion(),
-              children: [
-                SlidableAction(
-                    onPressed: (context) {
-                      squid2DDL(item);
-                    },
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.orange,
-                    icon: Icons.add)
-              ],
-            ),
-          ),
-        ));
   }
 
   /// 添加到DDL数据库
