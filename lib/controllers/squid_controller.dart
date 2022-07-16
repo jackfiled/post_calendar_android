@@ -46,5 +46,7 @@ class SquidController extends GetxController with SingleGetTickerProviderMixin {
         ddlItems.add(ddlItem);
       }
     }
+
+    ddlItems.sort((a, b) => a.endTime.compareTo(b.endTime));
   }
 }

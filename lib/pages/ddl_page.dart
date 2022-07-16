@@ -14,8 +14,7 @@ class DDLPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 两秒之后刷新界面
-    Future.delayed(const Duration(seconds: 2), controller.refreshItems);
+    controller.refreshItems();
 
     return Scaffold(
       appBar: AppBar(
