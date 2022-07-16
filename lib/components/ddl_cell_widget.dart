@@ -24,7 +24,7 @@ class DDLCellWidget extends StatelessWidget {
       margin: const EdgeInsets.all(10.0),
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: const BorderRadius.all(Radius.circular(3)),
           border: Border.all(
               width: 2, color: const Color.fromARGB(122, 123, 123, 123))),

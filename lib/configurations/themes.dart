@@ -5,6 +5,10 @@ import 'package:get/get.dart';
 class Themes {
   /// 亮色主题
   static final light = ThemeData.light().copyWith(
+      colorScheme: const ColorScheme.light().copyWith(
+          primary: Colors.blue,
+          background: Colors.white
+      ),
       // 重写主题中的部分参数
       textTheme: const TextTheme().copyWith(
           headline4: const TextStyle(
@@ -32,6 +36,7 @@ class Themes {
   static final dark = ThemeData.dark().copyWith(
       colorScheme: const ColorScheme.dark().copyWith(
         primary: const Color.fromARGB(255, 33, 32, 32),
+        background: Colors.black
       ),
       // 重写主题中的部分参数
       textTheme: const TextTheme().copyWith(
