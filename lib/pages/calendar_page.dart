@@ -12,7 +12,7 @@ class CalendarPage extends StatelessWidget {
   final controller = Get.put(CalendarController());
   final _columnHeight = 80.0;
   final _columnWidth = 50.0;
-  final _columnAllHeight = 80.0 * 24;
+  final _columnAllHeight = 80.0 * 14;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,10 @@ class CalendarPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "课程表",
-          style: Theme.of(context).textTheme.headline5,
-        )
-      ),
+          title: Text(
+        "课程表",
+        style: Theme.of(context).textTheme.headline5,
+      )),
       body: Column(
         children: [
           _buildCalendarDataHead(),
@@ -152,7 +151,7 @@ class CalendarPage extends StatelessWidget {
                 style: Theme.of(Get.context!).textTheme.headline6,
               ),
               Text(
-                  item.details,
+                item.details,
                 style: Theme.of(Get.context!).textTheme.bodyText2,
               )
             ],
@@ -160,7 +159,7 @@ class CalendarPage extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.white, width: 1),
             borderRadius: BorderRadius.circular(5.0),
-            color: Colors.blue,
+            color: Theme.of(Get.context!).colorScheme.primary,
           ),
         ),
       ),
@@ -188,53 +187,53 @@ class CalendarPage extends StatelessWidget {
         TableRow(children: [
           Container(
             height: 20,
-            color: Colors.blue,
+            color: Theme.of(Get.context!).colorScheme.primary,
           ),
           Container(
             height: 20,
-            color: Colors.blue,
+            color: Theme.of(Get.context!).colorScheme.primary,
             child: const Center(
               child: Text("周一"),
             ),
           ),
           Container(
             height: 20,
-            color: Colors.blue,
+            color: Theme.of(Get.context!).colorScheme.primary,
             child: const Center(
               child: Text("周二"),
             ),
           ),
           Container(
             height: 20,
-            color: Colors.blue,
+            color: Theme.of(Get.context!).colorScheme.primary,
             child: const Center(
               child: Text("周三"),
             ),
           ),
           Container(
             height: 20,
-            color: Colors.blue,
+            color: Theme.of(Get.context!).colorScheme.primary,
             child: const Center(
               child: Text("周四"),
             ),
           ),
           Container(
             height: 20,
-            color: Colors.blue,
+            color: Theme.of(Get.context!).colorScheme.primary,
             child: const Center(
               child: Text("周五"),
             ),
           ),
           Container(
             height: 20,
-            color: Colors.blue,
+            color: Theme.of(Get.context!).colorScheme.primary,
             child: const Center(
               child: Text("周六"),
             ),
           ),
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: const Center(
                 child: Text("周日"),
               )),
@@ -242,55 +241,55 @@ class CalendarPage extends StatelessWidget {
         TableRow(children: [
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: const Center(
                 child: Text("时间"),
               )),
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: Center(
                 child: Obx(() => Text(
                     "${controller.monday.month}-${controller.monday.day}")),
               )),
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: Center(
                 child: Obx(() => Text(
                     "${controller.tuesday.month}-${controller.tuesday.day}")),
               )),
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: Center(
                 child: Obx(() => Text(
                     "${controller.wednesday.month}-${controller.wednesday.day}")),
               )),
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: Center(
                 child: Obx(() => Text(
                     "${controller.thursday.month}-${controller.thursday.day}")),
               )),
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: Center(
                 child: Obx(() => Text(
                     "${controller.friday.month}-${controller.friday.day}")),
               )),
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: Center(
                 child: Obx(() => Text(
                     "${controller.saturday.month}-${controller.saturday.day}")),
               )),
           Container(
               height: 20,
-              color: Colors.blue,
+              color: Theme.of(Get.context!).colorScheme.primary,
               child: Center(
                 child: Obx(() => Text(
                     "${controller.sunday.month}-${controller.sunday.day}")),
@@ -306,75 +305,11 @@ class CalendarPage extends StatelessWidget {
       children: [
         Container(
           child: const Center(
-            child: Text("0:00-1:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("1:00-2:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("2:00-3:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("3:00-4:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("4:00-5:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("5:00-6:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("6:00-7:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("7:00-8:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
             child: Text("8:00-9:00"),
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -382,7 +317,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -390,7 +325,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -398,7 +333,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -406,7 +341,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -414,7 +349,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -422,7 +357,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -430,7 +365,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -438,7 +373,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -446,7 +381,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -454,7 +389,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -462,7 +397,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -470,7 +405,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
         Container(
           child: const Center(
@@ -478,23 +413,7 @@ class CalendarPage extends StatelessWidget {
           ),
           height: _columnHeight,
           width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("22:00-23:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
-        ),
-        Container(
-          child: const Center(
-            child: Text("23:00-24:00"),
-          ),
-          height: _columnHeight,
-          width: _columnWidth,
-          color: Colors.blue,
+          color: Theme.of(Get.context!).colorScheme.primary,
         ),
       ],
     );

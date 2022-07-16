@@ -39,7 +39,7 @@ class CalendarMorePage extends StatelessWidget {
                 child: Center(
                   child: Obx(() => Text(
                       controller.name,
-                      style: Theme.of(context).textTheme.headline4
+                      style: Theme.of(context).textTheme.headline5
                     )
                   )
                 ),

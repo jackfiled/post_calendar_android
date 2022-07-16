@@ -2,11 +2,12 @@ import 'package:get/get.dart';
 
 import 'package:post_calendar_android/database/hive_provider.dart';
 import 'package:post_calendar_android/data_structures/theme_type.dart';
-import 'package:post_calendar_android/configurations/themes.dart';
 
 /// 设置控制器
 class SettingController extends GetxController {
-  final box = HiveProvider.getInstance().settingsBox;
+  final box = HiveProvider
+      .getInstance()
+      .settingsBox;
   var themeType = ThemeType.system.obs;
 
   /// 从Hive中读取设置
@@ -41,15 +42,16 @@ class SettingController extends GetxController {
     themeType.value = type;
     box.put("darkMode", type.name);
 
-    switch(type){
+
+    switch (type) {
       case ThemeType.system:
-        Themes.setAutoChangeDarkMode();
+      //Themes.setAutoChangeDarkMode();
         break;
       case ThemeType.light:
-        Get.changeTheme(Themes.light);
+      //Get.changeTheme(Themes.light);
         break;
       case ThemeType.dark:
-        Get.changeTheme(Themes.dark);
+      //Get.changeTheme(Themes.dark);
         break;
     }
   }

@@ -30,19 +30,22 @@ class Themes {
 
   /// 暗色主题
   static final dark = ThemeData.dark().copyWith(
+      colorScheme: const ColorScheme.dark().copyWith(
+        primary: const Color.fromARGB(255, 33, 32, 32),
+      ),
       // 重写主题中的部分参数
       textTheme: const TextTheme().copyWith(
           headline4: const TextStyle(
             fontSize: 34,
             fontWeight: FontWeight.normal,
-            color: Colors.black,
+            color: Colors.white,
           ),
           headline5: const TextStyle(
-              fontSize: 24, fontWeight: FontWeight.normal, color: Colors.black),
+              fontSize: 24, fontWeight: FontWeight.normal, color: Colors.white),
           subtitle1: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.white,
           ),
           // 用于详情的预览
           bodyText1: const TextStyle(
@@ -51,7 +54,7 @@ class Themes {
           bodyText2: const TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 16,
-              color: Colors.black)));
+              color: Colors.white)));
 
   /// 设置处理自动切换暗黑模式
   static void setAutoChangeDarkMode() {

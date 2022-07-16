@@ -33,7 +33,7 @@ class CalendarModel{
     }
 
     double get topDistance =>
-        beginTime.hour * _columnHeight +
+        (beginTime.hour - 8) * _columnHeight + //在计算顶部的高度时考虑开始时间为8点
             beginTime.minute * _columnHeight / 60.0 +
             beginTime.second * _columnHeight / 3600.0;
 

@@ -30,7 +30,7 @@ class SquidMorePage extends StatelessWidget {
                 child: Center(
                     child: Text(
                   item.name,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 )),
               )
             ],

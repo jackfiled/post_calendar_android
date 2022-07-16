@@ -16,27 +16,6 @@ class _HomePageState extends State<HomePage> {
   /// 当前所在页面
   int _index = 0;
 
-  /// 底部导航栏对象列表
-  final List<BottomNavigationBarItem> bottomNavItems = [
-    const BottomNavigationBarItem(
-        backgroundColor: Colors.blue,
-        icon: Icon(Icons.calendar_today),
-        label: "课程表"),
-    const BottomNavigationBarItem(
-        backgroundColor: Colors.blue,
-        icon: Icon(Icons.calendar_view_day),
-        label: "DDL"),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.abc_outlined),
-        backgroundColor: Colors.blue,
-        label: "SquidWard"),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.account_box),
-      backgroundColor: Colors.blue,
-      label: "我"
-    )
-  ];
-
   final List<Widget> pages = [
     CalendarPage(),
     DDLPage(),
@@ -48,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        items: bottomNavItems,
+        items: _buildNavItems(),
         currentIndex: _index,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
@@ -66,5 +45,27 @@ class _HomePageState extends State<HomePage> {
         _index = index;
       });
     }
+  }
+
+  List<BottomNavigationBarItem> _buildNavItems() {
+    return [
+      BottomNavigationBarItem(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          icon: const Icon(Icons.calendar_today),
+          label: "课程表"),
+      BottomNavigationBarItem(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          icon: const Icon(Icons.calendar_view_day),
+          label: "DDL"),
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.abc_outlined),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          label: "SquidWard"),
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.account_box),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          label: "我"
+      )
+    ];
   }
 }

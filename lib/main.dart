@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:post_calendar_android/configurations/themes.dart';
+import 'package:post_calendar_android/data_structures/theme_type.dart';
 import 'package:post_calendar_android/database/hive_provider.dart';
 import 'package:post_calendar_android/routes/route_config.dart';
 import 'package:post_calendar_android/database/calendar_provider.dart';
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: RouteConfig.openLoadingPage,
       getPages: RouteConfig.getPages,
       theme: Themes.light,
+      darkTheme: Themes.dark,
     );
   }
 
@@ -61,5 +63,32 @@ class _MyAppState extends State<MyApp> {
     await delay;
 
     Get.offAndToNamed(RouteConfig.main);
+  }
+
+  /// 设置主题
+  void setTheme() {
+    final box = HiveProvider
+        .getInstance()
+        .settingsBox;
+    final type = box.get("darkMode") as String?;
+
+    if (type == null) {
+      Themes.setAutoChangeDarkMode();
+      box.put("darkMode", ThemeType.system.name);
+    } else {
+      switch (type) {
+        case "system":
+          Themes.setAutoChangeDarkMode();
+          break;
+        case "light":
+          Get.changeTheme(Themes.light);
+          break;
+        case "dark":
+          Get.changeTheme(Themes.dark);
+          break;
+        default:
+          break;
+      }
+    }
   }
 }

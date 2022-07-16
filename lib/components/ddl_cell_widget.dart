@@ -24,7 +24,7 @@ class DDLCellWidget extends StatelessWidget {
       margin: const EdgeInsets.all(10.0),
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: const BorderRadius.all(Radius.circular(3)),
           border: Border.all(
               width: 2, color: const Color.fromARGB(122, 123, 123, 123))),
@@ -43,7 +43,7 @@ class DDLCellWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 5),
+                margin: const EdgeInsets.only(bottom: 5, left: 5),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "${endTime.year}年${endTime.month}月${endTime.day}日",
@@ -53,7 +53,7 @@ class DDLCellWidget extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10, left: 5),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   details,
