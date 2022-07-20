@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import 'package:post_calendar_android/controllers/user_controller.dart';
 import 'package:post_calendar_android/pages/calendar_page.dart';
 import 'package:post_calendar_android/pages/ddl_page.dart';
 import 'package:post_calendar_android/pages/squid_page.dart';
@@ -15,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   /// 当前所在页面
   int _index = 0;
+  final userController = Get.put(UserController());
 
   final List<Widget> pages = [
     CalendarPage(),
@@ -25,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    userController.checkIsLogin();
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: _buildNavItems(),

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:post_calendar_android/components/open_loading_page.dart';
 
+import 'package:post_calendar_android/components/open_loading_page.dart';
 import 'package:post_calendar_android/pages/ddl_more_page.dart';
 import 'package:post_calendar_android/pages/home_page.dart';
 import 'package:post_calendar_android/pages/ddl_detail_page.dart';
