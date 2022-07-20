@@ -14,7 +14,6 @@ class MinePage extends StatefulWidget {
 }
 
 class _MinePageState extends State<MinePage> {
-  var isLogin = false.obs;
   final userController = Get.find<UserController>();
 
   @override
@@ -30,12 +29,14 @@ class _MinePageState extends State<MinePage> {
         children: [
           GestureDetector(
             onTap: () {
-              if (!isLogin.value) {}
+              if (!userController.isLogin.value) {
+                Get.toNamed(RouteConfig.loginPage);
+              }
             },
             child: Container(
               height: 100,
               padding: const EdgeInsets.all(10),
-              child: Obx(() => isLogin.value
+              child: Obx(() => userController.isLogin.value
                   ? _buildLoginRow(userController.user!)
                   : _buildNoLoginRow()),
             ),
@@ -114,7 +115,10 @@ class _MinePageState extends State<MinePage> {
   Widget _buildLoginRow(UserInfo userInfo) {
     return Row(
       children: [
-        const Icon(Icons.account_circle_rounded),
+        const Icon(
+          Icons.account_circle_rounded,
+          size: 50,
+        ),
         Column(
           children: [
             Text(

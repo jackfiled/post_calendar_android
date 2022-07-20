@@ -5,6 +5,7 @@ import 'package:post_calendar_android/pages/ddl_more_page.dart';
 import 'package:post_calendar_android/pages/home_page.dart';
 import 'package:post_calendar_android/pages/ddl_detail_page.dart';
 import 'package:post_calendar_android/pages/calendar_more_page.dart';
+import 'package:post_calendar_android/pages/login_page.dart';
 import 'package:post_calendar_android/pages/setting_page.dart';
 import 'package:post_calendar_android/pages/squid_more_page.dart';
 import 'package:post_calendar_android/pages/ddl_all_page.dart';
@@ -34,6 +35,9 @@ class RouteConfig {
   /// 设置界面
   static const String settingPage = "/SettingPage";
 
+  /// 登录界面
+  static const String loginPage = "/loginPage";
+
   static final List<GetPage> getPages = [
     GetPage(name: main, page: () => const HomePage()),
     GetPage(name: openLoadingPage, page: () => const OpenLoadingPage()),
@@ -43,5 +47,6 @@ class RouteConfig {
     GetPage(name: squidMorePage, page: () => SquidMorePage()),
     GetPage(name: ddlALLPage, page: () => DDLAllPage()),
     GetPage(name: settingPage, page: () => const SettingPage()),
+    GetPage(name: loginPage, page: () => const LoginPage()),
   ];
 }
