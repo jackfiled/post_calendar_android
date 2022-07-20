@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:post_calendar_android/controllers/user_controller.dart';
+import 'package:post_calendar_android/components/text_input_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -34,27 +35,13 @@ class _LoginPageState extends State<LoginPage> {
             "用户登录",
             style: Theme.of(context).textTheme.headline5,
           ),
-          Container(
-            height: 70,
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              controller: nameInputController,
-              decoration: InputDecoration(
-                  labelText: "姓名",
-                  labelStyle: Theme.of(context).textTheme.headline4,
-                  border: const OutlineInputBorder()),
-            ),
+          TextInputWidget(
+            controller: nameInputController,
+            title: "姓名",
           ),
-          Container(
-            height: 70,
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              controller: studentIDInputController,
-              decoration: InputDecoration(
-                  labelText: "学号",
-                  labelStyle: Theme.of(context).textTheme.headline4,
-                  border: const OutlineInputBorder()),
-            ),
+          TextInputWidget(
+            title: "学号",
+            controller: studentIDInputController,
           ),
           Row(
             children: [

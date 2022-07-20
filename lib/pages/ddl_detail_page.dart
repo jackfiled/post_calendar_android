@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_pickers/pickers.dart';
 
 import 'package:post_calendar_android/controllers/ddl_controller.dart';
+import 'package:post_calendar_android/components/text_input_widget.dart';
 import 'package:post_calendar_android/controllers/ddl_detail_controller.dart';
 
 class DDLDetailPage extends StatefulWidget {
@@ -36,7 +37,10 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
       ),
       body: Column(
         children: <Widget>[
-          _buildTextInputWidget("DDL名称", controller.nameTextController),
+          TextInputWidget(
+            title: "DDL名称",
+            controller: controller.nameTextController,
+          ),
           const SizedBox(
             height: 20,
           ),
@@ -50,7 +54,21 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
           const SizedBox(
             height: 20,
           ),
-          _buildTextInputWidget("DDL详情", controller.detailsTextController)
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(8),
+              child: TextField(
+                controller: controller.detailsTextController,
+                maxLines: null,
+                style: Theme.of(context).textTheme.bodyText2,
+                decoration: InputDecoration(
+                    labelText: "DDL详情",
+                    labelStyle: Theme.of(context).textTheme.bodyText1,
+                    border: const OutlineInputBorder()
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -77,31 +95,6 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
     Pickers.showDatePicker(context, mode: DateMode.HMS, onConfirm: (p) {
       controller.setEndTime(p.hour!, p.minute!, p.second!);
     });
-  }
-
-  /// 构建输入文字的微件
-  ///
-  /// [title] 标题
-  ///
-  /// [c] 输入的控件
-  Widget _buildTextInputWidget(String title, TextEditingController c) {
-    return Container(
-      height: 70,
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: c,
-              decoration: InputDecoration(
-                  labelText: title,
-                  labelStyle: Theme.of(context).textTheme.headline4,
-                  border: const OutlineInputBorder()),
-            ),
-          )
-        ],
-      ),
-    );
   }
 
   /// 构建时间日期选择的框架
