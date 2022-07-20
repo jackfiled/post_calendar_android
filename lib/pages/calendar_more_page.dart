@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:post_calendar_android/routes/route_config.dart';
 import 'package:post_calendar_android/controllers/calendar_more_controller.dart';
 
 class CalendarMorePage extends StatelessWidget {
@@ -24,12 +23,6 @@ class CalendarMorePage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.create),
-            onPressed: () => Get.toNamed(RouteConfig.calendarDetailPage + "?id=$_id")
-          )
-        ],
       ),
       body: Column(
         children: [
