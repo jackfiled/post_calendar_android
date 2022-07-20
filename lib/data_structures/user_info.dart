@@ -17,4 +17,6 @@ class UserInfo {
         studentID: json["studentID"],
         classNumber: json["classNumber"]);
   }
+
+  int get classNumberShort => classNumber - 2021211000;
 }
