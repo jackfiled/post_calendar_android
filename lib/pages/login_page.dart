@@ -50,14 +50,14 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: _confirmClicked,
                 child: Text(
                   "登录",
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
               ),
               ElevatedButton(
                 onPressed: () => Get.back(),
                 child: Text(
                   "取消",
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
               )
             ],

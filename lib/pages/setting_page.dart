@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_pickers/pickers.dart';
 
 import 'package:post_calendar_android/controllers/setting_controller.dart';
+import 'package:post_calendar_android/controllers/user_controller.dart';
 
 /// 设置界面
 class SettingPage extends StatefulWidget {
@@ -14,6 +15,7 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> {
   final controller = Get.put(SettingController());
+  final userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +23,7 @@ class _SettingPageState extends State<SettingPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            "设置",
-            style: Theme.of(context).textTheme.headline5,
-          ),
-        ),
+        title: const Text("设置"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Get.back(),
@@ -36,17 +33,18 @@ class _SettingPageState extends State<SettingPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Obx(() => _buildSingleSetting(
-                "主题样式",
-                controller.themeType.value.name, () {
-                  Pickers.showSinglePicker(
-                    context,
-                    data: ["跟随系统", "白天", "黑夜"],
-                    onConfirm: (p, index) {
-                      controller.setThemeType(index);
-                    }
-                  );
-              }))
+              Container(
+                margin: const EdgeInsets.all(10),
+                child: Obx(() => ElevatedButton(
+                  child: const Center(
+                    child: Text("退出登录"),
+                    ),
+                    onPressed: !userController.isLogin.value ? null : () {
+                      userController.logout();
+                    },
+                  ),
+                )
+              )
             ],
           ),
         ),
@@ -63,25 +61,23 @@ class _SettingPageState extends State<SettingPage> {
   /// [f] 点击时触发的方法
   Widget _buildSingleSetting(String title, String content, void Function() f) {
     return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: f,
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-            Text(
-              content,
-              style: Theme.of(context).textTheme.bodyText1,
-            )
-          ],
-        ),
-      )
-    );
+        behavior: HitTestBehavior.opaque,
+        onTap: f,
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
+              Text(
+                content,
+                style: Theme.of(context).textTheme.bodyText1,
+              )
+            ],
+          ),
+        ));
   }
 }
-
