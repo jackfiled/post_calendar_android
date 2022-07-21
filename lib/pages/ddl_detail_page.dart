@@ -37,22 +37,24 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
       ),
       body: Column(
         children: <Widget>[
+          Obx(() => _buildTimePickerWidget(
+              _selectDate, "DDL结束日期：", controller.dateString)
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Obx(() => _buildTimePickerWidget(
+              _selectEndTime, "DDL结束时间：", controller.endTimeString)
+          ),
+          const Divider(
+            height: 20,
+          ),
           TextInputWidget(
             title: "DDL名称",
             controller: controller.nameTextController,
           ),
           const SizedBox(
-            height: 20,
-          ),
-          Obx(() => _buildTimePickerWidget(
-              _selectDate, "DDL结束日期", controller.dateString)),
-          const SizedBox(
-            height: 20,
-          ),
-          Obx(() => _buildTimePickerWidget(
-              _selectEndTime, "DDL结束时间", controller.endTimeString)),
-          const SizedBox(
-            height: 20,
+            height: 15,
           ),
           Expanded(
             child: Container(
@@ -64,11 +66,12 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
                 decoration: InputDecoration(
                     labelText: "DDL详情",
                     labelStyle: Theme.of(context).textTheme.bodyText1,
-                    border: const OutlineInputBorder()
+                    filled: true,
+                  fillColor: Theme.of(context).colorScheme.primaryContainer
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -108,18 +111,20 @@ class _DDLDetailPageState extends State<DDLDetailPage> {
       void Function() tapFunction, String title, String result) {
     return GestureDetector(
       onTap: tapFunction,
-      child: SizedBox(
+      behavior: HitTestBehavior.opaque,
+      child: Container(
         height: 50,
+        margin: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             Text(
               result,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyText1,
             )
           ],
         ),

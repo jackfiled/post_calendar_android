@@ -44,15 +44,16 @@ class _LoginPageState extends State<LoginPage> {
             controller: studentIDInputController,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              TextButton(
+              ElevatedButton(
                 onPressed: _confirmClicked,
                 child: Text(
                   "登录",
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ),
-              TextButton(
+              ElevatedButton(
                 onPressed: () => Get.back(),
                 child: Text(
                   "取消",

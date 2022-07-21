@@ -10,7 +10,7 @@ class DDLDetailController extends GetxController {
   final detailsTextController = TextEditingController();
   final provider = DDLProvider.getInstance();
 
-  var endTime = DateTime(1).obs;
+  var endTime = DateTime.now().obs;
   int? _id;
 
   /// 设置初始值

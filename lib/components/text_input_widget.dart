@@ -5,11 +5,9 @@ class TextInputWidget extends StatelessWidget {
   final TextEditingController controller;
   final String title;
 
-  const TextInputWidget({
-    Key? key,
-    required this.controller,
-    required this.title
-  }) : super(key: key);
+  const TextInputWidget(
+      {Key? key, required this.controller, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +16,13 @@ class TextInputWidget extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       child: TextField(
         controller: controller,
-        style: Theme
-            .of(context)
-            .textTheme
-            .bodyText2,
+        style: Theme.of(context).textTheme.bodyText2,
         maxLines: 2,
         decoration: InputDecoration(
-            labelText: title,
-            labelStyle: Theme
-                .of(context)
-                .textTheme
-                .bodyText1,
-            border: const OutlineInputBorder()
+          labelText: title,
+          labelStyle: Theme.of(context).textTheme.bodyText1,
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.primaryContainer
         ),
       ),
     );
