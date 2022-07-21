@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
 import 'package:post_calendar_android/data_structures/user_info.dart';
 import 'package:post_calendar_android/database/hive_provider.dart';
@@ -16,24 +17,38 @@ class UserController extends GetxController {
     var token = box.get("token") as String?;
     var studentID = box.get("studentID") as int?;
 
-    if(token == null || studentID == null){
+    if (token == null || studentID == null) {
       isLogin.value = false;
       return;
-    }else{
-      user = await UserRequest.getUserInfo(studentID, token);
+    } else {
+      try {
+        user = await UserRequest.getUserInfo(studentID, token);
+      } on UserAPIException catch (e) {
+        Get.snackbar("出错啦！", e.toString());
+      }
       isLogin.value = true;
     }
   }
 
   /// 登录
   Future<void> login(String userName, int studentID) async {
-    final token = await UserRequest.getUserToken(userName, studentID);
+    Get.defaultDialog(
+        title: "Loading...",
+        titleStyle: Theme.of(Get.context!).textTheme.bodyText2,
+        content: const CircularProgressIndicator());
+    try {
+      final token = await UserRequest.getUserToken(userName, studentID);
 
-    await box.put("token", token);
-    await box.put("studentID", studentID);
+      await box.put("token", token);
+      await box.put("studentID", studentID);
 
-    user = await UserRequest.getUserInfo(studentID, token);
-    isLogin.value = true;
+      user = await UserRequest.getUserInfo(studentID, token);
+      isLogin.value = true;
+      Get.back();
+    } on UserAPIException catch (e) {
+      Get.back();
+      Get.snackbar("出错啦！", e.toString());
+    }
   }
 
   /// 退出

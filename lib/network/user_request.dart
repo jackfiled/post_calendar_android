@@ -15,7 +15,7 @@ class UserRequest {
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      throw Exception();
+      throw UserAPIException(code: response.statusCode);
     }
   }
 
@@ -25,10 +25,24 @@ class UserRequest {
     final response = await http.get(Uri.parse(url), headers: {
       HttpHeaders.authorizationHeader: "Bearer " + token,
     });
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       return UserInfo.fromJson(jsonDecode(response.body));
-    }else{
-      throw Exception();
+    } else {
+      throw UserAPIException(code: response.statusCode);
     }
+  }
+}
+
+/// 用户请求API的异常
+class UserAPIException implements Exception {
+  final int code;
+
+  const UserAPIException({
+    required this.code
+  });
+
+  @override
+  String toString() {
+    return "用户相关API错误，代码$code";
   }
 }
