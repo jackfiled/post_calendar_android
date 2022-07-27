@@ -7,7 +7,7 @@ class Themes {
   static final light = ThemeData.light().copyWith(
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
-        primary: Color.fromARGB(255, 0, 61, 255),
+        primary: Color.fromARGB(255, 7, 98, 255),
         onPrimary: Color(0xFFFFFFFF),
         primaryContainer: Color.fromARGB(200, 208, 209, 213),
         onPrimaryContainer: Color.fromARGB(255, 8, 39, 138),
