@@ -1,5 +1,6 @@
 import 'package:post_calendar_android/data_structures/course_info_json.dart';
 import 'package:post_calendar_android/database/course_provider.dart';
+
 /// 课程信息
 class CourseInfo {
   int? id;
@@ -12,20 +13,20 @@ class CourseInfo {
   late int week;
   late int dayOfWeek;
 
+  static const double _columnHeight = 80.0;
+
   /// 构造函数
-  CourseInfo({
-    required this.name,
+  CourseInfo({required this.name,
     required this.place,
     required this.teacher,
     required this.beginTimeString,
     required this.endTimeString,
     required this.semester,
     required this.week,
-    required this.dayOfWeek
-  });
+    required this.dayOfWeek});
 
   /// 从Json对象构造
-  CourseInfo.fromJson(CourseInfoJson json, this.semester, this.week){
+  CourseInfo.fromJson(CourseInfoJson json, this.semester, this.week) {
     name = json.name;
     place = json.place;
     teacher = json.teacher;
@@ -58,10 +59,31 @@ class CourseInfo {
       CourseProvider.dayOfWeekColumn: dayOfWeek
     };
 
-    if(id != null){
+    if (id != null) {
       map[CourseProvider.idColumn] = id;
     }
 
     return map;
+  }
+
+  double get topDistance {
+    List<String> list = beginTimeString.split(":");
+    int beginHour = int.parse(list[0]);
+    int beginMinute = int.parse(list[1]);
+
+    return (beginHour - 8) * _columnHeight + beginMinute / 60 * _columnHeight;
+  }
+
+  double get length {
+    List<String> list = beginTimeString.split(":");
+    int beginHour = int.parse(list[0]);
+    int beginMinute = int.parse(list[1]);
+
+    list = endTimeString.split(":");
+    int endHour = int.parse(list[0]);
+    int endMinute = int.parse(list[1]);
+
+    return (endHour - beginHour) * _columnHeight
+        + (endMinute - beginMinute) / 60 * _columnHeight;
   }
 }

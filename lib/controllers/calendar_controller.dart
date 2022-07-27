@@ -1,16 +1,18 @@
 import 'package:get/get.dart';
 
-import 'package:post_calendar_android/data_structures/calendar_model.dart';
-import 'package:post_calendar_android/database/calendar_provider.dart';
+import 'package:post_calendar_android/data_structures/course_info.dart';
+import 'package:post_calendar_android/data_structures/semester_info.dart';
+import 'package:post_calendar_android/database/course_provider.dart';
+import 'package:post_calendar_android/network/semester_request.dart';
 
 class CalendarController extends GetxController {
   /// 当前周的第一天
   var weekFirstDay =
       DateTime.now().add(Duration(days: 1 - DateTime.now().weekday)).obs;
 
-  var weekItems = (<CalendarModel>[]).obs;
+  var weekItems = (<CourseInfo>[]).obs;
 
-  var provider = CalendarProvider.getInstance();
+  var provider = CourseProvider.getInstance();
 
   /// 下一周
   void nextWeek() {
@@ -25,17 +27,23 @@ class CalendarController extends GetxController {
   }
 
   Future<void> refreshItems() async {
-    var items = await provider.items();
+    try {
+      String semester = await SemesterRequest.getSemester();
+      SemesterInfo info = await SemesterRequest.getSemesterInfo(semester);
 
-    weekItems.clear();
+      DateTime beginDateTime = DateTime.parse(info.beginDateTimeString);
+      Duration duration = weekFirstDay.value.difference(beginDateTime);
+      int week = (duration.inDays / 7 + 1) as int;
 
-    for (var item in items) {
-      if (monday.compareTo(item.beginTime) < 0 &&
-          sunday.compareTo(item.beginTime) > 0) {
-        weekItems.add(item);
-      }
+      List<CourseInfo> items = await provider.items();
+      weekItems.clear();
+      weekItems.addAll(items.where((element) => element.week == week));
+    } on SemesterAPIException {
+      Get.snackbar("出错啦！", "当前学期的课表未公布");
     }
   }
+
+  Future<void> getCourses(String semester) async {}
 
   DateTime get monday => weekFirstDay.value;
 
@@ -51,24 +59,24 @@ class CalendarController extends GetxController {
 
   DateTime get sunday => weekFirstDay.value.add(const Duration(days: 6));
 
-  Iterable<CalendarModel> get mondayItems =>
-      weekItems.where((item) => item.beginTime.weekday == DateTime.monday);
+  Iterable<CourseInfo> get mondayItems =>
+      weekItems.where((course) => course.dayOfWeek == 1);
 
-  Iterable<CalendarModel> get tuesdayItems =>
-      weekItems.where((item) => item.beginTime.weekday == DateTime.tuesday);
+  Iterable<CourseInfo> get tuesdayItems =>
+      weekItems.where((course) => course.dayOfWeek == 2);
 
-  Iterable<CalendarModel> get wednesdayItems =>
-      weekItems.where((item) => item.beginTime.weekday == DateTime.wednesday);
+  Iterable<CourseInfo> get wednesdayItems =>
+      weekItems.where((course) => course.dayOfWeek == 3);
 
-  Iterable<CalendarModel> get thursdayItems =>
-      weekItems.where((item) => item.beginTime.weekday == DateTime.thursday);
+  Iterable<CourseInfo> get thursdayItems =>
+      weekItems.where((course) => course.dayOfWeek == 4);
 
-  Iterable<CalendarModel> get fridayItems =>
-      weekItems.where((item) => item.beginTime.weekday == DateTime.friday);
+  Iterable<CourseInfo> get fridayItems =>
+      weekItems.where((course) => course.dayOfWeek == 5);
 
-  Iterable<CalendarModel> get saturdayItems =>
-      weekItems.where((item) => item.beginTime.weekday == DateTime.saturday);
+  Iterable<CourseInfo> get saturdayItems =>
+      weekItems.where((course) => course.dayOfWeek == 6);
 
-  Iterable<CalendarModel> get sundayItems =>
-      weekItems.where((item) => item.beginTime.weekday == DateTime.sunday);
+  Iterable<CourseInfo> get sundayItems =>
+      weekItems.where((course) => course.dayOfWeek == 7);
 }

@@ -21,13 +21,16 @@ class CourseInfoRequest {
           "semester": semester
         });
 
-    final List jsonMaps = jsonDecode(utf8.decode(response.bodyBytes));
+    // 判断返回状态码
+    if(response.statusCode == 200){
+      final List jsonMaps = jsonDecode(utf8.decode(response.bodyBytes));
 
-    for(var json in jsonMaps){
-      final courseJson = CourseInfoJson.fromJson(json);
-      for(int week in courseJson.weeks){
-        final course = CourseInfo.fromJson(courseJson, semester, week);
-        courses.add(course);
+      for(var json in jsonMaps){
+        final courseJson = CourseInfoJson.fromJson(json);
+        for(int week in courseJson.weeks){
+          final course = CourseInfo.fromJson(courseJson, semester, week);
+          courses.add(course);
+        }
       }
     }
 
