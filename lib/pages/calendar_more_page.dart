@@ -67,41 +67,7 @@ class CalendarMorePage extends StatelessWidget {
                 style: Theme.of(context).textTheme.subtitle1
               ),
               Obx(() => Text(
-                  controller.dataString,
-                  style: Theme.of(context).textTheme.bodyText2
-                )
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 18,// 只是单纯在这里加上一段空白罢了
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "开始时间",
-                style: Theme.of(context).textTheme.subtitle1
-              ),
-              Obx(() => Text(
-                  controller.beginTimeString,
-                  style: Theme.of(context).textTheme.bodyText2
-                )
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 18,// 只是单纯在这里加上一段空白罢了
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "结束时间",
-                style: Theme.of(context).textTheme.subtitle1
-              ),
-              Obx(() => Text(
-                  controller.endTimeString,
+                  controller.timeString,
                   style: Theme.of(context).textTheme.bodyText2
                 )
               )
@@ -124,7 +90,7 @@ class CalendarMorePage extends StatelessWidget {
             children: [
               Expanded(
                 child: Obx(() => Text(
-                    controller.details,
+                    controller.teacher,
                     style: Theme.of(context).textTheme.bodyText2,
                   )
                 ),

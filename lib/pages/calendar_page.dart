@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:post_calendar_android/routes/route_config.dart';
 import 'package:post_calendar_android/controllers/calendar_controller.dart';
-import 'package:post_calendar_android/data_structures/calendar_model.dart';
+import 'package:post_calendar_android/data_structures/course_info.dart';
 
 class CalendarPage extends StatelessWidget {
   CalendarPage({Key? key}) : super(key: key);
@@ -119,7 +119,7 @@ class CalendarPage extends StatelessWidget {
   }
 
   /// 获得每天的日历事件列表
-  List<Widget> _buildCalendarWidgets(Iterable<CalendarModel> items) {
+  List<Widget> _buildCalendarWidgets(Iterable<CourseInfo> items) {
     List<Widget> list = [];
 
     for (var item in items) {
@@ -130,7 +130,7 @@ class CalendarPage extends StatelessWidget {
   }
 
   /// 创建单个日历事件控件对象
-  Widget _buildSingleCalendarWidget(CalendarModel item) {
+  Widget _buildSingleCalendarWidget(CourseInfo item) {
     return Positioned(
       child: GestureDetector(
         onTap: () {
@@ -144,7 +144,7 @@ class CalendarPage extends StatelessWidget {
                 style: Theme.of(Get.context!).textTheme.headline6,
               ),
               Text(
-                item.details,
+                item.place,
                 style: Theme.of(Get.context!).textTheme.bodyText2,
               )
             ],

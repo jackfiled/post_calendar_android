@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-import 'package:post_calendar_android/database/calendar_provider.dart';
-import 'package:post_calendar_android/data_structures/calendar_model.dart';
+import 'package:post_calendar_android/database/course_provider.dart';
+import 'package:post_calendar_android/data_structures/course_info.dart';
 
 class CalendarMoreController extends GetxController{
-  final provider = CalendarProvider.getInstance();
-  final _item = Rx<CalendarModel?>(null);
+  final provider = CourseProvider.getInstance();
+  final _item = Rx<CourseInfo?>(null);
 
   Future<void> initContent(int id) async {
     _item.value = await provider.read(id);
@@ -29,48 +29,21 @@ class CalendarMoreController extends GetxController{
     }
   }
 
-  /// 详情字符串
-  String get details {
+  String get teacher {
     if(_item.value == null){
       return "";
     }else{
-      return _item.value!.details;
+      return _item.value!.teacher;
     }
   }
 
-  /// 日期字符串
-  String get dataString {
+  /// 上课时间字符串
+  String get timeString {
     if(_item.value == null){
       return "";
     }
     else{
-      return "${_item.value!.beginTime.year}年"
-        "${_item.value!.beginTime.month}月"
-        "${_item.value!.beginTime.day}日";
-    }
-  }
-
-  /// 开始时间字符串
-  String get beginTimeString {
-    if(_item.value == null){
-      return "";
-    }
-    else{
-      return "${_item.value!.beginTime.hour}时"
-        "${_item.value!.beginTime.minute}分"
-        "${_item.value!.beginTime.second}秒";
-    }
-  }
-
-  /// 结束时间字符串
-  String get endTimeString {
-    if(_item.value == null){
-      return "";
-    }
-    else{
-      return "${_item.value!.endTime.hour}时"
-        "${_item.value!.endTime.minute}分"
-        "${_item.value!.endTime.second}秒";
+      return "${_item.value!.beginTimeString}~${_item.value!.endTimeString}";
     }
   }
 }
