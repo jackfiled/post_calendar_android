@@ -9,6 +9,7 @@ import 'package:post_calendar_android/pages/login_page.dart';
 import 'package:post_calendar_android/pages/setting_page.dart';
 import 'package:post_calendar_android/pages/squid_more_page.dart';
 import 'package:post_calendar_android/pages/ddl_all_page.dart';
+import 'package:post_calendar_android/pages/jwgl_login_page.dart';
 
 class RouteConfig {
   /// 主界面
@@ -38,6 +39,8 @@ class RouteConfig {
   /// 登录界面
   static const String loginPage = "/loginPage";
 
+  static const String loginJWGLPage = "/LoginJWGLPage";
+
   static final List<GetPage> getPages = [
     GetPage(name: main, page: () => const HomePage()),
     GetPage(name: openLoadingPage, page: () => const OpenLoadingPage()),
@@ -48,5 +51,6 @@ class RouteConfig {
     GetPage(name: ddlALLPage, page: () => DDLAllPage()),
     GetPage(name: settingPage, page: () => const SettingPage()),
     GetPage(name: loginPage, page: () => const LoginPage()),
+    GetPage(name: loginJWGLPage, page: () => const JWGLLoginPage())
   ];
 }

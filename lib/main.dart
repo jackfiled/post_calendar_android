@@ -5,7 +5,6 @@ import 'package:post_calendar_android/configurations/themes.dart';
 import 'package:post_calendar_android/data_structures/theme_type.dart';
 import 'package:post_calendar_android/database/hive_provider.dart';
 import 'package:post_calendar_android/routes/route_config.dart';
-import 'package:post_calendar_android/database/calendar_provider.dart';
 import 'package:post_calendar_android/database/ddl_provider.dart';
 import 'package:post_calendar_android/database/course_provider.dart';
 
@@ -21,7 +20,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final calendarProvider = CalendarProvider.getInstance();
   final ddlProvider = DDLProvider.getInstance();
   final hiveProvider = HiveProvider.getInstance();
   final courseProvider = CourseProvider.getInstance();
@@ -47,20 +45,17 @@ class _MyAppState extends State<MyApp> {
   void dispose() {
     super.dispose();
 
-    calendarProvider.close();
     ddlProvider.close();
     courseProvider.close();
   }
 
   /// 加载App运行所必须的组件
   Future<void> initApp() async {
-    final calendarInitFuture = calendarProvider.initDatabase();
     final ddlInitFuture = ddlProvider.initDatabase();
     final courseInitFuture = courseProvider.initDatabase();
     final hiveInitFuture = HiveProvider.initHive();
     final delay = Future.delayed(const Duration(seconds: 2));
 
-    await calendarInitFuture;
     await ddlInitFuture;
     await courseInitFuture;
     await hiveInitFuture;
