@@ -3,16 +3,18 @@ import 'package:get/get.dart';
 import 'package:post_calendar_android/data_structures/course_info.dart';
 import 'package:post_calendar_android/data_structures/semester_info.dart';
 import 'package:post_calendar_android/database/course_provider.dart';
+import 'package:post_calendar_android/database/hive_provider.dart';
+import 'package:post_calendar_android/network/course_info_request.dart';
 import 'package:post_calendar_android/network/semester_request.dart';
 
 class CalendarController extends GetxController {
   /// 当前周的第一天
   var weekFirstDay =
       DateTime.now().add(Duration(days: 1 - DateTime.now().weekday)).obs;
-
   var weekItems = (<CourseInfo>[]).obs;
 
   var provider = CourseProvider.getInstance();
+  var box = HiveProvider.getInstance().settingsBox;
 
   /// 下一周
   void nextWeek() {
@@ -43,7 +45,38 @@ class CalendarController extends GetxController {
     }
   }
 
-  Future<void> getCourses(String semester) async {}
+  Future<void> getCourses(String semester) async {
+    String? studentID = await box.get("jw_id") as String?;
+    String? password = await box.get("jw_password") as String?;
+
+    // 判断是否绑定教务系统
+    if (studentID == null || password == null) {
+      Get.snackbar("出错啦", "未绑定教务系统");
+      return;
+    }
+
+    try {
+      List<CourseInfo> courses =
+          await CourseInfoRequest.getCourses(studentID, password, semester);
+
+      // 删除数据库中过时的课程
+      List<CourseInfo> oldCourses = await provider.items();
+      for (var course
+          in oldCourses.where((element) => element.semester == semester)) {
+        await provider.delete(course.id!);
+      }
+
+      for (var course in courses) {
+        await provider.create(course);
+      }
+
+      // 重新获取课程之后
+      // 再次刷新
+      refreshItems();
+    } on CourseAPIException catch (e) {
+      Get.snackbar("出错啦", e.errorMessage);
+    }
+  }
 
   DateTime get monday => weekFirstDay.value;
 

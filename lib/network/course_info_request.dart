@@ -4,8 +4,9 @@ import 'dart:convert';
 import 'package:post_calendar_android/data_structures/course_info_json.dart';
 import 'package:post_calendar_android/data_structures/course_info.dart';
 
+/// 课程API请求类
 class CourseInfoRequest {
-  static const String _baseUrl = "http://localhost:7000/calendar";
+  static const String _baseUrl = "http://rrricardo.top:7000/api/calendar";
 
   static Future<List<CourseInfo>> getCourses(String username, String password,
       String semester) async {
@@ -32,8 +33,24 @@ class CourseInfoRequest {
           courses.add(course);
         }
       }
-    }
 
-    return courses;
+      return courses;
+    }else{
+      throw CourseAPIException(errorMessage: response.body);
+    }
+  }
+}
+
+/// 课程API中请求中的错误
+class CourseAPIException implements Exception {
+  String errorMessage;
+
+  CourseAPIException({
+    required this.errorMessage,
+  });
+
+  @override
+  String toString() {
+    return "CourseAPI Exception:" + errorMessage;
   }
 }
