@@ -16,11 +16,11 @@ class CourseInfoRequest {
         headers: <String, String>{
           "Content-Type": "Application/json"
         },
-        body: <String, String>{
+        body: json.encode(<String, String>{
           "username": username,
           "password": password,
           "semester": semester
-        });
+        }));
 
     // 判断返回状态码
     if(response.statusCode == 200){
