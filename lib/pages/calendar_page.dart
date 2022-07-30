@@ -99,7 +99,7 @@ class CalendarPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                onRefresh: controller.refreshItems,
+                onRefresh: controller.getCourses,
               ),
               onHorizontalDragEnd: (detail) {
                 final direction = detail.velocity.pixelsPerSecond.direction;

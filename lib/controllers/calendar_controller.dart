@@ -15,10 +15,12 @@ class CalendarController extends GetxController {
 
   var provider = CourseProvider.getInstance();
   var box = HiveProvider.getInstance().settingsBox;
+  SemesterInfo? info;
 
   /// 下一周
   void nextWeek() {
     weekFirstDay.value = weekFirstDay.value.add(const Duration(days: 7));
+
     refreshItems();
   }
 
@@ -28,30 +30,45 @@ class CalendarController extends GetxController {
     refreshItems();
   }
 
+  /// 从数据库刷新课程
   Future<void> refreshItems() async {
-    try {
-      String semester = await SemesterRequest.getSemester();
-      SemesterInfo info = await SemesterRequest.getSemesterInfo(semester);
-
-      DateTime beginDateTime = DateTime.parse(info.beginDateTimeString);
+    await getSemester();
+    if (info != null) {
+      DateTime beginDateTime = DateTime.parse(info!.beginDateTimeString);
       Duration duration = weekFirstDay.value.difference(beginDateTime);
-      int week = (duration.inDays / 7 + 1) as int;
+      int week = (duration.inDays / 7 + 1).toInt();
 
       List<CourseInfo> items = await provider.items();
       weekItems.clear();
+
       weekItems.addAll(items.where((element) => element.week == week));
-    } on SemesterAPIException {
-      Get.snackbar("出错啦！", "当前学期的课表未公布");
     }
   }
 
-  Future<void> getCourses(String semester) async {
+  /// 获得当前所在学期
+  Future<void> getSemester() async {
+    try {
+      String semester =
+          await SemesterRequest.getSemesterByTime(weekFirstDay.value);
+      info = await SemesterRequest.getSemesterInfo(semester);
+    } on SemesterAPIException {
+      info = null;
+    }
+  }
+
+  Future<void> getCourses() async {
     String? studentID = await box.get("jw_id") as String?;
     String? password = await box.get("jw_password") as String?;
+    String? semester = info?.semester;
 
     // 判断是否绑定教务系统
     if (studentID == null || password == null) {
       Get.snackbar("出错啦", "未绑定教务系统");
+      return;
+    }
+
+    if(semester == null) {
+      Get.snackbar("出错啦！", "当前查询学期课表未公布");
       return;
     }
 
