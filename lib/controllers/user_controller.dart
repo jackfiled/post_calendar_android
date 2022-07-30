@@ -23,10 +23,11 @@ class UserController extends GetxController {
     } else {
       try {
         user = await UserRequest.getUserInfo(studentID, token);
+        isLogin.value = true;
       } on UserAPIException catch (e) {
         Get.snackbar("出错啦！", e.toString());
+        isLogin.value = false;
       }
-      isLogin.value = true;
     }
   }
 
