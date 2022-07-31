@@ -48,7 +48,7 @@ class UserController extends GetxController {
       Get.back();
     } on UserAPIException catch (e) {
       Get.back();
-      Get.snackbar("出错啦！", e.toString());
+      Get.snackbar("网络错误", e.toString());
     }
   }
 

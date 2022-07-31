@@ -63,12 +63,12 @@ class CalendarController extends GetxController {
 
     // 判断是否绑定教务系统
     if (studentID == null || password == null) {
-      Get.snackbar("出错啦", "未绑定教务系统");
+      Get.snackbar("未绑定教务系统", "前往‘我-设置’进行绑定");
       return;
     }
 
-    if(semester == null) {
-      Get.snackbar("出错啦！", "当前查询学期课表未公布");
+    if (semester == null) {
+      Get.snackbar("学期课表未公布", "请等待教务处公布课表");
       return;
     }
 
@@ -91,7 +91,7 @@ class CalendarController extends GetxController {
       // 再次刷新
       refreshItems();
     } on CourseAPIException catch (e) {
-      Get.snackbar("出错啦", e.errorMessage);
+      Get.snackbar("网络错误", e.errorMessage);
     }
   }
 
