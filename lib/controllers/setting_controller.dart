@@ -57,6 +57,7 @@ class SettingController extends GetxController {
     await box.delete("jw_id");
     await box.delete("jw_password");
 
+    isJWLogin.value = false;
     Get.snackbar("解绑成功", "同教务系统的绑定已解除");
   }
 
