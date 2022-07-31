@@ -55,6 +55,7 @@ class CourseInfo {
       CourseProvider.teacherColumn: teacher,
       CourseProvider.beginTimeColumn: beginTimeString,
       CourseProvider.endTimeColumn: endTimeString,
+      CourseProvider.semesterColumn: semester,
       CourseProvider.weekColumn: week,
       CourseProvider.dayOfWeekColumn: dayOfWeek
     };

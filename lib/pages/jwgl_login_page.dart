@@ -71,5 +71,6 @@ class _JWGLLoginPageState extends State<JWGLLoginPage> {
   Future _confirmClicked() async {
     await box.put("jw_id", studentIDController.text);
     await box.put("jw_password", passwordController.text);
+    Get.back();
   }
 }

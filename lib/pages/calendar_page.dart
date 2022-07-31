@@ -141,11 +141,13 @@ class CalendarPage extends StatelessWidget {
             children: [
               Text(
                 item.name,
-                style: Theme.of(Get.context!).textTheme.headline6,
+                style: Theme.of(Get.context!).textTheme.bodyText2,
+                maxLines: 3,
               ),
               Text(
                 item.place,
-                style: Theme.of(Get.context!).textTheme.bodyText2,
+                style: Theme.of(Get.context!).textTheme.bodyText1,
+                maxLines: 1,
               )
             ],
           ),

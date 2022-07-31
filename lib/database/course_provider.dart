@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:post_calendar_android/data_structures/course_info.dart';
 
 class CourseProvider {
-  static const tableName = "calendar";
+  static const tableName = "course";
   static const idColumn = "id";
   static const nameColumn = "name";
   static const placeColumn = "place";
@@ -81,12 +81,13 @@ class CourseProvider {
   Future<void> _onCreate(Database db, int version) async {
     await db.execute("create table $tableName"
         "($idColumn integer primary key autoincrement,"
-        "$nameColumn text"
-        "$placeColumn text"
-        "$teacherColumn text"
-        "$beginTimeColumn text"
-        "$endTimeColumn text"
-        "$weekColumn integer"
-        "$dayOfWeekColumn integer");
+        "$nameColumn text,"
+        "$placeColumn text,"
+        "$teacherColumn text,"
+        "$semesterColumn text,"
+        "$beginTimeColumn text,"
+        "$endTimeColumn text,"
+        "$weekColumn integer,"
+        "$dayOfWeekColumn integer)");
   }
 }
