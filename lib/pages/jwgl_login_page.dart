@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:post_calendar_android/components/text_input_widget.dart';
 import 'package:post_calendar_android/components/password_input_text.dart';
-import 'package:post_calendar_android/controllers/setting_controller.dart';
+import 'package:post_calendar_android/controllers/mine_controller.dart';
 import 'package:post_calendar_android/database/hive_provider.dart';
 
 class JWGLLoginPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _JWGLLoginPageState extends State<JWGLLoginPage> {
   final studentIDController = TextEditingController();
   final passwordController = TextEditingController();
   final box = HiveProvider.getInstance().settingsBox;
-  final settingController = Get.find<SettingController>();
+  final mineController = Get.find<MineController>();
 
   @override
   void dispose() {
@@ -74,8 +74,8 @@ class _JWGLLoginPageState extends State<JWGLLoginPage> {
   Future _confirmClicked() async {
     await box.put("jw_id", studentIDController.text);
     await box.put("jw_password", passwordController.text);
-    // 设置登录状态为已登录
-    settingController.isJWLogin.value = true;
+    // 检查登录状态
+    mineController.checkJwLogin();
     Get.back();
   }
 }

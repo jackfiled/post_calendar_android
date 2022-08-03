@@ -63,7 +63,7 @@ class CalendarController extends GetxController {
 
     // 判断是否绑定教务系统
     if (studentID == null || password == null) {
-      Get.snackbar("未绑定教务系统", "前往‘我-设置’进行绑定");
+      Get.snackbar("未绑定教务系统", "前往‘我的’进行绑定");
       return;
     }
 

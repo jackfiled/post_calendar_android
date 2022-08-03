@@ -35,44 +35,19 @@ class _SettingPageState extends State<SettingPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                margin: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "教务系统状态",
-                      style: Theme.of(context).textTheme.bodyText2,
+                  margin: const EdgeInsets.all(10),
+                  child: Obx(
+                    () => ElevatedButton(
+                      child: const Center(
+                        child: Text("退出登录"),
+                      ),
+                      onPressed: !userController.isLogin.value
+                          ? null
+                          : () {
+                              userController.logout();
+                            },
                     ),
-                    Obx(() => Text(
-                      controller.isJWLogin.value ? "已绑定" : "未绑定",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ))
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(10),
-                child: Obx(() => ElevatedButton(
-                  child: Text(controller.isJWLogin.value ? "取消绑定" : "绑定"),
-                  onPressed: controller.isJWLogin.value ? controller.logoutJW
-                      : controller.loginJW,
-                )),
-              ),
-              const Divider(
-                height: 10,
-              ),
-              Container(
-                margin: const EdgeInsets.all(10),
-                child: Obx(() => ElevatedButton(
-                  child: const Center(
-                    child: Text("退出登录"),
-                    ),
-                    onPressed: !userController.isLogin.value ? null : () {
-                      userController.logout();
-                    },
-                  ),
-                )
-              )
+                  ))
             ],
           ),
         ),

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import 'package:post_calendar_android/routes/route_config.dart';
 import 'package:post_calendar_android/database/hive_provider.dart';
 import 'package:post_calendar_android/data_structures/theme_type.dart';
 
@@ -10,19 +9,9 @@ class SettingController extends GetxController {
       .getInstance()
       .settingsBox;
   var themeType = ThemeType.system.obs;
-  var isJWLogin = false.obs;
 
   /// 从Hive中读取设置
   Future<void> initContent() async {
-    // 读取是否绑定教务处
-    var jwStudentID = box.get("jw_id") as String?;
-    var jwPassword = box.get("jw_password") as String?;
-
-    if(jwStudentID == null || jwPassword == null){
-      isJWLogin.value = false;
-    }else{
-      isJWLogin.value = true;
-    }
 
     // 获取关于暗黑模式的设置
     // 但不必设置
@@ -45,20 +34,6 @@ class SettingController extends GetxController {
           break;
       }
     }
-  }
-
-  // 登录教务系统
-  Future<void> loginJW() async {
-    Get.toNamed(RouteConfig.loginJWGLPage);
-  }
-
-  // 退出教务系统
-  Future<void> logoutJW() async {
-    await box.delete("jw_id");
-    await box.delete("jw_password");
-
-    isJWLogin.value = false;
-    Get.snackbar("解绑成功", "同教务系统的绑定已解除");
   }
 
   /// 设置主题

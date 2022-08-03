@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:post_calendar_android/controllers/mine_controller.dart';
 import 'package:post_calendar_android/controllers/user_controller.dart';
 import 'package:post_calendar_android/data_structures/user_info.dart';
 import 'package:post_calendar_android/routes/route_config.dart';
@@ -15,6 +16,7 @@ class MinePage extends StatefulWidget {
 
 class _MinePageState extends State<MinePage> {
   final userController = Get.find<UserController>();
+  final controller = Get.put(MineController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class _MinePageState extends State<MinePage> {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           GestureDetector(
             onTap: () {
@@ -40,6 +43,33 @@ class _MinePageState extends State<MinePage> {
                   ? _buildLoginRow(userController.user!)
                   : _buildNoLoginRow()),
             ),
+          ),
+          const Divider(
+            height: 20,
+          ),
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "教务系统状态",
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                Obx(() => Text(
+                  controller.isJWLogin.value ? "已绑定" : "未绑定",
+                  style: Theme.of(context).textTheme.bodyText1,
+                ))
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: Obx(() => ElevatedButton(
+              child: Text(controller.isJWLogin.value ? "取消绑定" : "绑定"),
+              onPressed: controller.isJWLogin.value ? controller.logoutJW
+                  : controller.loginJW,
+            )),
           ),
           const Divider(
             height: 20,
