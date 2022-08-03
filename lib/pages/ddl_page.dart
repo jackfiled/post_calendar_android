@@ -33,8 +33,8 @@ class DDLPage extends StatelessWidget {
                   title: item.name,
                   details: item.details,
                   endTime: item.endTime,
-                  onPressed: () =>
-                      Get.toNamed(RouteConfig.ddlMorePage + "?id=${item.id!}"),
+                  onPressed: () => Get.toNamed(
+                      RouteConfig.ddlDetailPage + "?id=${item.id!}"),
                   slidableChildren: [
                     SlidableAction(
                       // 完成按钮
@@ -48,7 +48,8 @@ class DDLPage extends StatelessWidget {
                     SlidableAction(
                       // 编辑按钮
                       onPressed: (context) {
-                        Get.toNamed(RouteConfig.ddlDetailPage + "?id=${item.id}");
+                        Get.toNamed(
+                            RouteConfig.ddlUpdatePage + "?id=${item.id}");
                       },
                       backgroundColor: Colors.orange,
                       foregroundColor: Colors.white,
@@ -70,7 +71,7 @@ class DDLPage extends StatelessWidget {
         onRefresh: () => controller.refreshItems(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed(RouteConfig.ddlDetailPage + "?id=0"),
+        onPressed: () => Get.toNamed(RouteConfig.ddlUpdatePage + "?id=0"),
         child: const Icon(Icons.add),
         mini: true,
       ),

@@ -1,134 +1,104 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pickers/time_picker/model/date_mode.dart';
 import 'package:get/get.dart';
-import 'package:flutter_pickers/pickers.dart';
 
-import 'package:post_calendar_android/controllers/ddl_controller.dart';
-import 'package:post_calendar_android/components/text_input_widget.dart';
-import 'package:post_calendar_android/controllers/ddl_detail_controller.dart';
+import 'package:post_calendar_android/routes/route_config.dart';
+import 'package:post_calendar_android/controllers/ddl_more_controller.dart';
 
-class DDLDetailPage extends StatefulWidget {
-  const DDLDetailPage({Key? key}) : super(key: key);
+class DDLDetailPage extends StatelessWidget {
+  DDLDetailPage({Key? key}) : super(key: key);
 
-  @override
-  State<DDLDetailPage> createState() => _DDLDetailPageState();
-}
-
-class _DDLDetailPageState extends State<DDLDetailPage> {
   final _id = int.parse(Get.parameters['id']!);
-  final controller = Get.put(DDLDetailController());
-  final ddlController = Get.find<DDLController>();
+  final controller = Get.put(DDLMoreController());
 
   @override
   Widget build(BuildContext context) {
     controller.initContent(_id);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_id == 0 ? "添加DDL" : "修改DDL"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: _close,
-        ),
-        actions: [
-          IconButton(
-              onPressed: _confirmButtonClicked, icon: const Icon(Icons.check)),
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Obx(() => _buildTimePickerWidget(
-              _selectDate, "DDL结束日期：", controller.dateString)
+        appBar: AppBar(
+          title: Text(
+            "DDL详情",
+            style: Theme.of(context).textTheme.headline5,
           ),
-          const SizedBox(
-            height: 10,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Get.back(),
           ),
-          Obx(() => _buildTimePickerWidget(
-              _selectEndTime, "DDL结束时间：", controller.endTimeString)
-          ),
-          const Divider(
-            height: 20,
-          ),
-          TextInputWidget(
-            title: "DDL名称",
-            controller: controller.nameTextController,
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(8),
-              child: TextField(
-                controller: controller.detailsTextController,
-                maxLines: null,
-                style: Theme.of(context).textTheme.bodyText2,
-                decoration: InputDecoration(
-                    labelText: "DDL详情",
-                    labelStyle: Theme.of(context).textTheme.bodyText1,
-                    filled: true,
-                  fillColor: Theme.of(context).colorScheme.primaryContainer
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// 关闭页面
-  /// 同时刷新ddl列表
-  void _close() {
-    Get.back();
-  }
-
-  /// 确定按钮点击
-  void _confirmButtonClicked() {
-    controller.createDDLItem();
-  }
-
-  void _selectDate() {
-    Pickers.showDatePicker(context, mode: DateMode.YMD, onConfirm: (p) {
-      controller.setDate(p.year!, p.month!, p.day!);
-    });
-  }
-
-  void _selectEndTime() {
-    Pickers.showDatePicker(context, mode: DateMode.HMS, onConfirm: (p) {
-      controller.setEndTime(p.hour!, p.minute!, p.second!);
-    });
-  }
-
-  /// 构建时间日期选择的框架
-  ///
-  /// [tapFunction] 处理点击事件的函数
-  ///
-  /// [title] 标题
-  ///
-  /// [result] 选择的结果
-  Widget _buildTimePickerWidget(
-      void Function() tapFunction, String title, String result) {
-    return GestureDetector(
-      onTap: tapFunction,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        height: 50,
-        margin: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
-            Text(
-              result,
-              style: Theme.of(context).textTheme.bodyText1,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.create),
+              onPressed: () =>
+                  Get.toNamed(RouteConfig.ddlUpdatePage + "?id=$_id"),
             )
           ],
         ),
-      ),
-    );
+        body: RefreshIndicator(
+          onRefresh: () => controller.initContent(_id),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Center(
+                        child: Obx(() => Text(
+                              controller.name,
+                              style: Theme.of(context).textTheme.headline5,
+                            ))),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 18,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      "结束时间",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Obx(() => Text(
+                          controller.endTimeString,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        )),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 18,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      "详情",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  )
+                ],
+              ),
+              Expanded(child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SizedBox(
+                    height: constraints.maxHeight,
+                    child: Scrollbar(
+                        child: SingleChildScrollView(
+                      child: Obx(() => Text(
+                            controller.details,
+                            style: Theme.of(context).textTheme.bodyText2,
+                          )),
+                    )),
+                  );
+                },
+              ))
+            ],
+          ),
+        ));
   }
 }

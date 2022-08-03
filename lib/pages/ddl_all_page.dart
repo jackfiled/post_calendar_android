@@ -38,12 +38,8 @@ class DDLAllPage extends StatelessWidget {
                       onConfirm: (p) =>
                           controller.setTimeLimit(p.year!, p.month!, p.day!));
                 },
-                child: Obx(() =>
-                    Text(controller.timeLimitString,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .button)),
+                child: Obx(() => Text(controller.timeLimitString,
+                    style: Theme.of(context).textTheme.button)),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -53,20 +49,15 @@ class DDLAllPage extends StatelessWidget {
                     onConfirm: (p, index) => controller.setStatueLimit(index),
                   );
                 },
-                child: Obx(() =>
-                    Text(
+                child: Obx(() => Text(
                       controller.statusLimitString,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .button,
+                      style: Theme.of(context).textTheme.button,
                     )),
               )
             ],
           ),
           Expanded(
-            child: Obx(() =>
-                ListView.builder(
+            child: Obx(() => ListView.builder(
                   itemCount: controller.ddlItems.length,
                   itemBuilder: (context, index) {
                     final item = controller.ddlItems[index];
@@ -76,12 +67,13 @@ class DDLAllPage extends StatelessWidget {
                       details: item.details,
                       endTime: item.endTime,
                       onPressed: () {
-                        Get.toNamed(RouteConfig.ddlDetailPage + "?id=${item.id}");
+                        Get.toNamed(
+                            RouteConfig.ddlUpdatePage + "?id=${item.id}");
                       },
                       slidableChildren: [
                         SlidableAction(
-                          onPressed: (context) =>
-                              Get.toNamed(RouteConfig.ddlDetailPage + "?id=${item.id}"),
+                          onPressed: (context) => Get.toNamed(
+                              RouteConfig.ddlUpdatePage + "?id=${item.id}"),
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.orange,
                           icon: Icons.create,
@@ -90,19 +82,12 @@ class DDLAllPage extends StatelessWidget {
                           onPressed: (context) {
                             Get.defaultDialog(
                                 title: "警告",
-                                titleStyle: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headline5,
+                                titleStyle:
+                                    Theme.of(context).textTheme.headline5,
                                 middleText: "真的要删除吗？",
-                                middleTextStyle: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodyText2,
-                                onConfirm: () {
-
-                                }
-                            );
+                                middleTextStyle:
+                                    Theme.of(context).textTheme.bodyText2,
+                                onConfirm: () {});
                           },
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.red,
