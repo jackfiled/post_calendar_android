@@ -91,7 +91,7 @@ class CalendarController extends GetxController {
       // 再次刷新
       refreshItems();
     } on CourseAPIException catch (e) {
-      Get.snackbar("网络错误", e.errorMessage);
+      Get.snackbar("网络错误", e.toString());
     }
   }
 
