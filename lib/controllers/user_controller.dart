@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
 import 'package:post_calendar_android/data_structures/user_info.dart';
 import 'package:post_calendar_android/database/hive_provider.dart';
-import 'package:post_calendar_android/network/user_request.dart';
 
 /// 用户登录控制器
 class UserController extends GetxController {
@@ -14,49 +12,31 @@ class UserController extends GetxController {
 
   /// 检查是否已经登录
   Future<void> checkIsLogin() async {
-    var token = box.get("token") as String?;
-    var studentID = box.get("studentID") as int?;
+    // 将用户数据通过JSON的形式存储在hive中
+    var json = box.get("user_json") as String?;
 
-    if (token == null || studentID == null) {
+    if (json == null) {
       isLogin.value = false;
-      return;
+      user = null;
     } else {
-      try {
-        user = await UserRequest.getUserInfo(studentID, token);
-        isLogin.value = true;
-      } on UserAPIException catch (e) {
-        Get.snackbar("出错啦！", e.toString());
-        isLogin.value = false;
-      }
+      isLogin.value = true;
+      user = UserInfo.fromJson(json);
     }
   }
 
   /// 登录
-  Future<void> login(String userName, int studentID) async {
-    Get.defaultDialog(
-        title: "Loading...",
-        titleStyle: Theme.of(Get.context!).textTheme.bodyText2,
-        content: const CircularProgressIndicator());
-    try {
-      final token = await UserRequest.getUserToken(userName, studentID);
+  Future<void> login(UserInfo info) async {
+    await box.put("user_json", info.toJson());
 
-      await box.put("token", token);
-      await box.put("studentID", studentID);
-
-      user = await UserRequest.getUserInfo(studentID, token);
-      isLogin.value = true;
-      Get.back();
-    } on UserAPIException catch (e) {
-      Get.back();
-      Get.snackbar("网络错误", e.toString());
-    }
+    user = info;
+    isLogin.value = true;
+    Get.snackbar("登录成功", "");
   }
 
   /// 退出
   Future<void> logout() async {
     isLogin.value = false;
-    await box.delete("token");
-    await box.delete("studentID");
+    await box.delete("user_json");
 
     Get.snackbar("退出成功", "点击可再次登录");
   }
