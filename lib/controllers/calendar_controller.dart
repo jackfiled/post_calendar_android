@@ -41,7 +41,8 @@ class CalendarController extends GetxController {
       List<CourseInfo> items = await provider.items();
       weekItems.clear();
 
-      weekItems.addAll(items.where((element) => element.week == week));
+      weekItems.addAll(items.where((element) =>
+          element.week == week && element.semester == info!.semester));
     }
   }
 
@@ -59,7 +60,7 @@ class CalendarController extends GetxController {
       // 说明当前的时间在所有学期的开学时间之后
       int target = semesters.length - 1;
       for (int i = 0; i < semesters.length; i++) {
-        if (DateTime.now().isBefore(beginTimeList[i])) {
+        if (weekFirstDay.value.isBefore(beginTimeList[i])) {
           target = i - 1;
           break;
         }
