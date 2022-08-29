@@ -3,16 +3,19 @@ import 'dart:convert';
 
 import 'package:post_calendar_android/data_structures/course_info_json.dart';
 import 'package:post_calendar_android/data_structures/course_info.dart';
+import 'package:post_calendar_android/data_structures/semester_info.dart';
+import 'package:post_calendar_android/network/network_exception.dart';
 
 /// 课程API请求类
 class CourseInfoRequest {
-  static const String _baseUrl = "http://rrricardo.top:7000/calendar";
+  static const String _baseUrl = "http://rrricardo.top:7000/";
 
   static Future<List<CourseInfo>> getCourses(
       String username, String password, String semester) async {
     List<CourseInfo> courses = [];
 
-    final response = await http.post(Uri.parse(_baseUrl + "/get-semester"),
+    final response = await http.post(
+        Uri.parse(_baseUrl + "calendar/get-semester"),
         headers: <String, String>{"Content-Type": "Application/json"},
         body: json.encode(<String, String>{
           "StudentID": username,
@@ -34,22 +37,30 @@ class CourseInfoRequest {
 
       return courses;
     } else {
-      throw CourseAPIException(response.body);
+      throw NetworkException(response.body);
     }
   }
-}
 
-/// 课程API中请求中的错误
-class CourseAPIException implements Exception {
-  late String errMessage;
+  /// 获得学期开始时间列表
+  static Future<List<SemesterInfo>> getSemesters() async {
+    List<SemesterInfo> semesters = [];
 
-  CourseAPIException(String responseBody) {
-    final jsonMaps = jsonDecode(responseBody);
-    errMessage = jsonMaps["error"];
-  }
+    final response = await http.get(
+      Uri.parse(_baseUrl + "semester"),
+      headers: <String, String>{"Content-Type": "Application/json"},
+    );
 
-  @override
-  String toString() {
-    return "APIException: " + errMessage;
+    if (response.statusCode == 200) {
+      final List jsonMaps = jsonDecode(utf8.decode(response.bodyBytes));
+
+      for (var json in jsonMaps) {
+        final semester = SemesterInfo.fromJson(json);
+        semesters.add(semester);
+      }
+
+      return semesters;
+    } else {
+      throw NetworkException(response.body);
+    }
   }
 }

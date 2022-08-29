@@ -5,7 +5,7 @@ import 'package:post_calendar_android/data_structures/semester_info.dart';
 import 'package:post_calendar_android/database/course_provider.dart';
 import 'package:post_calendar_android/database/hive_provider.dart';
 import 'package:post_calendar_android/network/course_info_request.dart';
-import 'package:post_calendar_android/network/semester_request.dart';
+import 'package:post_calendar_android/network/network_exception.dart';
 
 class CalendarController extends GetxController {
   /// 当前周的第一天
@@ -48,10 +48,31 @@ class CalendarController extends GetxController {
   /// 获得当前所在学期
   Future<void> getSemester() async {
     try {
-      String semester =
-          await SemesterRequest.getSemesterByTime(weekFirstDay.value);
-      info = await SemesterRequest.getSemesterInfo(semester);
-    } on SemesterAPIException {
+      final semesters = await CourseInfoRequest.getSemesters();
+      List<DateTime> beginTimeList = [];
+      for (var semester in semesters) {
+        beginTimeList.add(DateTime.parse(semester.beginDateTimeString));
+      }
+
+      // 将目标变量初始化为最后一个学期
+      // 如果在遍历过程中target没有被赋值
+      // 说明当前的时间在所有学期的开学时间之后
+      int target = semesters.length - 1;
+      for (int i = 0; i < semesters.length; i++) {
+        if (DateTime.now().isBefore(beginTimeList[i])) {
+          target = i - 1;
+          break;
+        }
+      }
+
+      if (target == -1) {
+        // 如果target变量的值为-1
+        // 说明当前时间还在第一个学期的开学时间之前
+        info = null;
+      } else {
+        info = semesters[target];
+      }
+    } on NetworkException {
       info = null;
     }
   }
@@ -90,7 +111,7 @@ class CalendarController extends GetxController {
       // 重新获取课程之后
       // 再次刷新
       refreshItems();
-    } on CourseAPIException catch (e) {
+    } on NetworkException catch (e) {
       Get.snackbar("网络错误", e.toString());
     }
   }
